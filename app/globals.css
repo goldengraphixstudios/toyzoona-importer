@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --tz-dark: #0A0A0F;
+  --tz-orange: #FF6B1A;
+  --tz-yellow: #FFD600;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--tz-dark);
+  color: #F0EFE8;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer utilities {
+  .section-pad {
+    @apply py-20 px-4 sm:px-6 lg:px-8;
+  }
+  .container-max {
+    @apply max-w-7xl mx-auto;
+  }
+  .heading-xl {
+    @apply font-display font-black text-4xl sm:text-5xl lg:text-6xl leading-tight;
+  }
+  .heading-lg {
+    @apply font-display font-bold text-3xl sm:text-4xl leading-tight;
+  }
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-tz-orange hover:bg-orange-600 text-white font-bold px-8 py-4 rounded-full text-base transition-all duration-200 shadow-lg hover:shadow-orange-500/30 hover:scale-105 active:scale-95;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 border border-white/30 hover:border-tz-yellow text-white hover:text-tz-yellow font-semibold px-8 py-4 rounded-full text-base transition-all duration-200;
+  }
+  .card-dark {
+    @apply bg-tz-card border border-tz-border rounded-2xl p-6;
+  }
+  .tag {
+    @apply inline-block text-xs font-bold uppercase tracking-widest text-tz-orange;
+  }
+}
