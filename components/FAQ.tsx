@@ -41,70 +41,66 @@ const faqs = [
 ];
 
 export default function FAQ() {
-  const [open, setOpen] = useState<number | null>(0);
+  const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="section bg-tz-bg relative overflow-hidden">
+    <section id="faq" className="relative overflow-hidden bg-tz-bg py-12 sm:py-14 lg:py-16">
       {/* Background */}
       <div className="absolute inset-0 bg-grid-fine opacity-100 pointer-events-none" />
-      <div className="absolute top-1/2 right-0 w-[400px] h-[400px] rounded-full pointer-events-none -translate-y-1/2"
+      <div className="absolute top-1/2 right-0 w-[320px] h-[320px] rounded-full pointer-events-none -translate-y-1/2"
         style={{ background: "radial-gradient(circle, rgba(157,78,221,0.05) 0%, transparent 70%)" }} />
 
       <div className="wrap relative z-10">
 
         {/* Header */}
-        <div className="grid lg:grid-cols-[1fr_2fr] gap-12 lg:gap-20 items-start">
+        <div className="mb-7 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
 
-          {/* Left — sticky label */}
-          <div className="lg:sticky lg:top-24">
-            <div className="flex items-center gap-3 mb-5">
-              <div className="h-px w-10 bg-tz-border" />
-              <span className="section-num">FAQ</span>
-            </div>
-            <h2 className="display-xl text-tz-text mb-5">
-              Got<br />
-              <span className="text-gradient-purple">Questions?</span>
+          <div className="max-w-2xl">
+            <span className="section-num mb-3 inline-flex">FAQ</span>
+            <h2 className="font-display text-[clamp(2.35rem,5vw,4.4rem)] font-black leading-[0.88] tracking-[-0.055em] text-tz-text">
+              Quick answers,
+              <span className="block text-gradient-purple">less scrolling.</span>
             </h2>
-            <p className="body-md mb-8">
-              Everything you need to know about buying from
-              Toyzoona Importer — from the per-kilo model to
-              shipping and auctions.
+            <p className="mt-4 max-w-xl text-sm font-medium leading-relaxed text-tz-muted sm:text-base">
+              Buying model, live ordering, shipping, auctions, warehouse visits, and proof in one tighter section.
             </p>
+          </div>
+
             <a
               href="https://www.facebook.com/groups/642834551000763"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-outline inline-flex"
+              className="btn-outline inline-flex shrink-0 self-start lg:self-auto"
             >
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
               </svg>
               Ask in the Group
             </a>
-          </div>
+        </div>
 
           {/* Right — accordion */}
-          <div className="space-y-3">
+          <div className="grid gap-2.5 lg:grid-cols-2">
             {faqs.map((faq, i) => (
               <div
                 key={i}
-                className={`bg-tz-card border rounded-2xl overflow-hidden transition-all duration-300 ${
+                className={`self-start overflow-hidden rounded-2xl border bg-tz-card transition-all duration-300 ${
                   open === i
-                    ? "border-tz-purple/30 shadow-[0_0_30px_rgba(157,78,221,0.07)]"
+                    ? "border-tz-purple/30 shadow-[0_0_24px_rgba(157,78,221,0.07)]"
                     : "border-white/[0.06] hover:border-white/[0.12]"
                 }`}
               >
                 <button
                   onClick={() => setOpen(open === i ? null : i)}
-                  className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left
+                  className="w-full flex items-center justify-between gap-3 px-4 py-3.5 text-left
                              transition-colors duration-200"
                 >
-                  <span className={`font-semibold text-sm sm:text-base leading-snug transition-colors duration-200 ${
+                  <span className={`text-sm font-semibold leading-snug transition-colors duration-200 ${
                     open === i ? "text-tz-text" : "text-tz-muted"
                   }`}>
                     {faq.q}
                   </span>
-                  <div className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center
+                  <div className={`shrink-0 w-7 h-7 rounded-full flex items-center justify-center
                                   border transition-all duration-300 ${
                     open === i
                       ? "border-tz-purple/40 bg-tz-purple/10 rotate-180"
@@ -124,14 +120,13 @@ export default function FAQ() {
                 <div className={`overflow-hidden transition-all duration-350 ease-in-out ${
                   open === i ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
                 }`}>
-                  <div className="px-6 pb-6 border-t border-white/[0.05]">
-                    <p className="text-sm text-tz-muted leading-relaxed pt-4">{faq.a}</p>
+                  <div className="border-t border-white/[0.05] px-4 pb-4">
+                    <p className="pt-3 text-[13px] font-medium leading-relaxed text-tz-muted">{faq.a}</p>
                   </div>
                 </div>
               </div>
             ))}
           </div>
-        </div>
 
       </div>
     </section>
