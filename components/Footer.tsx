@@ -1,17 +1,18 @@
 import Image from "next/image";
+import Link from "next/link";
 import { MailIcon, MapPinIcon, NewspaperIcon, PhoneIcon, ScaleIcon, TvIcon } from "@/components/Icons";
 import { assetPath } from "@/lib/assetPath";
 
 const navLinks = [
-  { label: "Why Toyzoona",  href: "#why-toyzoona" },
-  { label: "Products",      href: "#products" },
-  { label: "How to Buy",    href: "#how-to-buy" },
-  { label: "TV Feature",    href: "#tv-feature" },
-  { label: "Media",         href: "#media" },
-  { label: "Toyfair",       href: "#toyfair" },
-  { label: "Reviews",       href: "#reviews" },
-  { label: "FAQ",           href: "#faq" },
-  { label: "Contact",       href: "#contact" },
+  { label: "Products",      href: "/#products" },
+  { label: "Live Hours",    href: "/#live-hours" },
+  { label: "How to Buy",    href: "/#how-to-buy" },
+  { label: "Media",         href: "/#media" },
+  { label: "Toyfair",       href: "/#toyfair" },
+  { label: "Reviews",       href: "/#reviews" },
+  { label: "Blog",          href: "/blog" },
+  { label: "FAQ",           href: "/#faq" },
+  { label: "Contact",       href: "/#contact" },
 ];
 
 const socials = [
@@ -102,7 +103,7 @@ export default function Footer() {
               <ul className="space-y-2.5">
                 {navLinks.map((l) => (
                   <li key={l.label}>
-                    <a
+                    <Link
                       href={l.href}
                       className="text-sm text-tz-dim hover:text-tz-text transition-colors duration-200
                                  hover:translate-x-1 inline-flex items-center gap-1.5 group"
@@ -110,7 +111,7 @@ export default function Footer() {
                       <span className="w-1 h-1 rounded-full bg-tz-orange/40 group-hover:bg-tz-orange
                                        transition-colors duration-200" />
                       {l.label}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

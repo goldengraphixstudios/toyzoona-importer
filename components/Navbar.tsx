@@ -5,11 +5,12 @@ import { useState, useEffect } from "react";
 import { assetPath } from "@/lib/assetPath";
 
 const links = [
-  { label: "Products",     href: "#products" },
-  { label: "How to Buy",   href: "#how-to-buy" },
-  { label: "TV Feature",   href: "#tv-feature" },
-  { label: "Events",       href: "#toyfair" },
-  { label: "Contact",      href: "#contact" },
+  { label: "Products",     href: "/#products" },
+  { label: "Live Hours",   href: "/#live-hours" },
+  { label: "How to Buy",   href: "/#how-to-buy" },
+  { label: "Proof",        href: "/#media" },
+  { label: "Blog",         href: "/blog" },
+  { label: "Contact",      href: "/#contact" },
 ];
 
 export default function Navbar() {
@@ -73,7 +74,7 @@ export default function Navbar() {
           {/* Desktop links */}
           <div className="hidden md:flex items-center gap-1">
             {links.map(({ label, href }) => (
-              <a
+              <Link
                 key={label}
                 href={href}
                 className="relative px-4 py-2 text-[13px] font-medium text-tz-muted hover:text-tz-text
@@ -82,7 +83,7 @@ export default function Navbar() {
                 {label}
                 <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-tz-orange
                                  group-hover:w-3/4 transition-all duration-300 rounded-full" />
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -121,7 +122,7 @@ export default function Navbar() {
         >
           <div className="wrap py-5 space-y-1">
             {links.map(({ label, href }) => (
-              <a
+              <Link
                 key={label}
                 href={href}
                 className="flex items-center gap-3 text-sm font-medium text-tz-muted hover:text-tz-text
@@ -130,7 +131,7 @@ export default function Navbar() {
               >
                 <span className="w-1 h-1 rounded-full bg-tz-orange/60" />
                 {label}
-              </a>
+              </Link>
             ))}
             <div className="pt-3 pb-1">
               <a

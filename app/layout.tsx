@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Baloo_2, Fredoka } from "next/font/google";
+import BuyToysPopup from "@/components/BuyToysPopup";
 import "./globals.css";
 
 const fredoka = Fredoka({
@@ -16,6 +17,7 @@ const baloo = Baloo_2({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://goldengraphixstudios.github.io/toyzoona-importer/"),
   title: "Toyzoona Importer | The South's First Toys-Per-Kilo Importer",
   description:
     "Toyzoona Importer — the Philippines' first toys-per-kilo importer from the UK and China. As seen on national TV. Saturday auctions, live selling, warehouse visits. Cabuyao, Laguna.",
@@ -36,7 +38,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${fredoka.variable} ${baloo.variable} antialiased`}>{children}</body>
+      <body className={`${fredoka.variable} ${baloo.variable} antialiased`}>
+        {children}
+        <BuyToysPopup />
+      </body>
     </html>
   );
 }

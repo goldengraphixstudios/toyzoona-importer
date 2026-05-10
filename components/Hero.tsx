@@ -1,4 +1,5 @@
 import Image from "next/image";
+import LiveCountdown from "@/components/LiveCountdown";
 import { BalloonToy, BearToy, BlocksToy, RocketToy, StarToy, ToyDisplaySvg, TrainToy, YoYoToy } from "@/components/ToySvgs";
 import { assetPath } from "@/lib/assetPath";
 
@@ -76,10 +77,12 @@ export default function Hero() {
               <span className="block text-[#ffef3f]">Big color. Better hauls.</span>
             </h1>
 
-            <p className="mb-8 max-w-2xl text-base font-semibold leading-relaxed text-white/92 drop-shadow-[0_4px_12px_rgba(0,0,0,0.22)] sm:text-lg fade-up-3">
+            <p className="mb-5 max-w-2xl text-base font-semibold leading-relaxed text-white/92 drop-shadow-[0_4px_12px_rgba(0,0,0,0.22)] sm:text-lg fade-up-3">
               A bright bulk-buying toy funnel for resellers, live sellers, families, and
               Saturday auction buyers who want warehouse-style finds without the boring retail feel.
             </p>
+
+            <LiveCountdown />
 
             <div className="mb-9 flex flex-col gap-3 sm:flex-row fade-up-4">
               <a
