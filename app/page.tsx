@@ -1,31 +1,35 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import TrustStrip from "@/components/TrustStrip";
-import WhyToyzoona from "@/components/WhyToyzoona";
+import ProductWorlds from "@/components/ProductWorlds";
 import HowToBuy from "@/components/HowToBuy";
 import TVSpotlight from "@/components/TVSpotlight";
 import MediaWall from "@/components/MediaWall";
 import ToyfairProof from "@/components/ToyfairProof";
-import ProductWorlds from "@/components/ProductWorlds";
 import Reviews from "@/components/Reviews";
+import FAQ from "@/components/FAQ";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
+import FloatingCTA from "@/components/FloatingCTA";
+import ToyEnergyMarquee from "@/components/ToyEnergyMarquee";
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
+    <main className="toy-page-shell min-h-screen bg-tz-bg overflow-x-hidden">
       <Navbar />
       <Hero />
+      <ToyEnergyMarquee />
       <TrustStrip />
-      <WhyToyzoona />
+      <ProductWorlds />
       <HowToBuy />
       <TVSpotlight />
       <MediaWall />
       <ToyfairProof />
-      <ProductWorlds />
       <Reviews />
+      <FAQ />
       <FinalCTA />
       <Footer />
+      <FloatingCTA />
     </main>
   );
 }

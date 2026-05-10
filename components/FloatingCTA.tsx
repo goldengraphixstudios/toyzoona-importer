@@ -1,0 +1,101 @@
+"use client";
+import { useEffect, useState } from "react";
+import { PhoneIcon } from "@/components/Icons";
+
+export default function FloatingCTA() {
+  const [visible, setVisible] = useState(false);
+  const [pulse, setPulse] = useState(true);
+
+  useEffect(() => {
+    const onScroll = () => setVisible(window.scrollY > 400);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const t = setTimeout(() => setPulse(false), 8000);
+    return () => clearTimeout(t);
+  }, []);
+
+  return (
+    <>
+      {/* ── Floating Messenger / Facebook button (desktop) ── */}
+      <a
+        href="https://www.facebook.com/groups/642834551000763"
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`fixed bottom-6 right-6 z-50 hidden md:flex items-center gap-3
+                    text-white font-bold text-sm px-5 py-3.5 rounded-2xl
+                    shadow-[0_8px_32px_rgba(255,66,0,0.40)]
+                    hover:shadow-[0_12px_44px_rgba(255,66,0,0.55)]
+                    hover:-translate-y-1 active:translate-y-0
+                    transition-all duration-300 group
+                    ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6 pointer-events-none"}`}
+        style={{
+          background: "linear-gradient(135deg, #FF4200, #CC3400)",
+          border: "1px solid rgba(255,106,61,0.5)",
+        }}
+      >
+        {/* Pulse ring */}
+        {pulse && (
+          <span className="absolute inset-0 rounded-2xl animate-ping opacity-30 pointer-events-none"
+            style={{ background: "rgba(255,66,0,0.6)" }} />
+        )}
+        <svg className="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+        </svg>
+        <span className="whitespace-nowrap">Join Group &amp; Order Now</span>
+        <svg
+          className="w-4 h-4 opacity-70 group-hover:translate-x-0.5 transition-transform duration-200"
+          fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+
+      {/* ── Sticky Mobile Bottom Bar ── */}
+      <div
+        className={`fixed bottom-0 left-0 right-0 z-50 md:hidden
+                    border-t border-white/[0.08] backdrop-blur-xl
+                    transition-all duration-400 ${
+          visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-full pointer-events-none"
+        }`}
+        style={{ background: "rgba(2,2,16,0.92)" }}
+      >
+        <div className="flex items-center gap-3 px-4 py-3.5 safe-area-pb">
+          {/* Call button */}
+          <a
+            href="tel:+639603106916"
+            className="flex items-center justify-center gap-2 flex-1 py-3 rounded-xl
+                       font-semibold text-sm border border-white/[0.10] text-tz-text
+                       bg-white/[0.05] hover:bg-white/[0.09] transition-colors duration-200"
+          >
+            <PhoneIcon className="h-4 w-4" />
+            Call Us
+          </a>
+
+          {/* Facebook CTA */}
+          <a
+            href="https://www.facebook.com/groups/642834551000763"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 flex-[2] py-3 rounded-xl
+                       text-white font-black text-sm
+                       shadow-[0_4px_20px_rgba(255,66,0,0.35)]
+                       transition-all duration-200 active:scale-98"
+            style={{
+              background: "linear-gradient(135deg, #FF4200, #CC3400)",
+              border: "1px solid rgba(255,106,61,0.4)",
+            }}
+          >
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+            </svg>
+            Join &amp; Order Now
+          </a>
+        </div>
+      </div>
+    </>
+  );
+}
