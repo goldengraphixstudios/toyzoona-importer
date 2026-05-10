@@ -2,6 +2,16 @@
 
 This site is a static Next.js export for GitHub Pages, so blog posts are managed from `content/blog-posts.json`.
 
+## CMS Webpage
+
+Use the static CMS page:
+
+```text
+https://goldengraphixstudios.github.io/toyzoona-importer/cms/
+```
+
+The page stores drafts in your browser, then lets you copy or download the merged `blog-posts.json` content. Because GitHub Pages is static, it cannot save directly to the repository without a separate authenticated backend.
+
 ## Add a Post With the CMS Script
 
 ```bash
