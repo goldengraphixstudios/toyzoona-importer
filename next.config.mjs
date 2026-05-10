@@ -3,8 +3,9 @@ const isGitHubPages = process.env.GITHUB_PAGES === "true";
 
 const nextConfig = {
   output: "export",
-  basePath: isGitHubPages ? "/toyzoona-importer-nextjs" : "",
-  assetPrefix: isGitHubPages ? "/toyzoona-importer-nextjs/" : "",
+  trailingSlash: true,
+  basePath: isGitHubPages ? "/toyzoona-importer" : "",
+  assetPrefix: isGitHubPages ? "/toyzoona-importer/" : "",
   images: {
     unoptimized: true,
   },

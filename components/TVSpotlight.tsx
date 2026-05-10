@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { LiveIcon, NewspaperIcon, SparkleIcon, TvIcon } from "@/components/Icons";
+import { assetPath } from "@/lib/assetPath";
 
 const tvImages = [
   { src: "/tv-2.jpg", alt: "Toyzoona on Gud Morning Kapatid" },
@@ -18,7 +19,7 @@ export default function TVSpotlight() {
   return (
     <section id="tv-feature" className="section bg-tz-bg relative overflow-hidden">
       <Image
-        src="/pastel-toy-bg-3.webp"
+        src={assetPath("/pastel-toy-bg-3.webp")}
         alt="Pastel toy media background"
         fill
         sizes="100vw"
@@ -102,7 +103,7 @@ export default function TVSpotlight() {
                 <div key={img.src} className="relative h-32 rounded-xl overflow-hidden group
                                               border border-white/[0.06]">
                   <Image
-                    src={img.src}
+                    src={assetPath(img.src)}
                     alt={img.alt}
                     fill
                     className="object-cover group-hover:scale-108 transition-transform duration-500"

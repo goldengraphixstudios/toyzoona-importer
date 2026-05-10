@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { AuctionHammerIcon, ClockIcon, LiveIcon, PhoneIcon, UsersIcon, WarehouseIcon } from "@/components/Icons";
+import { assetPath } from "@/lib/assetPath";
 
 const steps = [
   {
@@ -64,7 +65,7 @@ export default function HowToBuy() {
   return (
     <section id="how-to-buy" className="section bg-tz-surface relative overflow-hidden">
       <Image
-        src="/pastel-toy-bg-2.webp"
+        src={assetPath("/pastel-toy-bg-2.webp")}
         alt="Pastel toy buying background"
         fill
         sizes="100vw"

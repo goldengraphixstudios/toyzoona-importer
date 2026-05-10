@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { assetPath } from "@/lib/assetPath";
 
 const links = [
   { label: "Products",     href: "#products" },
@@ -51,7 +52,7 @@ export default function Navbar() {
             <div className="relative">
               <div className="absolute inset-0 rounded-xl bg-tz-orange/30 blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
               <Image
-                src="/logo.png"
+                src={assetPath("/logo.png")}
                 alt="Toyzoona Importer"
                 width={42}
                 height={42}

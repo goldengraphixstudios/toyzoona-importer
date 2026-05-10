@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { BalloonToy, BearToy, BlocksToy, RocketToy, StarToy, ToyDisplaySvg, TrainToy, YoYoToy } from "@/components/ToySvgs";
+import { assetPath } from "@/lib/assetPath";
 
 const proofItems = [
   "National TV proof",
@@ -27,7 +28,7 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen overflow-hidden bg-[#13a4ff] text-white lg:min-h-[calc(100vh+84px)]">
       <Image
-        src="/hero-toyzoona-bg.webp"
+        src={assetPath("/hero-toyzoona-bg.webp")}
         alt="Colorful Toyzoona toy world background"
         fill
         priority

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { BoxIcon, MedalIcon, ScaleIcon, TrophyIcon, TvIcon, UsersIcon } from "@/components/Icons";
+import { assetPath } from "@/lib/assetPath";
 
 const reasons = [
   {
@@ -82,7 +83,7 @@ export default function WhyToyzoona() {
   return (
     <section id="why-toyzoona" className="relative overflow-hidden bg-tz-surface py-16 sm:py-20">
       <Image
-        src="/easter-toy-playground-bg.webp"
+        src={assetPath("/easter-toy-playground-bg.webp")}
         alt="Playful Easter toy scene background"
         fill
         sizes="100vw"

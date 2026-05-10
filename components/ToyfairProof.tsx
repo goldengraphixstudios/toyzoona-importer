@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { MapPinIcon } from "@/components/Icons";
+import { assetPath } from "@/lib/assetPath";
 
 const eventCards = [
   {
@@ -65,7 +66,7 @@ export default function ToyfairProof() {
   return (
     <section id="toyfair" className="relative overflow-hidden bg-tz-bg py-16 sm:py-20">
       <Image
-        src="/pastel-toy-bg-1.webp"
+        src={assetPath("/pastel-toy-bg-1.webp")}
         alt="Pastel toy event background"
         fill
         sizes="100vw"
@@ -112,7 +113,7 @@ export default function ToyfairProof() {
               className="group relative h-[320px] w-[340px] shrink-0 overflow-hidden rounded-[1.65rem] border-2 border-white/24 bg-white/10 shadow-[0_18px_45px_rgba(0,0,0,0.32)] backdrop-blur-md transition-transform duration-300 hover:-translate-y-2 hover:rotate-1 sm:h-[380px] sm:w-[460px]"
             >
               <Image
-                src={card.src}
+                src={assetPath(card.src)}
                 alt={`${card.venue} Toyzoona event proof`}
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-110"

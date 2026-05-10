@@ -1,11 +1,12 @@
 import Image from "next/image";
 import { NewspaperIcon, ShieldIcon } from "@/components/Icons";
+import { assetPath } from "@/lib/assetPath";
 
 export default function MediaWall() {
   return (
     <section id="media" className="relative overflow-hidden bg-tz-surface py-14 sm:py-16">
       <Image
-        src="/pastel-toy-bg-2.webp"
+        src={assetPath("/pastel-toy-bg-2.webp")}
         alt="Pastel toy proof wall background"
         fill
         sizes="100vw"

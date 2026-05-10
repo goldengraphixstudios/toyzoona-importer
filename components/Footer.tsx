@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { MailIcon, MapPinIcon, NewspaperIcon, PhoneIcon, ScaleIcon, TvIcon } from "@/components/Icons";
+import { assetPath } from "@/lib/assetPath";
 
 const navLinks = [
   { label: "Why Toyzoona",  href: "#why-toyzoona" },
@@ -62,7 +63,7 @@ export default function Footer() {
                 <div className="absolute inset-0 rounded-xl blur-md"
                   style={{ background: "rgba(255,66,0,0.2)" }} />
                 <Image
-                  src="/logo.png"
+                  src={assetPath("/logo.png")}
                   alt="Toyzoona Importer"
                   width={44}
                   height={44}

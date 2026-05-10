@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { assetPath } from "@/lib/assetPath";
 
 const categories = [
   {
@@ -45,7 +46,7 @@ export default function ProductWorlds() {
   return (
     <section id="products" className="relative overflow-hidden bg-tz-bg py-16 sm:py-20">
       <Image
-        src="/easter-toy-playground-bg.webp"
+        src={assetPath("/easter-toy-playground-bg.webp")}
         alt="Playful Easter toy categories background"
         fill
         sizes="100vw"
@@ -84,7 +85,7 @@ export default function ProductWorlds() {
               className="group relative h-[230px] w-[220px] shrink-0 overflow-hidden rounded-[1.45rem] border-2 border-white/28 bg-white/12 shadow-[0_18px_45px_rgba(0,0,0,0.30)] backdrop-blur-md transition-transform duration-300 hover:-translate-y-2 hover:rotate-1 sm:h-[250px] sm:w-[240px]"
             >
               <Image
-                src={cat.img}
+                src={assetPath(cat.img)}
                 alt={cat.label}
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
