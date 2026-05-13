@@ -82,7 +82,7 @@ posts.unshift({
     {
       heading: "Main answer",
       image: {
-        src: "/toy-category-bulk-bins.webp",
+        src: "/toy-categories/stock-02.webp",
         alt: "Describe the supporting Toyzoona stock image.",
         caption: "Explain what this image shows."
       },

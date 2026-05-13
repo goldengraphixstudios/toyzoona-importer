@@ -426,7 +426,7 @@ export default function BlogCmsPanel() {
               value={serializeSections(activeDraft.sections)}
               onChange={(event) => updateDraft("sections", parseSections(event.target.value))}
               className="min-h-44 w-full rounded-2xl border border-white/10 bg-[#09091a] px-4 py-3 text-sm font-semibold leading-relaxed text-white outline-none ring-[#ffef3f]/30 transition focus:ring-4"
-              placeholder={"## What buyers should know\nIMAGE: /toy-category-bulk-bins.webp\nALT: Mixed Toyzoona toy bins\nCAPTION: Optional image caption\nQUOTE: Optional pull quote\n- Optional bullet\n\nWrite paragraph one.\nWrite paragraph two."}
+              placeholder={"## What buyers should know\nIMAGE: /toy-categories/stock-02.webp\nALT: Mixed Toyzoona toy stock\nCAPTION: Optional image caption\nQUOTE: Optional pull quote\n- Optional bullet\n\nWrite paragraph one.\nWrite paragraph two."}
             />
           </label>
 

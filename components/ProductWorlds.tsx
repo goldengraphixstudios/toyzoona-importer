@@ -4,33 +4,48 @@ import { FACEBOOK_PAGE_URL } from "@/lib/socialLinks";
 
 const categories = [
   {
-    label: "Character Toys",
-    img: "/toy-category-character.webp",
+    label: "Toy stock showcase 1",
+    img: "/toy-categories/stock-01.webp",
     accent: "#FF4200",
   },
   {
-    label: "Mixed Toy Bins",
-    img: "/toy-category-bulk-bins.webp",
+    label: "Toy stock showcase 2",
+    img: "/toy-categories/stock-02.webp",
     accent: "#FFC000",
   },
   {
-    label: "Branded Shelves",
-    img: "/toy-category-shelf-brands.webp",
+    label: "Toy stock showcase 3",
+    img: "/toy-categories/stock-03.webp",
     accent: "#00CFFF",
   },
   {
-    label: "Showroom Finds",
-    img: "/toy-category-showroom.webp",
+    label: "Toy stock showcase 4",
+    img: "/toy-categories/stock-04.webp",
     accent: "#9D4EDD",
   },
   {
-    label: "Auction Floor",
-    img: "/toy-category-auction-floor.webp",
+    label: "Toy stock showcase 5",
+    img: "/toy-categories/stock-05.webp",
     accent: "#FF4200",
   },
   {
-    label: "China New Stock",
-    img: "/toy-category-china-boxes.webp",
+    label: "Toy stock showcase 6",
+    img: "/toy-categories/stock-06.webp",
+    accent: "#FFC000",
+  },
+  {
+    label: "Toy stock showcase 7",
+    img: "/toy-categories/stock-07.webp",
+    accent: "#00CFFF",
+  },
+  {
+    label: "Toy stock showcase 8",
+    img: "/toy-categories/stock-08.webp",
+    accent: "#9D4EDD",
+  },
+  {
+    label: "Toy stock showcase 9",
+    img: "/toy-categories/stock-09.webp",
     accent: "#FFC000",
   },
 ];

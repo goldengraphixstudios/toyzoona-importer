@@ -12,7 +12,7 @@ const eventCards = [
     accent: "#FF4200",
   },
   {
-    src: "/toy-category-auction-floor.webp",
+    src: "/toy-categories/stock-05.webp",
     venue: "Filinvest Tent",
     location: "Alabang, Muntinlupa",
     tag: "South Event",
@@ -33,21 +33,21 @@ const eventCards = [
     accent: "#00CFFF",
   },
   {
-    src: "/toy-category-bulk-bins.webp",
+    src: "/toy-categories/stock-06.webp",
     venue: "Buyer Booths",
     location: "Bulk-ready displays",
     tag: "Sell-Through",
     accent: "#FF4200",
   },
   {
-    src: "/toy-category-showroom.webp",
+    src: "/toy-categories/stock-07.webp",
     venue: "Event Hauls",
     location: "Toyzoona presence",
     tag: "High Volume",
     accent: "#FFC000",
   },
   {
-    src: "/toy-category-china-boxes.webp",
+    src: "/toy-categories/stock-08.webp",
     venue: "Public Proof",
     location: "Toyfair history",
     tag: "Verified",
