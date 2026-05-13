@@ -1,20 +1,23 @@
+import Image from "next/image";
+import { assetPath } from "@/lib/assetPath";
+
 const toyBrands = [
-  "Barbie",
-  "LEGO",
-  "Bluey",
-  "Disney",
-  "Blippi",
-  "Cocomelon",
-  "Fisher-Price",
-  "VTech",
-  "Nerf",
-  "Hot Wheels",
-  "Little Tikes",
-  "Paw Patrol",
-  "Peppa Pig",
-  "Lamaze",
-  "Chicco",
-  "Marvel",
+  { label: "Barbie", src: "/brand-logos/barbie.png" },
+  { label: "LEGO", src: "/brand-logos/lego.png" },
+  { label: "Bluey", src: "/brand-logos/bluey.png" },
+  { label: "Disney", src: "/brand-logos/disney.png" },
+  { label: "Blippi", src: "/brand-logos/blippi.png" },
+  { label: "Cocomelon", src: "/brand-logos/cocomelon.png" },
+  { label: "Fisher-Price", src: "/brand-logos/fisher-price.png" },
+  { label: "VTech", src: "/brand-logos/vtech.png" },
+  { label: "Nerf", src: "/brand-logos/nerf.png" },
+  { label: "Hot Wheels", src: "/brand-logos/hot-wheels.png" },
+  { label: "Little Tikes", src: "/brand-logos/little-tikes.png" },
+  { label: "Paw Patrol", src: "/brand-logos/paw-patrol.png" },
+  { label: "Peppa Pig", src: "/brand-logos/peppa-pig.png" },
+  { label: "Lamaze", src: "/brand-logos/lamaze.png" },
+  { label: "Chicco", src: "/brand-logos/chicco.png" },
+  { label: "Marvel", src: "/brand-logos/marvel.png" },
 ];
 
 export default function ToyEnergyMarquee() {
@@ -29,10 +32,16 @@ export default function ToyEnergyMarquee() {
         <div className="flex w-max animate-marquee-slow gap-3">
           {[...toyBrands, ...toyBrands, ...toyBrands].map((brand, index) => (
             <span
-              key={`${brand}-${index}`}
-              className="inline-flex min-w-[150px] items-center justify-center rounded-[1.05rem] border-4 border-[#4b1b00] bg-white px-5 py-3 font-display text-lg font-black shadow-[0_7px_0_#ff4200] transition-transform duration-300 hover:-translate-y-2 hover:rotate-2 sm:min-w-[176px] sm:text-xl"
+              key={`${brand.label}-${index}`}
+              className="relative inline-flex h-[76px] w-[150px] items-center justify-center overflow-hidden rounded-[1.05rem] border-4 border-[#4b1b00] bg-white px-4 py-3 shadow-[0_7px_0_#ff4200] transition-transform duration-300 hover:-translate-y-2 hover:rotate-2 sm:h-[86px] sm:w-[176px]"
             >
-              {brand}
+              <Image
+                src={assetPath(brand.src)}
+                alt={`${brand.label} logo`}
+                fill
+                className="object-contain p-3"
+                sizes="176px"
+              />
             </span>
           ))}
         </div>

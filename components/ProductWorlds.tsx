@@ -79,20 +79,19 @@ export default function ProductWorlds() {
             branded shelves, mixed bins, and boxed China arrivals.
           </div>
           <div className="overflow-hidden rounded-[1.35rem] border-2 border-[#ffef3f]/35 bg-[#080819]/70 shadow-[0_18px_45px_rgba(0,0,0,0.28)]">
-            <div className="relative aspect-video">
-              <Image
-                src={assetPath("/auction-gallery-wide.webp")}
-                alt="Grand auction video placeholder from Toyzoona stock floor"
-                fill
-                className="object-cover opacity-78"
-                sizes="360px"
+            <div className="aspect-video bg-black">
+              <iframe
+                src="https://www.youtube.com/embed/AMQq10BFM_U?rel=0&modestbranding=1"
+                title="Toyzoona Importer toy categories highlight"
+                loading="lazy"
+                allowFullScreen
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                className="h-full w-full"
               />
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(1,1,8,0.16),rgba(1,1,8,0.76))]" />
-              <div className="absolute inset-x-0 bottom-0 p-4">
-                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#ffef3f]">Video window standby</p>
-                <p className="mt-1 font-display text-xl font-black leading-none text-white">Grand auction clip soon</p>
-                <p className="mt-2 text-xs font-semibold text-white/64">Reserved for the client&apos;s YouTube upload.</p>
-              </div>
+            </div>
+            <div className="border-t border-white/10 bg-[#080819] px-4 py-3">
+              <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#ffef3f]">Toy Categories Highlight</p>
+              <p className="mt-1 text-xs font-semibold text-white/64">Client-uploaded YouTube feature embedded here.</p>
             </div>
           </div>
         </div>
