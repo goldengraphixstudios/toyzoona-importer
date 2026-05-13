@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { MapPinIcon } from "@/components/Icons";
 import { assetPath } from "@/lib/assetPath";
+import { FACEBOOK_PAGE_URL } from "@/lib/socialLinks";
 
 const eventCards = [
   {
@@ -136,7 +137,7 @@ export default function ToyfairProof() {
             full tables, mixed lots, and public event-scale proof.
           </p>
           <a
-            href="https://www.facebook.com/groups/642834551000763"
+            href={FACEBOOK_PAGE_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex shrink-0 items-center justify-center gap-2 rounded-2xl border-2 border-white bg-[#ff4200] px-5 py-3 text-xs font-black uppercase tracking-[0.14em] text-white shadow-[0_8px_0_#9b2200] transition-transform duration-300 hover:-translate-y-1"

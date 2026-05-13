@@ -1,4 +1,4 @@
-export const GROUP_URL = "https://www.facebook.com/groups/642834551000763";
+export { FACEBOOK_GROUP_URL, FACEBOOK_PAGE_URL } from "@/lib/socialLinks";
 
 const MANILA_TIMEZONE = "Asia/Manila";
 const OPEN_MINUTES = 9 * 60;

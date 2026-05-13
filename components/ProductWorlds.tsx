@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { assetPath } from "@/lib/assetPath";
+import { FACEBOOK_PAGE_URL } from "@/lib/socialLinks";
 
 const categories = [
   {
@@ -126,7 +127,7 @@ export default function ProductWorlds() {
         </div>
 
         <a
-          href="https://www.facebook.com/groups/642834551000763"
+          href={FACEBOOK_PAGE_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-white bg-[#ff4200] px-6 py-3.5 text-sm font-black text-white shadow-[0_10px_0_#9b2200,0_20px_34px_rgba(0,0,0,0.28)] transition-transform duration-300 hover:-translate-y-1 sm:w-auto"

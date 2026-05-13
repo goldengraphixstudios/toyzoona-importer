@@ -2,6 +2,7 @@ import Image from "next/image";
 import { AuctionHammerIcon, ClockIcon, LiveIcon, PhoneIcon, UsersIcon, WarehouseIcon } from "@/components/Icons";
 import { assetPath } from "@/lib/assetPath";
 import AuctionCountdown from "@/components/AuctionCountdown";
+import { FACEBOOK_GROUP_URL, FACEBOOK_PAGE_URL } from "@/lib/socialLinks";
 
 const steps = [
   {
@@ -9,8 +10,8 @@ const steps = [
     Icon: AuctionHammerIcon,
     title: "Saturday Auction",
     body: "Every Saturday at 10:00 AM Philippine time. Warehouse opens and the bidding begins. Best for scoring mixed lots at the lowest per-kilo prices. Join the Facebook group for auction schedules.",
-    cta: "Get Auction Schedule",
-    href: "https://www.facebook.com/groups/642834551000763",
+    cta: "Join Group for Schedule",
+    href: FACEBOOK_GROUP_URL,
     accent: "#FF4200",
     bgAccent: "rgba(255,66,0,0.08)",
     border: "border-tz-orange/20",
@@ -23,8 +24,8 @@ const steps = [
     Icon: LiveIcon,
     title: "Live Selling",
     body: "Mon–Sat, 9 AM – 6:30 PM. Watch on Facebook or TikTok, pick your toys, and order in real time from anywhere in the Philippines. Live demos, real stock.",
-    cta: "Follow on TikTok",
-    href: "https://www.tiktok.com/@toyzoonaimporter",
+    cta: "Watch Live on Facebook",
+    href: FACEBOOK_PAGE_URL,
     accent: "#FFC000",
     bgAccent: "rgba(255,192,0,0.07)",
     border: "border-tz-amber/20",
@@ -52,7 +53,7 @@ const steps = [
     title: "Facebook Group",
     body: "Join the official buyers' community for early auction previews, exclusive deals, live selling links, and direct order access. 8,000+ active members.",
     cta: "Join the Group",
-    href: "https://www.facebook.com/groups/642834551000763",
+    href: FACEBOOK_GROUP_URL,
     accent: "#00CFFF",
     bgAccent: "rgba(0,207,255,0.06)",
     border: "border-tz-cyan/20",

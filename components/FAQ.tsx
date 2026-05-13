@@ -16,7 +16,7 @@ const faqs = [
   },
   {
     q: "Can I buy without attending in person?",
-    a: "Yes! We offer live selling via Facebook and TikTok Monday through Saturday, 9:00 AM – 6:30 PM. Watch the live stream, request your toy picks, and we'll pack and ship them to you nationwide. All orders are accommodated through the Facebook group and direct message.",
+    a: "Yes! We offer live selling via Facebook and TikTok Monday through Saturday, 9:00 AM – 6:30 PM. Watch the live stream, request your toy picks, and we'll pack and ship them to you nationwide. For live buying and direct orders, message the official Toyzoona Laguna Facebook page.",
   },
   {
     q: "Do you ship nationwide across the Philippines?",
@@ -24,7 +24,7 @@ const faqs = [
   },
   {
     q: "Are the toys brand new?",
-    a: "China per-kilo toys are brand-new. UK toy hauls are preloved, so buyers should expect mixed-condition finds and check current stock details through the official Facebook group or warehouse visit.",
+    a: "China per-kilo toys are brand-new. UK toy hauls are preloved, so buyers should expect mixed-condition finds and check current stock details through the official Toyzoona Laguna Facebook page or warehouse visit.",
   },
   {
     q: "Is Toyzoona Importer a legitimate business?",

@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
-const FACEBOOK_PAGE_URL = "https://www.facebook.com/ToyzoonaLaguna";
+import { FACEBOOK_PAGE_URL } from "@/lib/socialLinks";
 const STORAGE_KEY = "toyzoona-buy-popup-dismissed";
 
 export default function BuyToysPopup() {

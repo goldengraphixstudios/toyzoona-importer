@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { FACEBOOK_GROUP_URL } from "@/lib/socialLinks";
 
-const GROUP_URL = "https://www.facebook.com/groups/642834551000763";
 const MANILA_TIMEZONE = "Asia/Manila";
 const AUCTION_HOUR = 10;
 
@@ -102,12 +102,12 @@ export default function AuctionCountdown() {
             </div>
           ))}
           <a
-            href={GROUP_URL}
+            href={FACEBOOK_GROUP_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex min-h-14 items-center justify-center rounded-xl border-2 border-white bg-[#ff4200] px-4 text-xs font-black uppercase tracking-[0.12em] text-white shadow-[0_7px_0_#9b2200] transition-transform duration-300 hover:-translate-y-1"
           >
-            Auction updates
+            Join Group for Updates
           </a>
         </div>
       </div>

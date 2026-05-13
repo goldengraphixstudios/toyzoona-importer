@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { GROUP_URL, formatCountdownParts, getLiveWindowState } from "@/lib/liveSchedule";
+import { FACEBOOK_PAGE_URL, formatCountdownParts, getLiveWindowState } from "@/lib/liveSchedule";
 
 export default function LiveCountdown() {
   const [now, setNow] = useState<Date | null>(null);
@@ -54,12 +54,12 @@ export default function LiveCountdown() {
             </div>
           ))}
           <a
-            href={GROUP_URL}
+            href={FACEBOOK_PAGE_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex min-h-14 items-center justify-center rounded-xl border-2 border-white bg-[#ff4200] px-4 text-xs font-black uppercase tracking-[0.12em] text-white shadow-[0_7px_0_#9b2200] transition-transform duration-300 hover:-translate-y-1"
           >
-            Join live
+            Watch live
           </a>
         </div>
       </div>

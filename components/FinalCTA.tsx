@@ -1,4 +1,5 @@
 import { AuctionHammerIcon, ClockIcon, GlobeIcon, MapPinIcon, MailIcon, PhoneIcon, ScaleIcon, TrophyIcon, TruckIcon, TvIcon } from "@/components/Icons";
+import { FACEBOOK_GROUP_URL, FACEBOOK_PAGE_URL } from "@/lib/socialLinks";
 
 const contactCards = [
   {
@@ -26,8 +27,8 @@ const contactCards = [
     Icon: AuctionHammerIcon,
     title: "Saturday Auction",
     info: "Every Saturday 10:00 AM\nCabuyao warehouse · Free entry",
-    link: "https://www.facebook.com/groups/642834551000763",
-    linkLabel: "Get Schedule ↗",
+    link: FACEBOOK_GROUP_URL,
+    linkLabel: "Join Group for Schedule ↗",
   },
 ];
 
@@ -100,7 +101,7 @@ export default function FinalCTA() {
           {/* CTA buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <a
-              href="https://www.facebook.com/groups/642834551000763"
+              href={FACEBOOK_GROUP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 justify-center
@@ -116,7 +117,7 @@ export default function FinalCTA() {
               Join the Facebook Group
             </a>
             <a
-              href="https://wa.me/639293781462"
+              href={FACEBOOK_PAGE_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 justify-center
@@ -126,8 +127,8 @@ export default function FinalCTA() {
                          transition-all duration-200 backdrop-blur-sm
                          hover:-translate-y-0.5"
             >
-              <PhoneIcon className="h-5 w-5" />
-              WhatsApp / Viber Ready
+              <GlobeIcon className="h-5 w-5" />
+              Message the Facebook Page
             </a>
           </div>
 
