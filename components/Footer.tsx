@@ -6,7 +6,7 @@ import { FACEBOOK_PAGE_URL } from "@/lib/socialLinks";
 
 const navLinks = [
   { label: "Products",      href: "/#products" },
-  { label: "Live Hours",    href: "/#live-hours" },
+  { label: "Auction Countdown", href: "/#live-hours" },
   { label: "How to Buy",    href: "/#how-to-buy" },
   { label: "Media",         href: "/#media" },
   { label: "Toyfair",       href: "/#toyfair" },

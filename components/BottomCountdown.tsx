@@ -18,8 +18,8 @@ export default function BottomCountdown() {
         ? getLiveWindowState(now)
         : {
             isLiveNow: false,
-            label: "Checking live hours",
-            helper: "Mon-Sat, 9:00 AM to 6:30 PM Philippine time.",
+            label: "Checking auction countdown",
+            helper: "Saturday, 10:00 AM Philippine time.",
             target: Date.now(),
           },
     [now],
@@ -35,7 +35,7 @@ export default function BottomCountdown() {
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <div className="flex items-center gap-3">
           <div className="relative hidden h-16 w-16 shrink-0 place-items-center rounded-2xl border-[4px] border-[#4b1b00] bg-white shadow-[0_7px_0_#ff4200] sm:grid">
-            <span className={`absolute right-1.5 top-1.5 h-3 w-3 rounded-full ${state.isLiveNow ? "animate-pulse bg-green-500" : "bg-[#ff4200]"}`} />
+            <span className="absolute right-1.5 top-1.5 h-3 w-3 rounded-full bg-[#ff4200]" />
             <svg className="h-9 w-9 animate-toy-hop" viewBox="0 0 120 120" fill="none" aria-hidden="true">
               <rect x="18" y="48" width="84" height="50" rx="14" fill="#00cfff" stroke="#4b1b00" strokeWidth="7" />
               <path d="M36 48V32c0-13 11-23 24-23s24 10 24 23v16" stroke="#4b1b00" strokeWidth="7" strokeLinecap="round" />
@@ -45,14 +45,14 @@ export default function BottomCountdown() {
           <div>
             <div className="flex flex-wrap items-center gap-2">
               <span className="rounded-full border-2 border-[#4b1b00] bg-[#ff4200] px-3 py-1 text-[10px] font-black uppercase tracking-[0.16em] text-white shadow-[0_4px_0_#9b2200]">
-                {state.isLiveNow ? "Live now" : "Countdown"}
+                Auction Countdown
               </span>
               <p className="font-display text-xl font-black leading-none tracking-[-0.03em] sm:text-2xl">
                 {state.label}
               </p>
             </div>
             <p className="mt-1 text-xs font-bold leading-snug text-[#4b1b00]/75 sm:text-sm">
-              {state.helper} Mon-Sat schedule, Philippine time.
+              {state.helper}
             </p>
           </div>
         </div>
@@ -79,7 +79,7 @@ export default function BottomCountdown() {
             rel="noopener noreferrer"
             className="hidden min-h-[68px] items-center justify-center rounded-2xl border-[3px] border-[#4b1b00] bg-[#ff4200] px-5 font-black uppercase tracking-[0.08em] text-white shadow-[0_7px_0_#9b2200] transition-transform duration-300 hover:-translate-y-1 active:translate-y-0 sm:inline-flex"
           >
-            Watch Live
+            View Auction Updates
           </a>
         </div>
 
@@ -89,7 +89,7 @@ export default function BottomCountdown() {
           rel="noopener noreferrer"
           className="inline-flex min-h-12 items-center justify-center rounded-2xl border-[3px] border-[#4b1b00] bg-[#ff4200] text-sm font-black uppercase tracking-[0.08em] text-white shadow-[0_6px_0_#9b2200] sm:hidden"
         >
-          Watch on Facebook
+          View Auction Updates
         </a>
       </div>
     </aside>

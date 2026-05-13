@@ -1,15 +1,13 @@
 export { FACEBOOK_PAGE_URL } from "@/lib/socialLinks";
 
 const MANILA_TIMEZONE = "Asia/Manila";
-const OPEN_MINUTES = 9 * 60;
-const CLOSE_MINUTES = 18 * 60 + 30;
+const AUCTION_HOUR = 10;
 
 type ManilaNow = {
   year: number;
   month: number;
   day: number;
   weekday: number;
-  minutes: number;
 };
 
 export type LiveWindowState = {
@@ -31,9 +29,6 @@ function getManilaNow(date: Date): ManilaNow {
     month: "numeric",
     day: "numeric",
     weekday: "short",
-    hour: "numeric",
-    minute: "numeric",
-    hour12: false,
   }).formatToParts(date);
 
   const get = (type: string) => parts.find((part) => part.type === type)?.value ?? "0";
@@ -46,61 +41,29 @@ function getManilaNow(date: Date): ManilaNow {
     Fri: 5,
     Sat: 6,
   };
-  const hour = Number(get("hour")) % 24;
-  const minute = Number(get("minute"));
-
   return {
     year: Number(get("year")),
     month: Number(get("month")),
     day: Number(get("day")),
     weekday: weekdayMap[get("weekday")] ?? 0,
-    minutes: hour * 60 + minute,
   };
 }
 
-function manilaTimestamp(year: number, month: number, day: number, hour: number, minute: number) {
-  return Date.UTC(year, month - 1, day, hour - 8, minute, 0, 0);
-}
-
-function addManilaDays(now: ManilaNow, days: number) {
-  const utc = manilaTimestamp(now.year, now.month, now.day + days, 0, 0);
-  const date = new Date(utc);
-
-  return getManilaNow(date);
+function manilaTimestamp(year: number, month: number, day: number, hour: number) {
+  return Date.UTC(year, month - 1, day, hour - 8, 0, 0, 0);
 }
 
 export function getLiveWindowState(nowDate: Date): LiveWindowState {
   const now = getManilaNow(nowDate);
-  const isLiveDay = now.weekday >= 1 && now.weekday <= 6;
-  const isLiveNow = isLiveDay && now.minutes >= OPEN_MINUTES && now.minutes < CLOSE_MINUTES;
-
-  if (isLiveNow) {
-    return {
-      isLiveNow,
-      label: "We are live now",
-      helper: "Live selling and orders are open until 6:30 PM Philippine time.",
-      target: manilaTimestamp(now.year, now.month, now.day, 18, 30),
-    };
-  }
-
-  if (isLiveDay && now.minutes < OPEN_MINUTES) {
-    return {
-      isLiveNow,
-      label: "Live selling opens soon",
-      helper: "Countdown to today's 9:00 AM Philippine time opening.",
-      target: manilaTimestamp(now.year, now.month, now.day, 9, 0),
-    };
-  }
-
-  const daysUntilNextOpen =
-    now.weekday === 0 ? 1 : now.weekday === 6 ? 2 : isLiveDay ? 1 : 1;
-  const next = addManilaDays(now, daysUntilNextOpen);
+  const todayAuction = manilaTimestamp(now.year, now.month, now.day, AUCTION_HOUR);
+  const isSaturdayBeforeAuction = now.weekday === 6 && nowDate.getTime() < todayAuction;
+  const daysUntilSaturday = isSaturdayBeforeAuction ? 0 : (6 - now.weekday + 7) % 7 || 7;
 
   return {
-    isLiveNow,
-    label: "Next live window",
-    helper: "Countdown to the next 9:00 AM Philippine time buying window.",
-    target: manilaTimestamp(next.year, next.month, next.day, 9, 0),
+    isLiveNow: false,
+    label: "Next Saturday Auction",
+    helper: "Countdown to Saturday, 10:00 AM Philippine time.",
+    target: manilaTimestamp(now.year, now.month, now.day + daysUntilSaturday, AUCTION_HOUR),
   };
 }
 

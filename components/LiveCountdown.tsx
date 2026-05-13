@@ -19,8 +19,8 @@ export default function LiveCountdown() {
         ? getLiveWindowState(now)
         : {
             isLiveNow: false,
-            label: "Checking live hours",
-            helper: "Countdown follows Monday to Saturday, 9:00 AM to 6:30 PM Philippine time.",
+            label: "Checking auction countdown",
+            helper: "Countdown points to Saturday, 10:00 AM Philippine time.",
             target: Date.now(),
           },
     [now],
@@ -32,13 +32,13 @@ export default function LiveCountdown() {
       <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div>
           <div className="mb-1 flex items-center gap-2">
-            <span className={`h-2.5 w-2.5 rounded-full ${isReady && state.isLiveNow ? "bg-green-300 animate-pulse" : "bg-[#ffef3f]"}`} />
+            <span className="h-2.5 w-2.5 rounded-full bg-[#ffef3f]" />
             <p className="text-xs font-black uppercase tracking-[0.18em] text-[#ffef3f]">
-              {isReady ? state.label : "Checking live hours"}
+              {isReady ? state.label : "Checking auction countdown"}
             </p>
           </div>
           <p className="text-sm font-semibold leading-relaxed text-white/76">
-            {isReady ? state.helper : "Countdown follows Monday to Saturday, 9:00 AM to 6:30 PM Philippine time."}
+            {isReady ? state.helper : "Countdown points to Saturday, 10:00 AM Philippine time."}
           </p>
         </div>
 
@@ -59,7 +59,7 @@ export default function LiveCountdown() {
             rel="noopener noreferrer"
             className="inline-flex min-h-14 items-center justify-center rounded-xl border-2 border-white bg-[#ff4200] px-4 text-xs font-black uppercase tracking-[0.12em] text-white shadow-[0_7px_0_#9b2200] transition-transform duration-300 hover:-translate-y-1"
           >
-            Watch live
+            View auction updates
           </a>
         </div>
       </div>

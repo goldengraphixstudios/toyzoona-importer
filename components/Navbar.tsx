@@ -7,7 +7,7 @@ import { FACEBOOK_PAGE_URL } from "@/lib/socialLinks";
 
 const links = [
   { label: "Products",     href: "/#products" },
-  { label: "Live Hours",   href: "/#live-hours" },
+  { label: "Auction Countdown", href: "/#live-hours" },
   { label: "How to Buy",   href: "/#how-to-buy" },
   { label: "Proof",        href: "/#media" },
   { label: "Blog",         href: "/blog" },
