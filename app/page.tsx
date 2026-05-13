@@ -12,10 +12,11 @@ import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
 import FloatingCTA from "@/components/FloatingCTA";
 import ToyEnergyMarquee from "@/components/ToyEnergyMarquee";
+import BottomCountdown from "@/components/BottomCountdown";
 
 export default function Home() {
   return (
-    <main className="toy-page-shell min-h-screen bg-tz-bg overflow-x-hidden">
+    <main className="toy-page-shell min-h-screen overflow-x-hidden bg-tz-bg pb-48 md:pb-32">
       <Navbar />
       <Hero />
       <ToyEnergyMarquee />
@@ -30,6 +31,7 @@ export default function Home() {
       <FinalCTA />
       <Footer />
       <FloatingCTA />
+      <BottomCountdown />
     </main>
   );
 }

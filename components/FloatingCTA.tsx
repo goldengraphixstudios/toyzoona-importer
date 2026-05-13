@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import { PhoneIcon } from "@/components/Icons";
 
 export default function FloatingCTA() {
   const [visible, setVisible] = useState(false);
@@ -25,7 +24,7 @@ export default function FloatingCTA() {
         href="https://www.facebook.com/groups/642834551000763"
         target="_blank"
         rel="noopener noreferrer"
-        className={`fixed bottom-6 right-6 z-50 hidden md:flex items-center gap-3
+        className={`fixed bottom-36 right-6 z-50 hidden md:flex items-center gap-3
                     text-white font-bold text-sm px-5 py-3.5 rounded-2xl
                     shadow-[0_8px_32px_rgba(255,66,0,0.40)]
                     hover:shadow-[0_12px_44px_rgba(255,66,0,0.55)]
@@ -54,50 +53,6 @@ export default function FloatingCTA() {
         </svg>
       </a>
 
-      {/* ── Sticky Mobile Bottom Bar ── */}
-      <div
-        className={`fixed bottom-0 left-0 right-0 z-50 md:hidden
-                    border-t border-white/[0.08] backdrop-blur-xl
-                    transition-all duration-400 ${
-          visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-full pointer-events-none"
-        }`}
-        style={{ background: "rgba(2,2,16,0.92)" }}
-      >
-        <div className="flex items-center gap-3 px-4 py-3.5 safe-area-pb">
-          {/* Call button */}
-          <a
-            href="https://wa.me/639293781462"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 flex-1 py-3 rounded-xl
-                       font-semibold text-sm border border-white/[0.10] text-tz-text
-                       bg-white/[0.05] hover:bg-white/[0.09] transition-colors duration-200"
-          >
-            <PhoneIcon className="h-4 w-4" />
-            WhatsApp
-          </a>
-
-          {/* Facebook CTA */}
-          <a
-            href="https://www.facebook.com/groups/642834551000763"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 flex-[2] py-3 rounded-xl
-                       text-white font-black text-sm
-                       shadow-[0_4px_20px_rgba(255,66,0,0.35)]
-                       transition-all duration-200 active:scale-98"
-            style={{
-              background: "linear-gradient(135deg, #FF4200, #CC3400)",
-              border: "1px solid rgba(255,106,61,0.4)",
-            }}
-          >
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-            </svg>
-            Join &amp; Order Now
-          </a>
-        </div>
-      </div>
     </>
   );
 }
