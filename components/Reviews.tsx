@@ -4,7 +4,7 @@ const featured = {
   initial: "M",
   color: "#FF4200",
   quote:
-    "Sobrang sulit ng per-kilo model! I've been sourcing from Toyzoona every Saturday and my customers love the variety. No other supplier gives this kind of value. Mura, brand new, and legit.",
+    "Sobrang sulit ng per-kilo model! I've been sourcing from Toyzoona every Saturday and my customers love the variety. UK preloved finds and China new stock give me more options for resale.",
   stars: 5,
   badge: "Top Reviewer",
 };

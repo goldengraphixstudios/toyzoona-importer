@@ -4,49 +4,49 @@ import { assetPath } from "@/lib/assetPath";
 
 const eventCards = [
   {
-    src: "/toyfair-1.jpg",
+    src: "/auction-gallery-wide.webp",
     venue: "Dasma Arena",
     location: "Dasmarinas, Cavite",
     tag: "Crowd Scale",
     accent: "#FF4200",
   },
   {
-    src: "/toyfair-2.jpg",
+    src: "/toy-category-auction-floor.webp",
     venue: "Filinvest Tent",
     location: "Alabang, Muntinlupa",
     tag: "South Event",
     accent: "#FFC000",
   },
   {
-    src: "/toyfair-3.jpg",
+    src: "/auction-gallery-kids.webp",
     venue: "Metrotent Pasig",
     location: "Ortigas, Metro Manila",
     tag: "Metro Reach",
     accent: "#9D4EDD",
   },
   {
-    src: "/toyfair-4.jpg",
+    src: "/auction-gallery-stock.webp",
     venue: "Toyfair Floor",
     location: "Live event stock",
     tag: "Real Tables",
     accent: "#00CFFF",
   },
   {
-    src: "/toyfair-5.jpg",
+    src: "/toy-category-bulk-bins.webp",
     venue: "Buyer Booths",
     location: "Bulk-ready displays",
     tag: "Sell-Through",
     accent: "#FF4200",
   },
   {
-    src: "/toyfair-6.jpg",
+    src: "/toy-category-showroom.webp",
     venue: "Event Hauls",
     location: "Toyzoona presence",
     tag: "High Volume",
     accent: "#FFC000",
   },
   {
-    src: "/toyfair-7.jpg",
+    src: "/toy-category-china-boxes.webp",
     venue: "Public Proof",
     location: "Toyfair history",
     tag: "Verified",
@@ -132,8 +132,8 @@ export default function ToyfairProof() {
       <div className="wrap relative z-10 mt-7">
         <div className="flex flex-col gap-4 rounded-[1.5rem] border border-white/18 bg-white/10 p-5 backdrop-blur-md sm:flex-row sm:items-center sm:justify-between">
           <p className="max-w-2xl text-sm font-semibold leading-relaxed text-white/72">
-            From Dasma Arena to Filinvest Tent and Metrotent Pasig, Toyzoona has shown up with
-            real stock, full tables, and public event-scale proof.
+            From toyfairs to grand auction floors, Toyzoona has shown up with real stock,
+            full tables, mixed lots, and public event-scale proof.
           </p>
           <a
             href="https://www.facebook.com/groups/642834551000763"

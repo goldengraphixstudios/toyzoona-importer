@@ -17,15 +17,15 @@ const contactCards = [
   },
   {
     Icon: PhoneIcon,
-    title: "Contact",
-    info: "+63 960 310 6916\nofficial.toyzoonaimporter@gmail.com",
-    link: "tel:+639603106916",
-    linkLabel: "Call Now ↗",
+    title: "WhatsApp / Viber",
+    info: "+63 929 378 1462\nReady for direct buyer inquiries",
+    link: "https://wa.me/639293781462",
+    linkLabel: "Message Now ↗",
   },
   {
     Icon: AuctionHammerIcon,
     title: "Saturday Auction",
-    info: "Every Saturday ~10:00 AM\nCabuyao warehouse · Free entry",
+    info: "Every Saturday 10:00 AM\nCabuyao warehouse · Free entry",
     link: "https://www.facebook.com/groups/642834551000763",
     linkLabel: "Get Schedule ↗",
   },
@@ -94,7 +94,7 @@ export default function FinalCTA() {
             Toyzoona has a buying path built exactly for you.
           </p>
           <p className="text-white/50 text-sm mb-12 font-medium tracking-wide">
-            Brand new toys · Per-kilo pricing · UK & China imports · Nationwide shipping
+            UK preloved toys · China brand-new stock · Per-kilo pricing · Nationwide shipping
           </p>
 
           {/* CTA buttons */}
@@ -116,7 +116,9 @@ export default function FinalCTA() {
               Join the Facebook Group
             </a>
             <a
-              href="tel:+639603106916"
+              href="https://wa.me/639293781462"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-3 justify-center
                          bg-white/[0.12] hover:bg-white/[0.20]
                          border border-white/[0.28]
@@ -125,7 +127,7 @@ export default function FinalCTA() {
                          hover:-translate-y-0.5"
             >
               <PhoneIcon className="h-5 w-5" />
-              +63 960 310 6916
+              WhatsApp / Viber Ready
             </a>
           </div>
 
@@ -139,6 +141,16 @@ export default function FinalCTA() {
             >
               <GlobeIcon className="h-4 w-4" />
               TikTok @toyzoonaimporter
+            </a>
+            <span className="text-white/20">·</span>
+            <a
+              href="https://www.linkedin.com/company/toyzoona-importer"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white/80 transition-colors flex items-center gap-1.5 font-medium"
+            >
+              <GlobeIcon className="h-4 w-4" />
+              LinkedIn
             </a>
             <span className="text-white/20">·</span>
             <a

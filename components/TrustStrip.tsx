@@ -3,7 +3,7 @@ import { BoxIcon, GlobeIcon, HandshakeIcon, MedalIcon, NewspaperIcon, ScaleIcon,
 const badges = [
   { Icon: TvIcon, label: "Featured on National TV" },
   { Icon: TrophyIcon, label: "First in Southern Luzon" },
-  { Icon: GlobeIcon, label: "UK + China Direct Imports" },
+  { Icon: GlobeIcon, label: "UK Preloved + China Brand-New" },
   { Icon: ScaleIcon, label: "Sold by the Kilo" },
   { Icon: MedalIcon, label: "Toyfair Participant" },
   { Icon: TruckIcon, label: "Ships Nationwide" },

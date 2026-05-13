@@ -55,7 +55,7 @@ const reasons = [
     Icon: BoxIcon,
     num: "05",
     title: "Fresh Weekly Arrivals",
-    body: "New containers from the UK and China arriving regularly. Every Saturday auction features the freshest stock — first-mover advantage for buyers who show up early.",
+    body: "UK preloved toy hauls and China brand-new per-kilo stock arrive regularly. Every Saturday auction features fresh mixed lots for buyers who show up early.",
     accent: "#FF4200",
     border: "border-tz-orange/15",
     glow: "",

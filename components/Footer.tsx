@@ -36,10 +36,19 @@ const socials = [
   },
   {
     label: "YouTube",
-    href: "https://www.youtube.com/watch?v=eAGbGMUIzhY",
+    href: "https://www.youtube.com/@ToyzoonaImporter",
     icon: (
       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
         <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+      </svg>
+    ),
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/toyzoona-importer",
+    icon: (
+      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.85-3.037-1.853 0-2.136 1.447-2.136 2.941v5.665H9.354V9h3.414v1.561h.049c.476-.9 1.637-1.85 3.37-1.85 3.602 0 4.267 2.371 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.114 20.452H3.558V9h3.556v11.452z" />
       </svg>
     ),
   },
@@ -82,7 +91,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-tz-dim text-sm leading-relaxed mb-5">
-              Imported brand-new toys from the UK and China.
+              UK preloved toys and China brand-new toys sold by the kilo.
               Featured on national television. Trusted by buyers
               across the Philippines since day one.
             </p>
@@ -129,10 +138,19 @@ export default function Footer() {
                   </span>
                 </li>
                 <li>
-                  <a href="tel:+639603106916"
+                  <a href="https://wa.me/639293781462"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 hover:text-tz-text transition-colors font-medium">
                     <PhoneIcon className="h-4 w-4" />
-                    +63 960 310 6916
+                    WhatsApp: +63 929 378 1462
+                  </a>
+                </li>
+                <li>
+                  <a href="viber://chat?number=%2B639293781462"
+                    className="inline-flex items-center gap-2 hover:text-tz-text transition-colors font-medium">
+                    <PhoneIcon className="h-4 w-4" />
+                    Viber-ready: +63 929 378 1462
                   </a>
                 </li>
                 <li>

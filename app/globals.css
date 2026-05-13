@@ -506,3 +506,24 @@
     transition-duration: 0.001ms !important;
   }
 }
+
+@media (max-width: 640px) {
+  .wrap {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .section {
+    padding-top: 4.25rem;
+    padding-bottom: 4.25rem;
+  }
+
+  .display-xl {
+    font-size: 2.5rem;
+    line-height: 0.94;
+  }
+
+  iframe {
+    max-width: 100%;
+  }
+}

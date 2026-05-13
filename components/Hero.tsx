@@ -45,7 +45,7 @@ export default function Hero() {
       </div>
 
       {heroToys.map(({ Toy, className }) => (
-        <Toy key={className} className={`pointer-events-none absolute z-10 drop-shadow-[0_10px_22px_rgba(0,0,0,0.28)] ${className}`} />
+        <Toy key={className} className={`pointer-events-none absolute z-10 hidden drop-shadow-[0_10px_22px_rgba(0,0,0,0.28)] sm:block ${className}`} />
       ))}
 
       <div className="absolute inset-x-0 bottom-0 h-28 bg-[linear-gradient(180deg,transparent_0%,rgba(2,2,16,0.64)_100%)]" />
@@ -72,7 +72,7 @@ export default function Hero() {
               Toyzoona Importer
             </p>
 
-            <h1 className="mb-5 max-w-4xl font-display text-[clamp(3.25rem,6.8vw,7.1rem)] font-black leading-[0.82] tracking-[-0.07em] text-white drop-shadow-[0_14px_30px_rgba(81,25,0,0.38)] fade-up-2">
+            <h1 className="mb-5 max-w-4xl font-display text-[clamp(2.65rem,15vw,7.1rem)] font-black leading-[0.82] tracking-[-0.07em] text-white drop-shadow-[0_14px_30px_rgba(81,25,0,0.38)] fade-up-2">
               Toys by the kilo.
               <span className="block text-[#ffef3f]">Big color. Better hauls.</span>
             </h1>
@@ -121,7 +121,7 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-[360px] fade-up-3 lg:max-w-[390px]">
+          <div className="relative mx-auto w-full max-w-[280px] fade-up-3 sm:max-w-[360px] lg:max-w-[390px]">
             <div className="absolute -inset-5 rounded-[2.2rem] bg-[conic-gradient(from_180deg,#ff4200,#ffef3f,#00cfff,#9d4edd,#ff4200)] opacity-65 blur-xl animate-rainbow-spin" />
             <div className="relative rotate-[1.5deg] rounded-[1.8rem] border-[7px] border-white bg-[#ffef3f] p-4 shadow-[0_18px_0_#9b2200,0_32px_58px_rgba(63,18,0,0.34)] transition-transform duration-500 hover:rotate-0 hover:scale-[1.015]">
               <div className="mb-3 flex items-center justify-start gap-3">

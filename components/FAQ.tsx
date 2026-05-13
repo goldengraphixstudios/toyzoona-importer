@@ -8,7 +8,7 @@ const faqs = [
   },
   {
     q: "Where are the toys imported from?",
-    a: "Toyzoona Importer sources brand-new toys directly from the United Kingdom and China. As the Philippines' first toys-per-kilo importer in Southern Luzon, we have established sourcing channels that deliver consistent quality at import-level pricing.",
+    a: "Toyzoona Importer sources UK preloved toys and China brand-new toys by the kilo. As one of Southern Luzon's known toys-per-kilo suppliers, the focus is variety, value, and bulk-friendly sourcing.",
   },
   {
     q: "When is the Saturday auction and how does it work?",
@@ -24,7 +24,7 @@ const faqs = [
   },
   {
     q: "Are the toys brand new?",
-    a: "Absolutely. All toys sourced by Toyzoona Importer are brand new — imported directly from the UK and China. We do not sell secondhand or pre-loved toys. Our per-kilo model gives you access to brand-new toys at prices far below individual retail.",
+    a: "China per-kilo toys are brand-new. UK toy hauls are preloved, so buyers should expect mixed-condition finds and check current stock details through the official Facebook group or warehouse visit.",
   },
   {
     q: "Is Toyzoona Importer a legitimate business?",

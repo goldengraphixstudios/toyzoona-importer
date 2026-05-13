@@ -129,7 +129,7 @@ export default function MediaWall() {
         </div>
 
         {/* Secondary videos row */}
-        <div className="grid gap-4 lg:grid-cols-2">
+        <div className="grid gap-4 lg:grid-cols-3">
 
           {/* YouTube TV Feature */}
           <article className="overflow-hidden rounded-2xl border border-white/[0.07] bg-tz-card">
@@ -149,12 +149,38 @@ export default function MediaWall() {
                 <p className="mt-0.5 text-xs text-tz-dim">Full TV segment · YouTube</p>
               </div>
               <a
-                href="https://www.youtube.com/watch?v=eAGbGMUIzhY"
+                href="#reviews"
+                className="text-xs font-semibold text-red-400 hover:underline whitespace-nowrap"
+              >
+                Reviews ↗
+              </a>
+            </div>
+          </article>
+
+          {/* Toyzoona Importer Official Highlight */}
+          <article className="overflow-hidden rounded-2xl border border-white/[0.07] bg-tz-card">
+            <div className="aspect-video bg-black">
+              <iframe
+                src="https://www.youtube.com/embed/xCed6-vE4Ko?rel=0&modestbranding=1"
+                title="Toyzoona Importer official YouTube highlight"
+                loading="lazy"
+                allowFullScreen
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                className="h-full w-full"
+              />
+            </div>
+            <div className="flex items-center justify-between gap-3 border-t border-white/[0.06] bg-tz-bg px-4 py-3">
+              <div>
+                <p className="text-sm font-bold text-tz-text">Toyzoona Importer Highlight</p>
+                <p className="mt-0.5 text-xs text-tz-dim">Official YouTube feature</p>
+              </div>
+              <a
+                href="https://www.youtube.com/@ToyzoonaImporter"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-xs font-semibold text-red-400 hover:underline whitespace-nowrap"
               >
-                YouTube ↗
+                Channel ↗
               </a>
             </div>
           </article>

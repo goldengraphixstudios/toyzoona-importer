@@ -1,13 +1,14 @@
 import Image from "next/image";
 import { AuctionHammerIcon, ClockIcon, LiveIcon, PhoneIcon, UsersIcon, WarehouseIcon } from "@/components/Icons";
 import { assetPath } from "@/lib/assetPath";
+import AuctionCountdown from "@/components/AuctionCountdown";
 
 const steps = [
   {
     num: "01",
     Icon: AuctionHammerIcon,
     title: "Saturday Auction",
-    body: "Every Saturday ~10:00 AM. Warehouse opens and the bidding begins. Best for scoring mixed lots at the lowest per-kilo prices. Join the Facebook group for auction schedules.",
+    body: "Every Saturday at 10:00 AM Philippine time. Warehouse opens and the bidding begins. Best for scoring mixed lots at the lowest per-kilo prices. Join the Facebook group for auction schedules.",
     cta: "Get Auction Schedule",
     href: "https://www.facebook.com/groups/642834551000763",
     accent: "#FF4200",
@@ -82,7 +83,7 @@ export default function HowToBuy() {
       <div className="wrap relative z-10">
 
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 sm:mb-12">
           <div className="flex items-center justify-center gap-3 mb-5">
             <div className="h-px w-10 bg-tz-border" />
             <span className="section-num">How to buy</span>
@@ -99,7 +100,11 @@ export default function HowToBuy() {
         </div>
 
         {/* Steps grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
+        <div className="mb-6">
+          <AuctionCountdown />
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mb-10">
           {steps.map((s, i) => (
             <div
               key={s.num}
@@ -155,7 +160,7 @@ export default function HowToBuy() {
         </div>
 
         {/* Hours info strip */}
-        <div className="bg-tz-card border border-white/[0.07] rounded-2xl px-6 sm:px-8 py-5
+        <div className="bg-tz-card border border-white/[0.07] rounded-2xl px-5 sm:px-8 py-5
                         flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
           {/* Clock icon */}
           <div className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 text-xl
@@ -169,13 +174,22 @@ export default function HowToBuy() {
             <strong className="text-tz-orange font-semibold">Saturday Auction</strong>{" "}
             starts ~10:00 AM &nbsp;·&nbsp; Closed Sundays
           </div>
-          <div className="sm:ml-auto shrink-0">
+          <div className="flex w-full flex-col gap-2 sm:ml-auto sm:w-auto sm:flex-row">
             <a
-              href="tel:+639603106916"
-              className="btn-outline !py-2.5 !px-5 !text-xs"
+              href="https://wa.me/639293781462"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-outline !justify-center !py-2.5 !px-5 !text-xs"
             >
               <PhoneIcon className="h-4 w-4" />
-              +63 960 310 6916
+              WhatsApp
+            </a>
+            <a
+              href="viber://chat?number=%2B639293781462"
+              className="btn-outline !justify-center !py-2.5 !px-5 !text-xs"
+            >
+              <PhoneIcon className="h-4 w-4" />
+              Viber
             </a>
           </div>
         </div>

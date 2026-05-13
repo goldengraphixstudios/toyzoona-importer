@@ -66,13 +66,15 @@ export default function FloatingCTA() {
         <div className="flex items-center gap-3 px-4 py-3.5 safe-area-pb">
           {/* Call button */}
           <a
-            href="tel:+639603106916"
+            href="https://wa.me/639293781462"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 flex-1 py-3 rounded-xl
                        font-semibold text-sm border border-white/[0.10] text-tz-text
                        bg-white/[0.05] hover:bg-white/[0.09] transition-colors duration-200"
           >
             <PhoneIcon className="h-4 w-4" />
-            Call Us
+            WhatsApp
           </a>
 
           {/* Facebook CTA */}

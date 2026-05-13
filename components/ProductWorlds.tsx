@@ -4,38 +4,38 @@ import { assetPath } from "@/lib/assetPath";
 const categories = [
   {
     label: "Character Toys",
-    img: "/toy-1.jpg",
+    img: "/toy-category-character.webp",
     tag: "Popular",
     accent: "#FF4200",
   },
   {
-    label: "Educational Toys",
-    img: "/toy-2.jpg",
-    tag: "Learning",
+    label: "Mixed Toy Bins",
+    img: "/toy-category-bulk-bins.webp",
+    tag: "Per Kilo",
     accent: "#FFC000",
   },
   {
-    label: "Baby & Toddler",
-    img: "/toy-3.jpg",
-    tag: "Soft Picks",
+    label: "Branded Shelves",
+    img: "/toy-category-shelf-brands.webp",
+    tag: "Brands",
     accent: "#00CFFF",
   },
   {
-    label: "Doll & Roleplay",
-    img: "/toy-4.jpg",
-    tag: "Pretend Play",
+    label: "Showroom Finds",
+    img: "/toy-category-showroom.webp",
+    tag: "Walk-In",
     accent: "#9D4EDD",
   },
   {
-    label: "Event Giveaways",
-    img: "/toy-5.jpg",
-    tag: "Bulk",
+    label: "Auction Floor",
+    img: "/toy-category-auction-floor.webp",
+    tag: "Saturday",
     accent: "#FF4200",
   },
   {
-    label: "Reseller Finds",
-    img: "/toy-6.jpg",
-    tag: "Margin",
+    label: "China New Stock",
+    img: "/toy-category-china-boxes.webp",
+    tag: "Brand-New",
     accent: "#FFC000",
   },
 ];
@@ -56,7 +56,7 @@ export default function ProductWorlds() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(255,239,63,0.18),transparent_18%),radial-gradient(circle_at_84%_28%,rgba(255,121,198,0.17),transparent_18%),linear-gradient(180deg,rgba(255,255,255,0.02),rgba(1,1,8,0.36))] pointer-events-none" />
 
       <div className="wrap relative z-10">
-        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div className="mb-8 grid gap-4 lg:grid-cols-[1fr_390px] lg:items-end">
           <div>
             <div className="mb-3 flex items-center gap-3">
               <div className="h-px w-10 bg-white/25" />
@@ -68,8 +68,32 @@ export default function ProductWorlds() {
             </h2>
           </div>
           <div className="max-w-sm rounded-2xl border border-white/20 bg-white/10 p-4 text-sm font-semibold leading-relaxed text-white/76 backdrop-blur-md">
-            Fresh UK and China toy categories compressed into one moving shelf. Browse fast,
+            UK preloved finds and China brand-new per-kilo stock compressed into one moving shelf. Browse fast,
             then join the group for the latest stock drops.
+          </div>
+        </div>
+
+        <div className="mb-6 grid gap-4 lg:grid-cols-[minmax(0,1fr)_360px]">
+          <div className="rounded-[1.35rem] border border-white/16 bg-white/10 p-4 text-sm font-semibold leading-relaxed text-white/72 backdrop-blur-md">
+            Photos below are from the client&apos;s latest toy uploads starting at IMG_4035, including auction-floor stock,
+            branded shelves, mixed bins, and boxed China arrivals.
+          </div>
+          <div className="overflow-hidden rounded-[1.35rem] border-2 border-[#ffef3f]/35 bg-[#080819]/70 shadow-[0_18px_45px_rgba(0,0,0,0.28)]">
+            <div className="relative aspect-video">
+              <Image
+                src={assetPath("/auction-gallery-wide.webp")}
+                alt="Grand auction video placeholder from Toyzoona stock floor"
+                fill
+                className="object-cover opacity-78"
+                sizes="360px"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(1,1,8,0.16),rgba(1,1,8,0.76))]" />
+              <div className="absolute inset-x-0 bottom-0 p-4">
+                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#ffef3f]">Video window standby</p>
+                <p className="mt-1 font-display text-xl font-black leading-none text-white">Grand auction clip soon</p>
+                <p className="mt-2 text-xs font-semibold text-white/64">Reserved for the client&apos;s YouTube upload.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -82,7 +106,7 @@ export default function ProductWorlds() {
           {sliderItems.map((cat, index) => (
             <article
               key={`${cat.label}-${index}`}
-              className="group relative h-[230px] w-[220px] shrink-0 overflow-hidden rounded-[1.45rem] border-2 border-white/28 bg-white/12 shadow-[0_18px_45px_rgba(0,0,0,0.30)] backdrop-blur-md transition-transform duration-300 hover:-translate-y-2 hover:rotate-1 sm:h-[250px] sm:w-[240px]"
+              className="group relative h-[210px] w-[190px] shrink-0 overflow-hidden rounded-[1.45rem] border-2 border-white/28 bg-white/12 shadow-[0_18px_45px_rgba(0,0,0,0.30)] backdrop-blur-md transition-transform duration-300 hover:-translate-y-2 hover:rotate-1 sm:h-[250px] sm:w-[240px]"
             >
               <Image
                 src={assetPath(cat.img)}
@@ -107,7 +131,7 @@ export default function ProductWorlds() {
                   {cat.label}
                 </h3>
                 <p className="mt-2 text-xs font-semibold uppercase tracking-[0.16em] text-white/62">
-                  Per-kilo sourcing
+                  Toyzoona stock
                 </p>
               </div>
             </article>
@@ -118,8 +142,8 @@ export default function ProductWorlds() {
       <div className="wrap relative z-10 mt-7 flex flex-col items-center justify-between gap-4 sm:flex-row">
         <div className="grid w-full grid-cols-3 gap-3 sm:max-w-xl">
           {[
-            { val: "1K+", label: "SKUs" },
-            { val: "Weekly", label: "Arrivals" },
+            { val: "UK", label: "Preloved" },
+            { val: "CN", label: "Brand-New" },
             { val: "Kilo", label: "Buying" },
           ].map((s) => (
             <div key={s.label} className="rounded-2xl border border-white/18 bg-white/10 px-4 py-3 text-center backdrop-blur-md">
