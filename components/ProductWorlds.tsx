@@ -71,7 +71,7 @@ export default function ProductWorlds() {
           <div className="mx-auto max-w-4xl overflow-hidden rounded-[1.6rem] border-[3px] border-[#ffef3f]/50 bg-[#080819]/80 p-2 shadow-[0_22px_55px_rgba(0,0,0,0.34)]">
             <div className="aspect-video bg-black">
               <iframe
-                src="https://www.youtube.com/embed/AMQq10BFM_U?rel=0&modestbranding=1"
+                src="https://www.youtube.com/embed/AMQq10BFM_U?autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1"
                 title="Toyzoona Importer toy categories highlight"
                 loading="lazy"
                 allowFullScreen
