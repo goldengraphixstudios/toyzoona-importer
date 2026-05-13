@@ -5,37 +5,31 @@ const categories = [
   {
     label: "Character Toys",
     img: "/toy-category-character.webp",
-    tag: "Popular",
     accent: "#FF4200",
   },
   {
     label: "Mixed Toy Bins",
     img: "/toy-category-bulk-bins.webp",
-    tag: "Per Kilo",
     accent: "#FFC000",
   },
   {
     label: "Branded Shelves",
     img: "/toy-category-shelf-brands.webp",
-    tag: "Brands",
     accent: "#00CFFF",
   },
   {
     label: "Showroom Finds",
     img: "/toy-category-showroom.webp",
-    tag: "Walk-In",
     accent: "#9D4EDD",
   },
   {
     label: "Auction Floor",
     img: "/toy-category-auction-floor.webp",
-    tag: "Saturday",
     accent: "#FF4200",
   },
   {
     label: "China New Stock",
     img: "/toy-category-china-boxes.webp",
-    tag: "Brand-New",
     accent: "#FFC000",
   },
 ];
@@ -150,42 +144,29 @@ export default function ProductWorlds() {
         </div>
       </div>
 
-      <div className="relative z-10 overflow-hidden border-y border-white/18 bg-[#080819]/34 py-5 backdrop-blur-sm">
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-28 bg-gradient-to-r from-[#080819]/95 to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-28 bg-gradient-to-l from-[#080819]/95 to-transparent" />
+      <div className="relative z-10 overflow-hidden border-y border-white/18 bg-[#080819]/34 py-6 backdrop-blur-sm sm:py-7">
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-[#080819]/95 to-transparent sm:w-36" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-[#080819]/95 to-transparent sm:w-36" />
 
-        <div className="flex w-max animate-marquee gap-4 px-4">
+        <div className="flex w-max animate-marquee gap-5 px-4">
           {sliderItems.map((cat, index) => (
             <article
               key={`${cat.label}-${index}`}
-              className="group relative h-[210px] w-[190px] shrink-0 overflow-hidden rounded-[1.45rem] border-2 border-white/28 bg-white/12 shadow-[0_18px_45px_rgba(0,0,0,0.30)] backdrop-blur-md transition-transform duration-300 hover:-translate-y-2 hover:rotate-1 sm:h-[250px] sm:w-[240px]"
+              className="group relative h-[260px] w-[320px] shrink-0 overflow-hidden rounded-[1.65rem] border-[3px] border-white/32 bg-white/[0.08] p-3 shadow-[0_20px_48px_rgba(0,0,0,0.34)] backdrop-blur-md transition-transform duration-300 hover:-translate-y-2 hover:rotate-1 sm:h-[330px] sm:w-[440px] lg:h-[360px] lg:w-[520px]"
             >
-              <Image
-                src={assetPath(cat.img)}
-                alt={cat.label}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-110"
-                sizes="240px"
-              />
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(1,1,8,0.08)_0%,rgba(1,1,8,0.30)_45%,rgba(1,1,8,0.92)_100%)]" />
-              <div
-                className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                style={{ background: `radial-gradient(circle at 50% 20%, ${cat.accent}55, transparent 46%)` }}
-              />
-              <div
-                className="absolute left-3 top-3 rounded-full border border-white/50 px-3 py-1 text-[10px] font-black uppercase tracking-[0.16em] text-white"
-                style={{ backgroundColor: `${cat.accent}DD` }}
-              >
-                {cat.tag}
+              <div className="relative h-full w-full overflow-hidden rounded-[1.25rem] border border-white/12 bg-[#050515]/80">
+                <Image
+                  src={assetPath(cat.img)}
+                  alt={cat.label}
+                  fill
+                  className="object-contain transition-transform duration-700 group-hover:scale-[1.03]"
+                  sizes="(min-width: 1024px) 520px, (min-width: 640px) 440px, 320px"
+                />
               </div>
-              <div className="absolute inset-x-0 bottom-0 p-4">
-                <h3 className="font-display text-2xl font-black leading-none text-white drop-shadow-[0_6px_12px_rgba(0,0,0,0.35)]">
-                  {cat.label}
-                </h3>
-                <p className="mt-2 text-xs font-semibold uppercase tracking-[0.16em] text-white/62">
-                  Toyzoona stock
-                </p>
-              </div>
+              <div
+                className="pointer-events-none absolute inset-0 opacity-0 mix-blend-screen transition-opacity duration-300 group-hover:opacity-100"
+                style={{ background: `radial-gradient(circle at 50% 50%, ${cat.accent}45, transparent 58%)` }}
+              />
             </article>
           ))}
         </div>
