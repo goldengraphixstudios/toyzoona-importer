@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { LiveIcon, NewspaperIcon, SparkleIcon, TvIcon } from "@/components/Icons";
+import { LiveIcon, SparkleIcon, TvIcon } from "@/components/Icons";
 import { assetPath } from "@/lib/assetPath";
 
 const tvImages = [
@@ -11,8 +11,8 @@ const tvImages = [
 
 const trustMarkers = [
   { Icon: TvIcon, label: "Gud Morning Kapatid", sub: "National TV Feature" },
-  { Icon: NewspaperIcon, label: "Philippine STAR", sub: "Press Coverage" },
   { Icon: LiveIcon, label: "Viral Facebook Reel", sub: "Social Media Proof" },
+  { Icon: SparkleIcon, label: "Buyer Reviews", sub: "Community Trust" },
 ];
 
 export default function TVSpotlight() {
@@ -43,9 +43,9 @@ export default function TVSpotlight() {
         </div>
 
         {/* Main grid */}
-        <div className="grid lg:grid-cols-2 gap-14 items-start">
+        <div className="grid lg:grid-cols-[0.88fr_1.12fr] gap-10 items-center">
 
-          {/* LEFT — Headline + copy + CTA + photo grid */}
+          {/* LEFT — Headline + copy + CTA */}
           <div>
             <h2 className="display-xl text-tz-text mb-6">
               We Made It to<br />
@@ -55,9 +55,9 @@ export default function TVSpotlight() {
             <p className="body-md mb-6 max-w-xl">
               Toyzoona Importer was featured on{" "}
               <strong className="text-tz-text font-semibold">Gud Morning Kapatid</strong> —
-              one of the Philippines&apos; most-watched morning programs. That broadcast exposure,
-              combined with the viral reel and Philippine STAR press pickup, gives buyers
-              multiple public places to verify the brand.
+              one of the Philippines&apos; most-watched morning programs. That broadcast exposure
+              gives buyers a public place to verify the brand before messaging the official
+              Facebook page.
             </p>
 
             {/* Quote block */}
@@ -94,92 +94,31 @@ export default function TVSpotlight() {
               </svg>
               Read Toyzoona Buyer Reviews
             </a>
-
-            {/* Photo grid */}
-            <div className="grid grid-cols-2 gap-3">
-              {tvImages.map((img) => (
-                <div key={img.src} className="relative h-32 rounded-xl overflow-hidden group
-                                              border border-white/[0.06]">
-                  <Image
-                    src={assetPath(img.src)}
-                    alt={img.alt}
-                    fill
-                    className="object-cover group-hover:scale-108 transition-transform duration-500"
-                    sizes="(max-width: 768px) 50vw, 25vw"
-                  />
-                  <div className="absolute inset-0"
-                    style={{ background: "linear-gradient(to top, rgba(2,2,16,0.6) 0%, transparent 60%)" }} />
-                  <div className="absolute inset-0 bg-tz-amber/0 group-hover:bg-tz-amber/8
-                                  transition-colors duration-400" />
-                </div>
-              ))}
-            </div>
           </div>
 
-          {/* RIGHT — Philippine STAR press card */}
-          <div>
-            {/* Header */}
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl
-                              border border-tz-amber/20"
-                style={{ background: "rgba(255,192,0,0.08)" }}>
-                <NewspaperIcon className="h-5 w-5 text-tz-amber" />
+          {/* RIGHT — TV photo grid */}
+          <div className="grid grid-cols-2 gap-3 sm:gap-4">
+            {tvImages.map((img, index) => (
+              <div
+                key={img.src}
+                className={`relative overflow-hidden rounded-2xl border border-white/[0.06] bg-tz-card shadow-[0_18px_50px_rgba(0,0,0,0.24)] group ${
+                  index % 2 === 0 ? "h-44 sm:h-56 lg:h-72" : "h-52 sm:h-64 lg:h-80"
+                }`}
+              >
+                <Image
+                  src={assetPath(img.src)}
+                  alt={img.alt}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 768px) 50vw, 30vw"
+                />
+                <div
+                  className="absolute inset-0"
+                  style={{ background: "linear-gradient(to top, rgba(2,2,16,0.62) 0%, transparent 60%)" }}
+                />
+                <div className="absolute inset-0 bg-tz-amber/0 transition-colors duration-400 group-hover:bg-tz-amber/8" />
               </div>
-              <div>
-                <div className="eyebrow !text-tz-amber mb-0.5">Press Coverage</div>
-                <div className="font-display font-bold text-tz-text text-sm">Philippine STAR</div>
-              </div>
-              <span className="ml-auto pill-amber text-[10px]">Press</span>
-            </div>
-
-            {/* Press card */}
-            <div className="bg-tz-card border border-tz-amber/20 rounded-2xl overflow-hidden
-                            shadow-[0_0_60px_rgba(255,192,0,0.08)]">
-              {/* Card chrome header */}
-              <div className="px-5 py-3.5 bg-tz-bg border-b border-white/[0.06] flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-tz-amber animate-pulse" />
-                <span className="text-xs text-tz-muted font-mono">facebook.com/PhilippineSTAR</span>
-              </div>
-
-              <div className="px-6 pt-5 pb-4">
-                <h3 className="font-display font-bold text-tz-text text-xl mb-2">
-                  Highlighted in Philippine STAR
-                </h3>
-                <p className="text-tz-muted text-sm leading-relaxed">
-                  Beyond TV, Toyzoona&apos;s story landed in one of the country&apos;s biggest
-                  publications — giving buyers another public reference point across broadcast,
-                  social, and national press.
-                </p>
-              </div>
-
-              <div className="px-5 pb-5">
-                <div className="rounded-xl overflow-hidden border border-white/10 bg-white shadow-lg">
-                  <iframe
-                    src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2FPhilippineSTAR%2Fposts%2Fpfbid0vDA7WywnMQrir75SeeJAMSqHE7fmWNawG82k2HSZgN4VK6BnmXwREjtNrGGZLohUl&show_text=false&width=500"
-                    title="Philippine STAR post about Toyzoona Importer"
-                    width="500"
-                    height="498"
-                    style={{ border: "none", overflow: "hidden", width: "100%", maxWidth: "500px", display: "block" }}
-                    scrolling="no"
-                    frameBorder="0"
-                    allowFullScreen
-                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                  />
-                </div>
-              </div>
-
-              <div className="px-6 py-3.5 bg-tz-bg border-t border-white/[0.06] flex items-center justify-between">
-                <p className="text-xs text-tz-dim">A stronger trust anchor beyond social content</p>
-                <a
-                  href="https://www.facebook.com/PhilippineSTAR"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs text-tz-amber hover:underline font-semibold"
-                >
-                  Philippine STAR ↗
-                </a>
-              </div>
-            </div>
+            ))}
           </div>
 
         </div>
