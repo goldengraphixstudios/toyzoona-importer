@@ -67,13 +67,34 @@ posts.unshift({
     .map((keyword) => keyword.trim())
     .filter(Boolean),
   summary: "Write the direct answer summary for GEO and AEO snippets.",
+  deck: "Write a persuasive editorial deck that expands the headline and tells buyers why this article matters.",
+  heroImage: {
+    src: getFlag("--hero", "/auction-gallery-wide.webp"),
+    alt: "Describe the Toyzoona image for accessibility and search.",
+    caption: "Add an optional caption that supports the article angle."
+  },
+  takeaways: [
+    "Add the first practical takeaway.",
+    "Add the second practical takeaway.",
+    "Add the third practical takeaway."
+  ],
   sections: [
     {
       heading: "Main answer",
+      image: {
+        src: "/toy-category-bulk-bins.webp",
+        alt: "Describe the supporting Toyzoona stock image.",
+        caption: "Explain what this image shows."
+      },
       body: [
         "Write the clearest answer first so search engines and answer engines can understand the article quickly.",
         "Add location, schedule, buying process, and Facebook CTA details where relevant."
-      ]
+      ],
+      bullets: [
+        "Add a scannable buyer tip.",
+        "Add a second practical buyer tip."
+      ],
+      quote: "Add a short pull quote that summarizes the buyer insight."
     },
     {
       heading: "Buyer tips",
@@ -91,7 +112,12 @@ posts.unshift({
       question: "How can buyers contact Toyzoona?",
       answer: "Replace this with the official Facebook page, group, or buying instruction."
     }
-  ]
+  ],
+  cta: {
+    label: "Join the Facebook Group",
+    href: "https://www.facebook.com/groups/642834551000763",
+    note: "Explain what the reader should do next and why."
+  }
 });
 
 await writeFile(postsPath, `${JSON.stringify(posts, null, 2)}\n`);

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -70,6 +71,18 @@ export default function BlogPage() {
                 index === 0 ? "lg:col-span-2 lg:p-7" : ""
               }`}
             >
+              <div className={`relative mb-5 overflow-hidden rounded-[1.25rem] border border-white/10 bg-[#070718] ${
+                index === 0 ? "aspect-[16/7]" : "aspect-[16/10]"
+              }`}>
+                <Image
+                  src={assetPath(post.heroImage.src)}
+                  alt={post.heroImage.alt}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes={index === 0 ? "(min-width: 1024px) 1100px, 100vw" : "(min-width: 1024px) 540px, 100vw"}
+                />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_20%,rgba(1,1,8,0.72)_100%)]" />
+              </div>
               <div className="mb-4 flex flex-wrap items-center gap-2">
                 <span className="rounded-full bg-[#ff4200] px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.14em] text-white">
                   {post.category}
@@ -83,6 +96,9 @@ export default function BlogPage() {
               </h2>
               <p className="mt-4 max-w-3xl text-sm font-semibold leading-relaxed text-tz-muted">
                 {post.description}
+              </p>
+              <p className="mt-4 max-w-3xl text-sm leading-relaxed text-white/66">
+                {post.deck}
               </p>
               <div className="mt-5 flex flex-wrap gap-2">
                 {post.keywords.slice(0, 4).map((keyword) => (

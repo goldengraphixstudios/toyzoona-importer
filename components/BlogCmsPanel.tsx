@@ -21,10 +21,24 @@ const emptyDraft = (): DraftPost => ({
   readTime: "4 min read",
   keywords: [],
   summary: "",
+  deck: "",
+  heroImage: {
+    src: "/auction-gallery-wide.webp",
+    alt: "",
+    caption: "",
+  },
+  takeaways: [],
   sections: [
     {
       heading: "Main answer",
       body: [""],
+      image: {
+        src: "",
+        alt: "",
+        caption: "",
+      },
+      bullets: [],
+      quote: "",
     },
   ],
   faqs: [
@@ -33,6 +47,11 @@ const emptyDraft = (): DraftPost => ({
       answer: "",
     },
   ],
+  cta: {
+    label: "Join the Facebook Group",
+    href: "https://www.facebook.com/groups/642834551000763",
+    note: "",
+  },
 });
 
 function slugify(value: string) {
@@ -49,6 +68,67 @@ function splitLines(value: string) {
     .filter(Boolean);
 }
 
+function serializeSections(sections: BlogPost["sections"]) {
+  return sections
+    .map((section) => {
+      const lines = [
+        `## ${section.heading}`,
+        section.image?.src ? `IMAGE: ${section.image.src}` : "",
+        section.image?.alt ? `ALT: ${section.image.alt}` : "",
+        section.image?.caption ? `CAPTION: ${section.image.caption}` : "",
+        section.quote ? `QUOTE: ${section.quote}` : "",
+        ...(section.bullets ?? []).map((bullet) => `- ${bullet}`),
+        "",
+        ...section.body,
+      ].filter((line, index, array) => line || array[index - 1]);
+
+      return lines.join("\n").trim();
+    })
+    .join("\n\n");
+}
+
+function parseSections(value: string): BlogPost["sections"] {
+  return value
+    .split(/\n(?=##\s+)/)
+    .map((block) => {
+      const lines = block
+        .split("\n")
+        .map((line) => line.trim())
+        .filter(Boolean);
+      const headingLine = lines.find((line) => line.startsWith("## "));
+      const heading = headingLine?.replace(/^##\s+/, "").trim() || "Main answer";
+      const imageSrc = lines.find((line) => line.toUpperCase().startsWith("IMAGE:"))?.replace(/^IMAGE:\s*/i, "").trim() ?? "";
+      const imageAlt = lines.find((line) => line.toUpperCase().startsWith("ALT:"))?.replace(/^ALT:\s*/i, "").trim() ?? "";
+      const imageCaption = lines.find((line) => line.toUpperCase().startsWith("CAPTION:"))?.replace(/^CAPTION:\s*/i, "").trim() ?? "";
+      const quote = lines.find((line) => line.toUpperCase().startsWith("QUOTE:"))?.replace(/^QUOTE:\s*/i, "").trim() ?? "";
+      const bullets = lines
+        .filter((line) => line.startsWith("- "))
+        .map((line) => line.replace(/^-\s+/, "").trim())
+        .filter(Boolean);
+      const body = lines.filter(
+        (line) =>
+          !line.startsWith("## ") &&
+          !line.startsWith("- ") &&
+          !/^(IMAGE|ALT|CAPTION|QUOTE):/i.test(line),
+      );
+
+      return {
+        heading,
+        body,
+        image: imageSrc
+          ? {
+              src: imageSrc,
+              alt: imageAlt || heading,
+              caption: imageCaption,
+            }
+          : undefined,
+        bullets,
+        quote,
+      };
+    })
+    .filter((section) => section.heading && section.body.length > 0);
+}
+
 function compactDraft(draft: DraftPost): BlogPost {
   return {
     slug: draft.slug || slugify(draft.title),
@@ -60,10 +140,26 @@ function compactDraft(draft: DraftPost): BlogPost {
     readTime: draft.readTime.trim() || "4 min read",
     keywords: draft.keywords.map((keyword) => keyword.trim()).filter(Boolean),
     summary: draft.summary.trim(),
+    deck: draft.deck.trim(),
+    heroImage: {
+      src: draft.heroImage.src.trim() || "/auction-gallery-wide.webp",
+      alt: draft.heroImage.alt.trim() || draft.title.trim(),
+      caption: draft.heroImage.caption?.trim(),
+    },
+    takeaways: draft.takeaways.map((takeaway) => takeaway.trim()).filter(Boolean),
     sections: draft.sections
       .map((section) => ({
         heading: section.heading.trim(),
         body: section.body.map((paragraph) => paragraph.trim()).filter(Boolean),
+        image: section.image?.src
+          ? {
+              src: section.image.src.trim(),
+              alt: section.image.alt.trim() || section.heading.trim(),
+              caption: section.image.caption?.trim(),
+            }
+          : undefined,
+        bullets: section.bullets?.map((bullet) => bullet.trim()).filter(Boolean),
+        quote: section.quote?.trim(),
       }))
       .filter((section) => section.heading && section.body.length > 0),
     faqs: draft.faqs
@@ -72,6 +168,11 @@ function compactDraft(draft: DraftPost): BlogPost {
         answer: faq.answer.trim(),
       }))
       .filter((faq) => faq.question && faq.answer),
+    cta: {
+      label: draft.cta.label.trim() || "Join the Facebook Group",
+      href: draft.cta.href.trim() || "https://www.facebook.com/groups/642834551000763",
+      note: draft.cta.note?.trim(),
+    },
   };
 }
 
@@ -245,6 +346,61 @@ export default function BlogCmsPanel() {
           </label>
 
           <label className="space-y-2 sm:col-span-2">
+            <span className="text-xs font-black uppercase tracking-[0.14em] text-white/64">Editorial deck</span>
+            <textarea
+              value={activeDraft.deck}
+              onChange={(event) => updateDraft("deck", event.target.value)}
+              className="min-h-24 w-full rounded-2xl border border-white/10 bg-[#09091a] px-4 py-3 text-sm font-semibold leading-relaxed text-white outline-none ring-[#ffef3f]/30 transition focus:ring-4"
+              placeholder="Write the article standfirst shown under the headline. Make it persuasive, useful, and specific."
+            />
+          </label>
+
+          <label className="space-y-2">
+            <span className="text-xs font-black uppercase tracking-[0.14em] text-white/64">Hero image path</span>
+            <input
+              value={activeDraft.heroImage.src}
+              onChange={(event) =>
+                updateDraft("heroImage", {
+                  ...activeDraft.heroImage,
+                  src: event.target.value,
+                })
+              }
+              className="w-full rounded-2xl border border-white/10 bg-[#09091a] px-4 py-3 text-sm font-semibold text-white outline-none ring-[#ffef3f]/30 transition focus:ring-4"
+              placeholder="/auction-gallery-wide.webp"
+            />
+          </label>
+
+          <label className="space-y-2">
+            <span className="text-xs font-black uppercase tracking-[0.14em] text-white/64">Hero image alt</span>
+            <input
+              value={activeDraft.heroImage.alt}
+              onChange={(event) =>
+                updateDraft("heroImage", {
+                  ...activeDraft.heroImage,
+                  alt: event.target.value,
+                })
+              }
+              className="w-full rounded-2xl border border-white/10 bg-[#09091a] px-4 py-3 text-sm font-semibold text-white outline-none ring-[#ffef3f]/30 transition focus:ring-4"
+              placeholder="Describe the image for accessibility and SEO."
+            />
+          </label>
+
+          <label className="space-y-2 sm:col-span-2">
+            <span className="text-xs font-black uppercase tracking-[0.14em] text-white/64">Hero image caption</span>
+            <input
+              value={activeDraft.heroImage.caption ?? ""}
+              onChange={(event) =>
+                updateDraft("heroImage", {
+                  ...activeDraft.heroImage,
+                  caption: event.target.value,
+                })
+              }
+              className="w-full rounded-2xl border border-white/10 bg-[#09091a] px-4 py-3 text-sm font-semibold text-white outline-none ring-[#ffef3f]/30 transition focus:ring-4"
+              placeholder="Optional caption shown below the hero image."
+            />
+          </label>
+
+          <label className="space-y-2 sm:col-span-2">
             <span className="text-xs font-black uppercase tracking-[0.14em] text-white/64">Keywords, one per line</span>
             <textarea
               value={activeDraft.keywords.join("\n")}
@@ -255,19 +411,67 @@ export default function BlogCmsPanel() {
           </label>
 
           <label className="space-y-2 sm:col-span-2">
-            <span className="text-xs font-black uppercase tracking-[0.14em] text-white/64">Article body, one paragraph per line</span>
+            <span className="text-xs font-black uppercase tracking-[0.14em] text-white/64">Key takeaways, one per line</span>
             <textarea
-              value={activeDraft.sections[0]?.body.join("\n") ?? ""}
-              onChange={(event) =>
-                updateDraft("sections", [
-                  {
-                    heading: activeDraft.sections[0]?.heading || "Main answer",
-                    body: splitLines(event.target.value),
-                  },
-                ])
-              }
+              value={activeDraft.takeaways.join("\n")}
+              onChange={(event) => updateDraft("takeaways", splitLines(event.target.value))}
+              className="min-h-28 w-full rounded-2xl border border-white/10 bg-[#09091a] px-4 py-3 text-sm font-semibold leading-relaxed text-white outline-none ring-[#ffef3f]/30 transition focus:ring-4"
+              placeholder={"Paying by kilo is best when you need variety.\nCheck Facebook updates before visiting.\nSort your haul before reselling."}
+            />
+          </label>
+
+          <label className="space-y-2 sm:col-span-2">
+            <span className="text-xs font-black uppercase tracking-[0.14em] text-white/64">Article sections</span>
+            <textarea
+              value={serializeSections(activeDraft.sections)}
+              onChange={(event) => updateDraft("sections", parseSections(event.target.value))}
               className="min-h-44 w-full rounded-2xl border border-white/10 bg-[#09091a] px-4 py-3 text-sm font-semibold leading-relaxed text-white outline-none ring-[#ffef3f]/30 transition focus:ring-4"
-              placeholder={"Start with the direct answer.\nAdd buyer tips, local details, and Facebook CTA."}
+              placeholder={"## What buyers should know\nIMAGE: /toy-category-bulk-bins.webp\nALT: Mixed Toyzoona toy bins\nCAPTION: Optional image caption\nQUOTE: Optional pull quote\n- Optional bullet\n\nWrite paragraph one.\nWrite paragraph two."}
+            />
+          </label>
+
+          <label className="space-y-2">
+            <span className="text-xs font-black uppercase tracking-[0.14em] text-white/64">CTA label</span>
+            <input
+              value={activeDraft.cta.label}
+              onChange={(event) =>
+                updateDraft("cta", {
+                  ...activeDraft.cta,
+                  label: event.target.value,
+                })
+              }
+              className="w-full rounded-2xl border border-white/10 bg-[#09091a] px-4 py-3 text-sm font-semibold text-white outline-none ring-[#ffef3f]/30 transition focus:ring-4"
+              placeholder="Join the Facebook Group"
+            />
+          </label>
+
+          <label className="space-y-2">
+            <span className="text-xs font-black uppercase tracking-[0.14em] text-white/64">CTA link</span>
+            <input
+              value={activeDraft.cta.href}
+              onChange={(event) =>
+                updateDraft("cta", {
+                  ...activeDraft.cta,
+                  href: event.target.value,
+                })
+              }
+              className="w-full rounded-2xl border border-white/10 bg-[#09091a] px-4 py-3 text-sm font-semibold text-white outline-none ring-[#ffef3f]/30 transition focus:ring-4"
+              placeholder="https://www.facebook.com/groups/642834551000763"
+            />
+          </label>
+
+          <label className="space-y-2 sm:col-span-2">
+            <span className="text-xs font-black uppercase tracking-[0.14em] text-white/64">CTA note</span>
+            <textarea
+              value={activeDraft.cta.note ?? ""}
+              onChange={(event) =>
+                updateDraft("cta", {
+                  ...activeDraft.cta,
+                  note: event.target.value,
+                })
+              }
+              className="min-h-24 w-full rounded-2xl border border-white/10 bg-[#09091a] px-4 py-3 text-sm font-semibold leading-relaxed text-white outline-none ring-[#ffef3f]/30 transition focus:ring-4"
+              placeholder="Explain what the reader should do next and why."
             />
           </label>
 
