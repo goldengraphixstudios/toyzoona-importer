@@ -164,12 +164,12 @@ export default function Reviews() {
         {/* Bottom CTA */}
         <div className="text-center mt-10">
           <a
-            href="https://www.facebook.com/groups/642834551000763"
+            href="https://www.facebook.com/ToyzoonaLaguna"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-ghost !text-tz-muted hover:!text-tz-orange"
           >
-            Read more buyer stories in the Facebook Group
+            Read more buyer stories on the Facebook Page
             <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>

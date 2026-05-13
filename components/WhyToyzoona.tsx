@@ -141,7 +141,7 @@ export default function WhyToyzoona() {
               <p className="text-white/68 text-sm sm:text-base leading-relaxed max-w-3xl mb-5">
                 {featured.body} The TV guesting, the viral reel, and the Philippine STAR
                 press pickup give buyers multiple public references to verify before joining
-                the group or placing a bulk order.
+                the official Facebook page or placing a bulk order.
               </p>
               <div className="flex flex-wrap gap-3">
                 <a

@@ -110,12 +110,12 @@ posts.unshift({
     },
     {
       question: "How can buyers contact Toyzoona?",
-      answer: "Replace this with the official Facebook page, group, or buying instruction."
+      answer: "Replace this with the official Facebook page or buying instruction."
     }
   ],
   cta: {
-    label: "Join the Facebook Group",
-    href: "https://www.facebook.com/groups/642834551000763",
+    label: "Message the Facebook Page",
+    href: "https://www.facebook.com/ToyzoonaLaguna",
     note: "Explain what the reader should do next and why."
   }
 });

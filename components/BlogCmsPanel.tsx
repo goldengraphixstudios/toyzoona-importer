@@ -48,8 +48,8 @@ const emptyDraft = (): DraftPost => ({
     },
   ],
   cta: {
-    label: "Join the Facebook Group",
-    href: "https://www.facebook.com/groups/642834551000763",
+    label: "Message the Facebook Page",
+    href: "https://www.facebook.com/ToyzoonaLaguna",
     note: "",
   },
 });
@@ -169,8 +169,8 @@ function compactDraft(draft: DraftPost): BlogPost {
       }))
       .filter((faq) => faq.question && faq.answer),
     cta: {
-      label: draft.cta.label.trim() || "Join the Facebook Group",
-      href: draft.cta.href.trim() || "https://www.facebook.com/groups/642834551000763",
+      label: draft.cta.label.trim() || "Message the Facebook Page",
+      href: draft.cta.href.trim() || "https://www.facebook.com/ToyzoonaLaguna",
       note: draft.cta.note?.trim(),
     },
   };
@@ -441,7 +441,7 @@ export default function BlogCmsPanel() {
                 })
               }
               className="w-full rounded-2xl border border-white/10 bg-[#09091a] px-4 py-3 text-sm font-semibold text-white outline-none ring-[#ffef3f]/30 transition focus:ring-4"
-              placeholder="Join the Facebook Group"
+              placeholder="Message the Facebook Page"
             />
           </label>
 
@@ -456,7 +456,7 @@ export default function BlogCmsPanel() {
                 })
               }
               className="w-full rounded-2xl border border-white/10 bg-[#09091a] px-4 py-3 text-sm font-semibold text-white outline-none ring-[#ffef3f]/30 transition focus:ring-4"
-              placeholder="https://www.facebook.com/groups/642834551000763"
+              placeholder="https://www.facebook.com/ToyzoonaLaguna"
             />
           </label>
 

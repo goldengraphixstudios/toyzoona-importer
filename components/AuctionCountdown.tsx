@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { FACEBOOK_GROUP_URL } from "@/lib/socialLinks";
+import { FACEBOOK_PAGE_URL } from "@/lib/socialLinks";
 
 const MANILA_TIMEZONE = "Asia/Manila";
 const AUCTION_HOUR = 10;
@@ -88,7 +88,7 @@ export default function AuctionCountdown() {
             {auction ? auction.dateLabel : "Checking date"} · 10:00 AM PHT
           </h3>
           <p className="mt-2 text-sm font-semibold leading-relaxed text-white/68">
-            Grand auction stock previews, toy lots, and per-kilo bidding updates are posted in the Facebook group.
+            Grand auction stock previews, toy lots, and per-kilo bidding updates are posted on the Toyzoona Facebook page.
           </p>
         </div>
 
@@ -102,12 +102,12 @@ export default function AuctionCountdown() {
             </div>
           ))}
           <a
-            href={FACEBOOK_GROUP_URL}
+            href={FACEBOOK_PAGE_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex min-h-14 items-center justify-center rounded-xl border-2 border-white bg-[#ff4200] px-4 text-xs font-black uppercase tracking-[0.12em] text-white shadow-[0_7px_0_#9b2200] transition-transform duration-300 hover:-translate-y-1"
           >
-            Join Group for Updates
+            View Facebook Updates
           </a>
         </div>
       </div>

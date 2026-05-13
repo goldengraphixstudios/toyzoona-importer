@@ -64,7 +64,7 @@ export default function ProductWorlds() {
           </div>
           <div className="max-w-sm rounded-2xl border border-white/20 bg-white/10 p-4 text-sm font-semibold leading-relaxed text-white/76 backdrop-blur-md">
             UK preloved finds and China brand-new per-kilo stock compressed into one moving shelf. Browse fast,
-            then join the group for the latest stock drops.
+            then message the Facebook page for the latest stock drops.
           </div>
         </div>
 

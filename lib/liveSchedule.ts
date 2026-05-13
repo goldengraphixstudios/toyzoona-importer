@@ -1,4 +1,4 @@
-export { FACEBOOK_GROUP_URL, FACEBOOK_PAGE_URL } from "@/lib/socialLinks";
+export { FACEBOOK_PAGE_URL } from "@/lib/socialLinks";
 
 const MANILA_TIMEZONE = "Asia/Manila";
 const OPEN_MINUTES = 9 * 60;

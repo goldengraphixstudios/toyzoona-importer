@@ -2,11 +2,12 @@ import Image from "next/image";
 import LiveCountdown from "@/components/LiveCountdown";
 import { BalloonToy, BearToy, BlocksToy, RocketToy, StarToy, ToyDisplaySvg, TrainToy, YoYoToy } from "@/components/ToySvgs";
 import { assetPath } from "@/lib/assetPath";
+import { FACEBOOK_PAGE_URL } from "@/lib/socialLinks";
 
 const proofItems = [
   "National TV proof",
   "Philippine STAR pickup",
-  "8,000+ buyer group",
+  "8,000+ buyers",
   "Saturday auctions",
 ];
 
@@ -86,12 +87,12 @@ export default function Hero() {
 
             <div className="mb-9 flex flex-col gap-3 sm:flex-row fade-up-4">
               <a
-                href="https://www.facebook.com/groups/642834551000763"
+                href={FACEBOOK_PAGE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center justify-center gap-3 rounded-[1.1rem] border-2 border-white bg-[#ff3d00] px-6 py-3.5 text-sm font-black text-white shadow-[0_12px_0_#9b2200,0_22px_34px_rgba(100,24,0,0.32)] transition-all duration-300 hover:-translate-y-1 hover:rotate-[-1deg] hover:bg-[#ff5f18] active:translate-y-1 active:shadow-[0_7px_0_#9b2200,0_12px_22px_rgba(100,24,0,0.24)]"
               >
-                Join the Toy Group
+                Message Toyzoona Page
                 <svg className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>

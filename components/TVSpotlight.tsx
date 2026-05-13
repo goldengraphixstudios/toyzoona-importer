@@ -66,7 +66,7 @@ export default function TVSpotlight() {
                 style={{ background: "linear-gradient(180deg, #FFC000, rgba(255,192,0,0.2))" }} />
               <p className="text-tz-muted italic leading-relaxed">
                 &ldquo;A public brand moment buyers can watch, share, and verify before
-                joining the group or placing a bulk order.&rdquo;
+                messaging the official Facebook page or placing a bulk order.&rdquo;
               </p>
             </div>
 
