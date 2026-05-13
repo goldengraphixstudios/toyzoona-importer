@@ -67,65 +67,8 @@ export default function ProductWorlds() {
           </div>
         </div>
 
-        <div className="mb-6 grid gap-4 lg:grid-cols-[minmax(0,1fr)_360px]">
-          <div className="overflow-hidden rounded-[1.35rem] border-2 border-white/18 bg-[#080819]/70 shadow-[0_18px_45px_rgba(0,0,0,0.28)] backdrop-blur-md">
-            <div className="flex items-center justify-between border-b border-white/10 bg-white/10 px-4 py-3">
-              <div className="flex gap-1.5">
-                <span className="h-3 w-3 rounded-full bg-[#ff4200]" />
-                <span className="h-3 w-3 rounded-full bg-[#ffef3f]" />
-                <span className="h-3 w-3 rounded-full bg-[#00cfff]" />
-              </div>
-              <span className="rounded-full bg-white/10 px-3 py-1 text-[9px] font-black uppercase tracking-[0.16em] text-white/62">
-                Website Preview
-              </span>
-            </div>
-            <div className="relative min-h-[210px] overflow-hidden p-4">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_14%_16%,rgba(255,239,63,0.24),transparent_26%),radial-gradient(circle_at_82%_30%,rgba(0,207,255,0.22),transparent_22%),linear-gradient(135deg,rgba(255,66,0,0.18),rgba(157,78,221,0.18))]" />
-              <div className="relative grid gap-3 sm:grid-cols-[1.05fr_0.95fr]">
-                <div className="rounded-2xl border-2 border-white/20 bg-[#ffef3f] p-4 text-[#4b1b00] shadow-[0_8px_0_#ff4200]">
-                  <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#9b2200]">Toyzoona Importer</p>
-                  <h3 className="mt-2 font-display text-3xl font-black leading-[0.9] tracking-[-0.05em]">
-                    Toys by kilo, built for fast buyers.
-                  </h3>
-                  <div className="mt-4 grid grid-cols-3 gap-2">
-                    {["Live", "Bulk", "Auction"].map((item) => (
-                      <span key={item} className="rounded-xl border-2 border-[#4b1b00] bg-white px-2 py-2 text-center text-[10px] font-black uppercase shadow-[0_4px_0_#d19a00]">
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div className="grid gap-3">
-                  <div className="rounded-2xl border border-white/18 bg-white/12 p-3">
-                    <div className="mb-2 h-3 w-24 rounded-full bg-[#ffef3f]" />
-                    <div className="grid grid-cols-3 gap-2">
-                      {[0, 1, 2].map((item) => (
-                        <div key={item} className="h-16 rounded-xl bg-white/16 shadow-inner" />
-                      ))}
-                    </div>
-                  </div>
-                  <div className="rounded-2xl border border-white/18 bg-white/12 p-3">
-                    <div className="flex items-center justify-between gap-2">
-                      <div>
-                        <div className="h-3 w-20 rounded-full bg-[#00cfff]" />
-                        <div className="mt-2 h-2 w-28 rounded-full bg-white/25" />
-                      </div>
-                      <span className="rounded-xl bg-[#ff4200] px-3 py-2 text-[10px] font-black uppercase text-white">
-                        Join
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <a
-                href="#how-to-buy"
-                className="relative mt-4 inline-flex rounded-full border-2 border-white bg-[#ff4200] px-4 py-2 text-xs font-black uppercase tracking-[0.12em] text-white shadow-[0_6px_0_#9b2200] transition-transform duration-300 hover:-translate-y-1"
-              >
-                View buying flow
-              </a>
-            </div>
-          </div>
-          <div className="overflow-hidden rounded-[1.35rem] border-2 border-[#ffef3f]/35 bg-[#080819]/70 shadow-[0_18px_45px_rgba(0,0,0,0.28)]">
+        <div className="mb-6">
+          <div className="mx-auto max-w-4xl overflow-hidden rounded-[1.6rem] border-[3px] border-[#ffef3f]/50 bg-[#080819]/80 p-2 shadow-[0_22px_55px_rgba(0,0,0,0.34)]">
             <div className="aspect-video bg-black">
               <iframe
                 src="https://www.youtube.com/embed/AMQq10BFM_U?rel=0&modestbranding=1"
@@ -135,10 +78,6 @@ export default function ProductWorlds() {
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 className="h-full w-full"
               />
-            </div>
-            <div className="border-t border-white/10 bg-[#080819] px-4 py-3">
-              <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#ffef3f]">Toy Categories Highlight</p>
-              <p className="mt-1 text-xs font-semibold text-white/64">Client-uploaded YouTube feature embedded here.</p>
             </div>
           </div>
         </div>
