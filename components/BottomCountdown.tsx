@@ -19,7 +19,7 @@ export default function BottomCountdown() {
         : {
             isLiveNow: false,
             label: "Checking auction countdown",
-            helper: "Saturday, 10:00 AM Philippine time.",
+            helper: "Saturday, 11:00 AM Philippine time.",
             target: Date.now(),
           },
     [now],

@@ -20,7 +20,7 @@ export default function LiveCountdown() {
         : {
             isLiveNow: false,
             label: "Checking auction countdown",
-            helper: "Countdown points to Saturday, 10:00 AM Philippine time.",
+            helper: "Countdown points to Saturday, 11:00 AM Philippine time.",
             target: Date.now(),
           },
     [now],
@@ -38,7 +38,7 @@ export default function LiveCountdown() {
             </p>
           </div>
           <p className="text-sm font-semibold leading-relaxed text-white/76">
-            {isReady ? state.helper : "Countdown points to Saturday, 10:00 AM Philippine time."}
+            {isReady ? state.helper : "Countdown points to Saturday, 11:00 AM Philippine time."}
           </p>
         </div>
 

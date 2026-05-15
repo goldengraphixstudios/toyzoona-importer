@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { FACEBOOK_PAGE_URL } from "@/lib/socialLinks";
 
 const MANILA_TIMEZONE = "Asia/Manila";
-const AUCTION_HOUR = 10;
+const AUCTION_HOUR = 11;
 
 type ManilaNow = {
   year: number;
@@ -85,7 +85,7 @@ export default function AuctionCountdown() {
         <div>
           <p className="text-xs font-black uppercase tracking-[0.18em] text-[#ffef3f]">Next Saturday Auction</p>
           <h3 className="mt-1 font-display text-2xl font-black leading-none text-white">
-            {auction ? auction.dateLabel : "Checking date"} · 10:00 AM PHT
+            {auction ? auction.dateLabel : "Checking date"} · 11:00 AM PHT
           </h3>
           <p className="mt-2 text-sm font-semibold leading-relaxed text-white/68">
             Grand auction stock previews, toy lots, and per-kilo bidding updates are posted on the Toyzoona Facebook page.

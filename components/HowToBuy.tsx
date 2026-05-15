@@ -9,7 +9,7 @@ const steps = [
     num: "01",
     Icon: AuctionHammerIcon,
     title: "Saturday Auction",
-    body: "Every Saturday at 10:00 AM Philippine time. Warehouse opens and the bidding begins. Best for scoring mixed lots at the lowest per-kilo prices. Check the Facebook page for auction schedules.",
+    body: "Every Saturday at 11:00 AM Philippine time. Warehouse opens and the bidding begins. Best for scoring mixed lots at the lowest per-kilo prices. Check the Facebook page for auction schedules.",
     cta: "View Auction Updates",
     href: FACEBOOK_PAGE_URL,
     accent: "#FF4200",
@@ -173,7 +173,7 @@ export default function HowToBuy() {
             <strong className="text-tz-text font-semibold">Operating Hours:</strong>{" "}
             Monday – Saturday &nbsp;·&nbsp; 9:00 AM – 6:30 PM &nbsp;·&nbsp;
             <strong className="text-tz-orange font-semibold">Saturday Auction</strong>{" "}
-            starts ~10:00 AM &nbsp;·&nbsp; Closed Sundays
+            starts ~11:00 AM &nbsp;·&nbsp; Closed Sundays
           </div>
           <div className="flex w-full flex-col gap-2 sm:ml-auto sm:w-auto sm:flex-row">
             <a

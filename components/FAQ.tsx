@@ -12,7 +12,7 @@ const faqs = [
   },
   {
     q: "When is the Saturday auction and how does it work?",
-    a: "Every Saturday at ~10:00 AM at our Cabuyao, Laguna warehouse. Buyers can view, sort, and bid on toy lots. The per-kilo rate is usually most competitive during auction events. Check the Toyzoona Laguna Facebook page for advance schedules and previews.",
+    a: "Every Saturday at ~11:00 AM at our Cabuyao, Laguna warehouse. Buyers can view, sort, and bid on toy lots. The per-kilo rate is usually most competitive during auction events. Check the Toyzoona Laguna Facebook page for advance schedules and previews.",
   },
   {
     q: "Can I buy without attending in person?",

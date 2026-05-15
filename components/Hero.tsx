@@ -70,7 +70,7 @@ export default function Hero() {
             </div>
 
             <p className="mb-3 inline-flex rounded-full bg-[#ffef3f] px-4 py-1.5 font-display text-xs font-black uppercase tracking-[0.2em] text-[#8c2400] shadow-[0_10px_22px_rgba(255,239,63,0.3)] fade-up-1">
-              Toyzoona Importer
+              #1 Toys per Kilo · Toyzoona Importer
             </p>
 
             <h1 className="mb-5 max-w-4xl font-display text-[clamp(2.65rem,15vw,7.1rem)] font-black leading-[0.82] tracking-[-0.07em] text-white drop-shadow-[0_14px_30px_rgba(81,25,0,0.38)] fade-up-2">

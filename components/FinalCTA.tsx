@@ -3,13 +3,16 @@ import { AuctionHammerIcon, ClockIcon, GlobeIcon, MapPinIcon, MailIcon, PhoneIco
 import { assetPath } from "@/lib/assetPath";
 import { FACEBOOK_PAGE_URL } from "@/lib/socialLinks";
 
+const WAZE_LOCATION_URL = "https://waze.com/ul/hwdw1h6ezp";
+const WAZE_EMBED_URL = "https://embed.waze.com/iframe?zoom=17&lat=14.25454&lon=121.12951&pin=1";
+
 const contactCards = [
   {
     Icon: MapPinIcon,
     title: "Location",
     info: "Gatcahalian Subdivision\nBrgy. Banay 2, Cabuyao, Laguna",
-    link: "https://maps.google.com/?q=Gatcahalian+Subdivision,+Brgy.+Banay+2,+Cabuyao,+Laguna",
-    linkLabel: "Get Directions ↗",
+    link: WAZE_LOCATION_URL,
+    linkLabel: "Open in Waze ↗",
   },
   {
     Icon: ClockIcon,
@@ -28,7 +31,7 @@ const contactCards = [
   {
     Icon: AuctionHammerIcon,
     title: "Saturday Auction",
-    info: "Every Saturday 10:00 AM\nCabuyao warehouse · Free entry",
+    info: "Every Saturday 11:00 AM\nCabuyao warehouse · Free entry",
     link: FACEBOOK_PAGE_URL,
     linkLabel: "View Schedule ↗",
   },
@@ -230,6 +233,34 @@ export default function FinalCTA() {
                 )}
               </div>
             ))}
+          </div>
+
+          <div className="mt-6 overflow-hidden rounded-[1.5rem] border border-white/[0.08] bg-tz-card">
+            <div className="flex flex-col gap-3 border-b border-white/[0.06] px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <div className="font-display text-lg font-black text-tz-text">Find Toyzoona on Waze</div>
+                <p className="mt-1 text-xs font-semibold text-tz-muted">
+                  Gatcahalian Subdivision, Brgy. Banay 2, Cabuyao, Laguna
+                </p>
+              </div>
+              <a
+                href={WAZE_LOCATION_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex shrink-0 items-center justify-center rounded-xl border border-tz-cyan/30 bg-tz-cyan/10 px-4 py-2 text-xs font-black uppercase tracking-[0.12em] text-tz-cyan transition-colors hover:bg-tz-cyan/16"
+              >
+                Open Waze
+              </a>
+            </div>
+            <div className="aspect-[16/9] min-h-[280px] bg-[#050518]">
+              <iframe
+                src={WAZE_EMBED_URL}
+                title="Toyzoona Importer Waze location"
+                className="h-full w-full"
+                loading="lazy"
+                allowFullScreen
+              />
+            </div>
           </div>
         </div>
       </div>

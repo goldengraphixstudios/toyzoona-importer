@@ -1,7 +1,7 @@
 export { FACEBOOK_PAGE_URL } from "@/lib/socialLinks";
 
 const MANILA_TIMEZONE = "Asia/Manila";
-const AUCTION_HOUR = 10;
+const AUCTION_HOUR = 11;
 
 type ManilaNow = {
   year: number;
@@ -62,7 +62,7 @@ export function getLiveWindowState(nowDate: Date): LiveWindowState {
   return {
     isLiveNow: false,
     label: "Next Saturday Auction",
-    helper: "Countdown to Saturday, 10:00 AM Philippine time.",
+    helper: "Countdown to Saturday, 11:00 AM Philippine time.",
     target: manilaTimestamp(now.year, now.month, now.day + daysUntilSaturday, AUCTION_HOUR),
   };
 }
