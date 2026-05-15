@@ -1,4 +1,6 @@
+import Image from "next/image";
 import { AuctionHammerIcon, ClockIcon, GlobeIcon, MapPinIcon, MailIcon, PhoneIcon, ScaleIcon, TrophyIcon, TruckIcon, TvIcon } from "@/components/Icons";
+import { assetPath } from "@/lib/assetPath";
 import { FACEBOOK_PAGE_URL } from "@/lib/socialLinks";
 
 const contactCards = [
@@ -29,6 +31,21 @@ const contactCards = [
     info: "Every Saturday 10:00 AM\nCabuyao warehouse · Free entry",
     link: FACEBOOK_PAGE_URL,
     linkLabel: "View Schedule ↗",
+  },
+];
+
+const sisterCompanies = [
+  {
+    name: "Toys for Less",
+    href: "https://www.facebook.com/ToyssforLess",
+    logo: "/sister-companies/toys-for-less.png",
+    note: "Sister page",
+  },
+  {
+    name: "ToyLandia",
+    href: "https://www.facebook.com/officialtoylandia",
+    logo: "/sister-companies/toylandia.png",
+    note: "Sister page",
   },
 ];
 
@@ -99,7 +116,7 @@ export default function FinalCTA() {
           </p>
 
           {/* CTA buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
             <a
               href={FACEBOOK_PAGE_URL}
               target="_blank"
@@ -116,20 +133,40 @@ export default function FinalCTA() {
               </svg>
               Message the Facebook Page
             </a>
-            <a
-              href={FACEBOOK_PAGE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 justify-center
-                         bg-white/[0.12] hover:bg-white/[0.20]
-                         border border-white/[0.28]
-                         text-white font-bold px-10 py-4 rounded-xl text-base
-                         transition-all duration-200 backdrop-blur-sm
-                         hover:-translate-y-0.5"
-            >
-              <GlobeIcon className="h-5 w-5" />
-              Message the Facebook Page
-            </a>
+          </div>
+
+          <div className="mb-8 flex flex-col items-center gap-3">
+            <p className="text-[11px] font-black uppercase tracking-[0.22em] text-white/54">
+              Sister company pages
+            </p>
+            <div className="flex w-full max-w-2xl flex-col gap-3 sm:flex-row">
+              {sisterCompanies.map((company) => (
+                <a
+                  key={company.name}
+                  href={company.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex flex-1 items-center gap-3 rounded-2xl border border-white/[0.28] bg-white/[0.13] px-4 py-3 text-left text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:bg-white/[0.22] hover:shadow-[0_14px_38px_rgba(0,0,0,0.28)]"
+                >
+                  <span className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-white/30 bg-white p-1.5">
+                    <Image
+                      src={assetPath(company.logo)}
+                      alt={`${company.name} logo`}
+                      fill
+                      sizes="48px"
+                      className="object-contain"
+                    />
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block font-display text-base font-black leading-tight">{company.name}</span>
+                    <span className="mt-0.5 block text-xs font-semibold uppercase tracking-wider text-white/56">
+                      {company.note}
+                    </span>
+                  </span>
+                  <GlobeIcon className="h-5 w-5 shrink-0 text-white/70 transition-transform duration-300 group-hover:translate-x-1" />
+                </a>
+              ))}
+            </div>
           </div>
 
           {/* Social links */}

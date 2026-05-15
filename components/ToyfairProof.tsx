@@ -5,53 +5,60 @@ import { FACEBOOK_PAGE_URL } from "@/lib/socialLinks";
 
 const eventCards = [
   {
-    src: "/auction-gallery-wide.webp",
+    src: "/toyfair-1.jpg",
     venue: "Dasma Arena",
     location: "Dasmarinas, Cavite",
     tag: "Crowd Scale",
     accent: "#FF4200",
   },
   {
-    src: "/toy-categories/stock-05.webp",
+    src: "/toyfair-2.jpg",
     venue: "Filinvest Tent",
     location: "Alabang, Muntinlupa",
     tag: "South Event",
     accent: "#FFC000",
   },
   {
-    src: "/auction-gallery-kids.webp",
+    src: "/toyfair-3.jpg",
     venue: "Metrotent Pasig",
     location: "Ortigas, Metro Manila",
     tag: "Metro Reach",
     accent: "#9D4EDD",
   },
   {
-    src: "/auction-gallery-stock.webp",
+    src: "/toyfair-4.jpg",
     venue: "Toyfair Floor",
     location: "Live event stock",
     tag: "Real Tables",
     accent: "#00CFFF",
   },
   {
-    src: "/toy-categories/stock-06.webp",
+    src: "/toyfair-5.jpg",
     venue: "Buyer Booths",
     location: "Bulk-ready displays",
     tag: "Sell-Through",
     accent: "#FF4200",
   },
   {
-    src: "/toy-categories/stock-07.webp",
+    src: "/toyfair-7.jpg",
     venue: "Event Hauls",
     location: "Toyzoona presence",
     tag: "High Volume",
     accent: "#FFC000",
   },
   {
-    src: "/toy-categories/stock-08.webp",
+    src: "/toyfair-8.jpg",
     venue: "Public Proof",
     location: "Toyfair history",
     tag: "Verified",
     accent: "#9D4EDD",
+  },
+  {
+    src: "/toyfair-9.jpg",
+    venue: "Toyfair Tables",
+    location: "Event display",
+    tag: "Floor Proof",
+    accent: "#00CFFF",
   },
 ];
 
