@@ -217,12 +217,12 @@ export default function CmsAdminApp() {
   const [posts, setPosts] = useState<CmsPostRow[]>([]);
   const [editor, setEditor] = useState<EditorState>(() => emptyEditor());
   const [sectionsText, setSectionsText] = useState(serializeSections(emptyEditor().sections));
-  const [status, setStatus] = useState("Checking CMS connection...");
+  const [status, setStatus] = useState("Preparing content manager...");
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
     if (!supabase) {
-      setStatus("Supabase is not configured. Add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.");
+      setStatus("Content manager is not configured yet.");
       return;
     }
 
@@ -244,7 +244,7 @@ export default function CmsAdminApp() {
 
     async function loadProfileAndPosts() {
       setBusy(true);
-      setStatus("Loading CMS access...");
+      setStatus("Loading your workspace...");
       const { data: profileData, error: profileError } = await client
         .from("cms_profiles")
         .select("id, role, display_name")
@@ -258,7 +258,7 @@ export default function CmsAdminApp() {
       }
 
       if (!profileData) {
-        setStatus("Logged in, but this user is not an approved CMS admin/editor yet.");
+        setStatus("Logged in, but this account does not have publishing access yet.");
         setBusy(false);
         return;
       }
@@ -288,7 +288,7 @@ export default function CmsAdminApp() {
     }
 
     setPosts((data ?? []) as CmsPostRow[]);
-    setStatus("CMS loaded.");
+    setStatus("Content manager loaded.");
   }
 
   async function handleAuth() {
@@ -308,7 +308,7 @@ export default function CmsAdminApp() {
       return;
     }
 
-    setStatus(authMode === "login" ? "Logged in." : "Account created. Add this user to cms_profiles to grant CMS access.");
+    setStatus(authMode === "login" ? "Logged in." : "Account created. Ask an admin to approve publishing access.");
   }
 
   async function savePost(nextStatus?: CmsPostStatus) {
@@ -343,7 +343,7 @@ export default function CmsAdminApp() {
   }
 
   async function deletePost(id?: string) {
-    if (!supabase || !id || !window.confirm("Delete this post from Supabase?")) {
+    if (!supabase || !id || !window.confirm("Delete this post?")) {
       return;
     }
 
@@ -392,7 +392,7 @@ export default function CmsAdminApp() {
   function loadStaticPost(post: BlogPost) {
     setEditor({ ...post, status: "draft" });
     setSectionsText(serializeSections(post.sections));
-    setStatus("Loaded static article as a new Supabase draft.");
+    setStatus("Loaded existing article as a new draft.");
   }
 
   function insertSectionsFormat(snippet: string) {
@@ -450,10 +450,9 @@ export default function CmsAdminApp() {
   if (!isSupabaseConfigured() || !supabase) {
     return (
       <div className="rounded-[1.6rem] border border-[#ffef3f]/30 bg-[#ffef3f]/10 p-6 text-white">
-        <h2 className="font-display text-3xl font-black">Supabase is not connected yet.</h2>
+        <h2 className="font-display text-3xl font-black">Content manager is not ready yet.</h2>
         <p className="mt-3 text-sm font-semibold leading-relaxed text-white/72">
-          Add `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` from your Supabase project, then redeploy.
-          Use `supabase/schema.sql` to create the CMS tables and access policies.
+          The publishing dashboard needs to be configured before articles can be managed.
         </p>
       </div>
     );
@@ -463,9 +462,9 @@ export default function CmsAdminApp() {
     return (
       <div className="mx-auto max-w-xl rounded-[1.6rem] border border-white/10 bg-white/[0.055] p-6 shadow-[0_24px_70px_rgba(0,0,0,0.26)]">
         <p className="mb-3 inline-flex rounded-full bg-[#ff4200] px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white">
-          Secured Supabase CMS
+          Toyzoona Admin
         </p>
-        <h2 className="font-display text-4xl font-black leading-none text-white">{authMode === "login" ? "Login to manage content." : "Create a CMS user."}</h2>
+        <h2 className="font-display text-4xl font-black leading-none text-white">{authMode === "login" ? "Login to manage content." : "Create an admin account."}</h2>
         <div className="mt-6 grid gap-4">
           <label>
             <span className={labelClassName()}>Email</span>
@@ -497,10 +496,10 @@ export default function CmsAdminApp() {
   if (!profile) {
     return (
       <div className="rounded-[1.6rem] border border-white/10 bg-white/[0.055] p-6 text-white">
-        <h2 className="font-display text-3xl font-black">CMS access pending.</h2>
+        <h2 className="font-display text-3xl font-black">Access pending.</h2>
         <p className="mt-3 text-sm font-semibold leading-relaxed text-white/68">
-          You are logged in as `{session.user.email}`, but this user is not listed in `cms_profiles`.
-          If this is the first CMS account, create the first admin profile below.
+          You are logged in as `{session.user.email}`, but this account does not have publishing access yet.
+          If this is the first admin account, activate publishing access below.
         </p>
         <p className="mt-4 rounded-2xl bg-black/30 p-3 font-mono text-xs text-[#ffef3f]">{session.user.id}</p>
         <div className="mt-5 flex flex-wrap gap-3">
@@ -509,7 +508,7 @@ export default function CmsAdminApp() {
             disabled={busy}
             className="rounded-xl bg-[#ffef3f] px-4 py-2 text-xs font-black uppercase tracking-[0.14em] text-[#4b1b00] disabled:opacity-50"
           >
-            Create first admin profile
+            Activate admin access
           </button>
           <button
             onClick={() => supabase.auth.signOut()}
@@ -550,7 +549,7 @@ export default function CmsAdminApp() {
         </button>
 
         <div className="rounded-[1.4rem] border border-white/10 bg-white/[0.045] p-4">
-          <p className="mb-3 text-[10px] font-black uppercase tracking-[0.16em] text-white/46">Supabase posts</p>
+          <p className="mb-3 text-[10px] font-black uppercase tracking-[0.16em] text-white/46">Articles</p>
           <div className="space-y-2">
             {posts.map((post) => (
               <button
@@ -569,7 +568,7 @@ export default function CmsAdminApp() {
         </div>
 
         <div className="rounded-[1.4rem] border border-white/10 bg-white/[0.045] p-4">
-          <p className="mb-3 text-[10px] font-black uppercase tracking-[0.16em] text-white/46">Import old static posts</p>
+          <p className="mb-3 text-[10px] font-black uppercase tracking-[0.16em] text-white/46">Starter articles</p>
           <div className="space-y-2">
             {staticPosts.map((post) => (
               <button
@@ -588,7 +587,7 @@ export default function CmsAdminApp() {
         <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#ffef3f]">Editor</p>
-            <h2 className="mt-2 font-display text-3xl font-black leading-none text-white">Article CMS</h2>
+            <h2 className="mt-2 font-display text-3xl font-black leading-none text-white">Article Editor</h2>
           </div>
           <div className="flex flex-wrap gap-2">
             <button onClick={() => savePost("draft")} disabled={busy} className="rounded-xl border border-white/15 px-4 py-2 text-xs font-black uppercase tracking-[0.12em] text-white/74 disabled:opacity-50">
