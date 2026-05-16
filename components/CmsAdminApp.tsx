@@ -357,6 +357,33 @@ export default function CmsAdminApp() {
     await fetchPosts();
   }
 
+  async function createFirstAdminProfile() {
+    if (!supabase || !session?.user) {
+      return;
+    }
+
+    setBusy(true);
+    const { error } = await supabase.from("cms_profiles").insert({
+      id: session.user.id,
+      role: "admin",
+      display_name: session.user.email ?? "Toyzoona Admin",
+    });
+    setBusy(false);
+
+    if (error) {
+      setStatus(`Admin bootstrap failed: ${error.message}`);
+      return;
+    }
+
+    setProfile({
+      id: session.user.id,
+      role: "admin",
+      display_name: session.user.email ?? "Toyzoona Admin",
+    });
+    setStatus("First admin profile created.");
+    await fetchPosts();
+  }
+
   function loadStaticPost(post: BlogPost) {
     setEditor({ ...post, status: "draft" });
     setSectionsText(serializeSections(post.sections));
@@ -416,15 +443,24 @@ export default function CmsAdminApp() {
         <h2 className="font-display text-3xl font-black">CMS access pending.</h2>
         <p className="mt-3 text-sm font-semibold leading-relaxed text-white/68">
           You are logged in as `{session.user.email}`, but this user is not listed in `cms_profiles`.
-          Add their Supabase Auth user id as an `admin` or `editor`.
+          If this is the first CMS account, create the first admin profile below.
         </p>
         <p className="mt-4 rounded-2xl bg-black/30 p-3 font-mono text-xs text-[#ffef3f]">{session.user.id}</p>
-        <button
-          onClick={() => supabase.auth.signOut()}
-          className="mt-5 rounded-xl border border-white/15 px-4 py-2 text-xs font-black uppercase tracking-[0.14em] text-white/70"
-        >
-          Sign out
-        </button>
+        <div className="mt-5 flex flex-wrap gap-3">
+          <button
+            onClick={createFirstAdminProfile}
+            disabled={busy}
+            className="rounded-xl bg-[#ffef3f] px-4 py-2 text-xs font-black uppercase tracking-[0.14em] text-[#4b1b00] disabled:opacity-50"
+          >
+            Create first admin profile
+          </button>
+          <button
+            onClick={() => supabase.auth.signOut()}
+            className="rounded-xl border border-white/15 px-4 py-2 text-xs font-black uppercase tracking-[0.14em] text-white/70"
+          >
+            Sign out
+          </button>
+        </div>
       </div>
     );
   }

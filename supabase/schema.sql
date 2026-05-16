@@ -63,6 +63,17 @@ create policy "cms admins manage profiles"
     )
   );
 
+drop policy if exists "first cms user can bootstrap admin" on public.cms_profiles;
+create policy "first cms user can bootstrap admin"
+  on public.cms_profiles
+  for insert
+  to authenticated
+  with check (
+    id = auth.uid()
+    and role = 'admin'
+    and not exists (select 1 from public.cms_profiles)
+  );
+
 drop policy if exists "published posts are public" on public.cms_posts;
 create policy "published posts are public"
   on public.cms_posts
@@ -124,7 +135,7 @@ create policy "cms admins delete posts"
     )
   );
 
--- After creating the first user through /cms signup, copy their Auth user id
--- into this insert to grant CMS access:
--- insert into public.cms_profiles (id, role, display_name)
--- values ('PASTE_AUTH_USER_ID_HERE', 'admin', 'Toyzoona Admin');
+-- First admin setup:
+-- After the schema is installed, the first logged-in CMS user can click
+-- "Create first admin profile" inside /cms. That insert is allowed only
+-- while cms_profiles is empty. After that, only admins can manage profiles.

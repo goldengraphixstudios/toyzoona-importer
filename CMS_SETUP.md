@@ -23,25 +23,18 @@ For GitHub Pages deployment, add the same variables as repository secrets or wor
 
 ## 3. Create the first CMS user
 
-Go to `/cms`, create an account, then copy the displayed Supabase Auth user id.
-
-Run this in Supabase SQL Editor:
-
-```sql
-insert into public.cms_profiles (id, role, display_name)
-values ('PASTE_AUTH_USER_ID_HERE', 'admin', 'Toyzoona Admin');
-```
-
-After that, log in again at `/cms`.
+Go to `/cms`, create an account, then click **Create first admin profile**.
+That button works only while `cms_profiles` is empty. After the first admin exists,
+new CMS users must be added by an admin in Supabase or through a future user-management screen.
 
 ## 4. Publishing behavior
 
 `/cms` writes posts into Supabase. `/blog` loads published CMS posts in the browser and keeps the static articles as fallback content.
 
-CMS article URLs use:
+Database article URLs use:
 
 ```text
-/blog/cms?slug=your-post-slug
+/blog/post?slug=your-post-slug
 ```
 
 GitHub Pages cannot server-render new database slugs. If you need fully pre-rendered SEO URLs for every CMS post, move this app to Vercel or another SSR host and remove static export.

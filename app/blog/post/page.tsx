@@ -3,15 +3,11 @@ import { Suspense } from "react";
 import SupabaseBlogArticle from "@/components/SupabaseBlogArticle";
 
 export const metadata: Metadata = {
-  title: "Toyzoona CMS Article",
-  description: "Database-backed Toyzoona article.",
-  robots: {
-    index: false,
-    follow: true,
-  },
+  title: "Toyzoona Article",
+  description: "Toyzoona buying guide and toy sourcing article.",
 };
 
-export default function CmsArticlePage() {
+export default function BlogPostPage() {
   return (
     <Suspense fallback={null}>
       <SupabaseBlogArticle />

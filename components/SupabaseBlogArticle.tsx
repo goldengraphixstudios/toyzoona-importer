@@ -27,13 +27,13 @@ export default function SupabaseBlogArticle() {
     }
 
     if (!isSupabaseConfigured()) {
-      setStatus("Supabase is not configured for CMS articles yet.");
+      setStatus("Live articles are not configured yet.");
       return;
     }
 
     const supabase = getSupabaseBrowserClient();
     if (!supabase) {
-      setStatus("Supabase is not configured for CMS articles yet.");
+      setStatus("Live articles are not configured yet.");
       return;
     }
 
@@ -66,7 +66,7 @@ export default function SupabaseBlogArticle() {
           <Link href="/blog" className="mb-6 inline-flex rounded-full border border-white/15 px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-[#ffef3f]">
             Back to articles
           </Link>
-          <h1 className="font-display text-5xl font-black text-white">CMS article</h1>
+          <h1 className="font-display text-5xl font-black text-white">Toyzoona article</h1>
           <p className="mt-4 max-w-xl text-sm font-semibold leading-relaxed text-white/62">{status}</p>
         </section>
         <Footer />

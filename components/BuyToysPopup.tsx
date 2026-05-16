@@ -1,27 +1,34 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { FACEBOOK_PAGE_URL } from "@/lib/socialLinks";
 const STORAGE_KEY = "toyzoona-buy-popup-dismissed";
 
 export default function BuyToysPopup() {
+  const pathname = usePathname();
+  const isCmsRoute = pathname?.includes("/cms");
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    if (isCmsRoute) {
+      return;
+    }
+
     if (window.sessionStorage.getItem(STORAGE_KEY) === "true") {
       return;
     }
 
     const timeout = window.setTimeout(() => setVisible(true), 1800);
     return () => window.clearTimeout(timeout);
-  }, []);
+  }, [isCmsRoute]);
 
   const dismiss = () => {
     window.sessionStorage.setItem(STORAGE_KEY, "true");
     setVisible(false);
   };
 
-  if (!visible) {
+  if (!visible || isCmsRoute) {
     return null;
   }
 

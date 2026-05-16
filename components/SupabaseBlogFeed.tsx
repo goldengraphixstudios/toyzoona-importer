@@ -58,11 +58,11 @@ export default function SupabaseBlogFeed({ staticSlugs }: Props) {
     <section className="mb-10">
       <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[#ffef3f]">CMS Published</p>
-          <h2 className="mt-2 font-display text-4xl font-black leading-none text-white">Fresh from Supabase</h2>
+          <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[#ffef3f]">Latest Guides</p>
+          <h2 className="mt-2 font-display text-4xl font-black leading-none text-white">Fresh Toyzoona articles</h2>
         </div>
         <p className="text-xs font-semibold text-white/42">
-          {status === "error" ? "CMS feed could not load." : "Database-backed posts"}
+          {status === "error" ? "Live article feed could not load." : "Updated from the content dashboard"}
         </p>
       </div>
 
@@ -70,7 +70,7 @@ export default function SupabaseBlogFeed({ staticSlugs }: Props) {
         {posts.map((post) => (
           <Link
             key={post.slug}
-            href={`/blog/cms?slug=${post.slug}`}
+            href={`/blog/post?slug=${post.slug}`}
             className="group overflow-hidden rounded-[1.6rem] border-2 border-[#ffef3f]/20 bg-[#ffef3f]/[0.055] p-5 shadow-[0_20px_50px_rgba(0,0,0,0.22)] transition-all duration-300 hover:-translate-y-1 hover:border-[#ffef3f]/70"
           >
             <div className="relative mb-5 aspect-[16/9] overflow-hidden rounded-[1.25rem] border border-white/10 bg-[#070718]">
