@@ -198,9 +198,7 @@ export default function BlogPostPage({ params }: PageProps) {
 
                   <div className="mt-5 space-y-5">
                     {section.body.map((paragraph) => (
-                      <p key={paragraph} className="text-lg font-medium leading-[1.85] text-white/74">
-                        {paragraph}
-                      </p>
+                      <p key={paragraph} className="text-lg font-medium leading-[1.85] text-white/74" dangerouslySetInnerHTML={{ __html: paragraph }} />
                     ))}
                   </div>
 
@@ -209,16 +207,14 @@ export default function BlogPostPage({ params }: PageProps) {
                       {section.bullets.map((bullet) => (
                         <li key={bullet} className="flex gap-3 text-base font-semibold leading-relaxed text-white/78">
                           <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#ffef3f]" />
-                          <span>{bullet}</span>
+                          <span dangerouslySetInnerHTML={{ __html: bullet }} />
                         </li>
                       ))}
                     </ul>
                   ) : null}
 
                   {section.quote ? (
-                    <blockquote className="mt-8 border-l-4 border-[#ffef3f] pl-5 font-display text-2xl font-black leading-tight text-white sm:text-3xl">
-                      {section.quote}
-                    </blockquote>
+                    <blockquote className="mt-8 border-l-4 border-[#ffef3f] pl-5 font-display text-2xl font-black leading-tight text-white sm:text-3xl" dangerouslySetInnerHTML={{ __html: section.quote }} />
                   ) : null}
                 </section>
               ))}

@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import type { Session, User } from "@supabase/supabase-js";
 import publishedPosts from "@/content/blog-posts.json";
 import type { BlogPost } from "@/lib/blogPosts";
+import CmsRichArticleEditor from "@/components/CmsRichArticleEditor";
 import { assetPath } from "@/lib/assetPath";
 import { cmsRowToBlogPost, type CmsPostInput, type CmsPostRow, type CmsPostStatus } from "@/lib/cmsPostTypes";
 import { getSupabaseBrowserClient, isSupabaseConfigured } from "@/lib/supabaseClient";
@@ -24,18 +25,6 @@ type CmsTheme = "dark" | "light";
 
 const staticPosts = publishedPosts as BlogPost[];
 const ADMIN_EMAIL = "admin@toyzoona-importer.com";
-const resourceImages = [
-  { label: "Auction wide", src: "/auction-gallery-wide.webp" },
-  { label: "Auction stock", src: "/auction-gallery-stock.webp" },
-  { label: "Auction kids", src: "/auction-gallery-kids.webp" },
-  { label: "Toy category 1", src: "/toy-categories/stock-01.webp" },
-  { label: "Toy category 2", src: "/toy-categories/stock-02.webp" },
-  { label: "Toy category 3", src: "/toy-categories/stock-03.webp" },
-  { label: "Toy category 4", src: "/toy-categories/stock-04.webp" },
-  { label: "Toy fair 1", src: "/toyfair-1.jpg" },
-  { label: "Toy fair 2", src: "/toyfair-2.jpg" },
-  { label: "TV feature", src: "/tv-1.jpg" },
-];
 
 const today = () => new Date().toISOString().slice(0, 10);
 
@@ -100,67 +89,6 @@ function rowToEditor(row: CmsPostRow): EditorState {
   };
 }
 
-function serializeSections(sections: BlogPost["sections"]) {
-  return sections
-    .map((section) => {
-      const lines = [
-        `## ${section.heading}`,
-        section.image?.src ? `IMAGE: ${section.image.src}` : "",
-        section.image?.alt ? `ALT: ${section.image.alt}` : "",
-        section.image?.caption ? `CAPTION: ${section.image.caption}` : "",
-        section.quote ? `QUOTE: ${section.quote}` : "",
-        ...(section.bullets ?? []).map((bullet) => `- ${bullet}`),
-        "",
-        ...section.body,
-      ].filter(Boolean);
-
-      return lines.join("\n").trim();
-    })
-    .join("\n\n");
-}
-
-function parseSections(value: string): BlogPost["sections"] {
-  return value
-    .split(/\n(?=##\s+)/)
-    .map((block) => {
-      const lines = block
-        .split("\n")
-        .map((line) => line.trim())
-        .filter(Boolean);
-      const headingLine = lines.find((line) => line.startsWith("## "));
-      const heading = headingLine?.replace(/^##\s+/, "").trim() || "Main answer";
-      const imageSrc = lines.find((line) => /^IMAGE:/i.test(line))?.replace(/^IMAGE:\s*/i, "").trim() ?? "";
-      const imageAlt = lines.find((line) => /^ALT:/i.test(line))?.replace(/^ALT:\s*/i, "").trim() ?? "";
-      const imageCaption = lines.find((line) => /^CAPTION:/i.test(line))?.replace(/^CAPTION:\s*/i, "").trim() ?? "";
-      const quote = lines.find((line) => /^QUOTE:/i.test(line))?.replace(/^QUOTE:\s*/i, "").trim() ?? "";
-      const bullets = lines
-        .filter((line) => line.startsWith("- "))
-        .map((line) => line.replace(/^-\s+/, "").trim())
-        .filter(Boolean);
-      const body = lines.filter(
-        (line) =>
-          !line.startsWith("## ") &&
-          !line.startsWith("- ") &&
-          !/^(IMAGE|ALT|CAPTION|QUOTE):/i.test(line),
-      );
-
-      return {
-        heading,
-        body,
-        image: imageSrc
-          ? {
-              src: imageSrc,
-              alt: imageAlt || heading,
-              caption: imageCaption,
-            }
-          : undefined,
-        bullets,
-        quote,
-      };
-    })
-    .filter((section) => section.heading && section.body.length > 0);
-}
-
 function editorToInput(editor: EditorState, user: User): CmsPostInput {
   return {
     id: editor.id,
@@ -217,10 +145,6 @@ function inputClassName() {
 
 function labelClassName() {
   return "mb-1.5 block text-xs font-semibold text-slate-300";
-}
-
-function formatButtonClassName() {
-  return "rounded-lg border border-[var(--cms-border)] bg-[var(--cms-panel-strong)] px-3 py-2 text-xs font-semibold text-[var(--cms-muted)] transition-colors hover:border-[var(--cms-accent)] hover:text-[var(--cms-text)]";
 }
 
 function themedInputClassName() {
@@ -457,99 +381,6 @@ export default function CmsAdminApp() {
     setActiveView("articles");
     setStatus("New draft started.");
   }
-
-  function updateSection(index: number, nextSection: Partial<BlogPost["sections"][number]>) {
-    setEditor((current) => ({
-      ...current,
-      sections: current.sections.map((section, sectionIndex) =>
-        sectionIndex === index ? { ...section, ...nextSection } : section,
-      ),
-    }));
-  }
-
-  function addSection(template?: Partial<BlogPost["sections"][number]>) {
-    setEditor((current) => ({
-      ...current,
-      sections: [
-        ...current.sections,
-        {
-          heading: template?.heading ?? "New section heading",
-          body: template?.body ?? ["Write the main paragraph here."],
-          image: template?.image,
-          bullets: template?.bullets ?? [],
-          quote: template?.quote ?? "",
-        },
-      ],
-    }));
-  }
-
-  function removeSection(index: number) {
-    setEditor((current) => ({
-      ...current,
-      sections: current.sections.filter((_section, sectionIndex) => sectionIndex !== index),
-    }));
-  }
-
-  function moveSection(index: number, direction: -1 | 1) {
-    setEditor((current) => {
-      const nextIndex = index + direction;
-      if (nextIndex < 0 || nextIndex >= current.sections.length) {
-        return current;
-      }
-
-      const sections = [...current.sections];
-      const [section] = sections.splice(index, 1);
-      sections.splice(nextIndex, 0, section);
-      return { ...current, sections };
-    });
-  }
-
-  function applySectionTemplate(type: "quick-answer" | "checklist" | "image-proof" | "quote") {
-    if (type === "quick-answer") {
-      addSection({
-        heading: "Quick answer",
-        body: ["Start with a direct answer in 2 to 3 sentences so search engines and AI answer engines can understand the page immediately."],
-        bullets: ["Who this is for", "What to check first", "What action to take next"],
-      });
-      return;
-    }
-
-    if (type === "checklist") {
-      addSection({
-        heading: "Buying checklist",
-        body: ["Use this section to give buyers practical steps they can follow before messaging Toyzoona."],
-        bullets: ["Confirm current stock", "Prepare budget and quantity", "Message the official Facebook page"],
-      });
-      return;
-    }
-
-    if (type === "image-proof") {
-      addSection({
-        heading: "Stock proof",
-        body: ["Use this section to explain what the customer is seeing in the photo and why it matters."],
-        image: {
-          src: "/toy-categories/stock-01.webp",
-          alt: "Toyzoona toy stock arranged for buyers",
-          caption: "Use captions to explain product context, not just decorate the page.",
-        },
-      });
-      return;
-    }
-
-    addSection({
-      heading: "Buyer reminder",
-      body: ["Use this section to support the quote with one clear explanation."],
-      quote: "Clear answers convert better than vague descriptions.",
-    });
-  }
-
-  const sectionFormatOptions = [
-    { label: "Section", action: () => addSection() },
-    { label: "Quick answer", action: () => applySectionTemplate("quick-answer") },
-    { label: "Checklist", action: () => applySectionTemplate("checklist") },
-    { label: "Image proof", action: () => applySectionTemplate("image-proof") },
-    { label: "Quote", action: () => applySectionTemplate("quote") },
-  ];
 
   if (!isSupabaseConfigured() || !supabase) {
     return (
@@ -828,92 +659,15 @@ export default function CmsAdminApp() {
                   <div className="md:col-span-2">
                     <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
                       <div>
-                        <span className={themedLabelClassName()}>Article sections</span>
-                        <p className="text-xs text-[var(--cms-soft)]">Edit the exact structured fields used by the website article renderer.</p>
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        {sectionFormatOptions.map((option) => (
-                          <button key={option.label} type="button" onClick={option.action} className={formatButtonClassName()}>
-                            {option.label}
-                          </button>
-                        ))}
+                        <span className={themedLabelClassName()}>Article body</span>
+                        <p className="text-xs text-[var(--cms-soft)]">Write the complete article in one builder. H2/H3 headings, images, links, lists, and quotes are converted into the website article format automatically.</p>
                       </div>
                     </div>
 
-                    <div className="space-y-4">
-                      {editor.sections.map((section, index) => (
-                        <div key={`${section.heading}-${index}`} className="rounded-xl border border-[var(--cms-border)] bg-[var(--cms-panel-strong)] p-4">
-                          <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
-                            <p className="text-sm font-bold text-[var(--cms-text)]">Section {index + 1}</p>
-                            <div className="flex flex-wrap gap-2">
-                              <button type="button" onClick={() => moveSection(index, -1)} className={secondaryButtonClassName("px-3 py-1.5")}>Up</button>
-                              <button type="button" onClick={() => moveSection(index, 1)} className={secondaryButtonClassName("px-3 py-1.5")}>Down</button>
-                              <button type="button" onClick={() => removeSection(index)} className="rounded-lg border border-red-400/40 px-3 py-1.5 text-xs font-semibold text-[var(--cms-danger)]">Remove</button>
-                            </div>
-                          </div>
-
-                          <div className="grid gap-3 md:grid-cols-2">
-                            <label className="md:col-span-2">
-                              <span className={themedLabelClassName()}>Heading</span>
-                              <input className={themedInputClassName()} value={section.heading} onChange={(event) => updateSection(index, { heading: event.target.value })} />
-                            </label>
-                            <label className="md:col-span-2">
-                              <span className={themedLabelClassName()}>Body paragraphs, one per line</span>
-                              <textarea className={`${themedInputClassName()} min-h-32`} value={section.body.join("\n")} onChange={(event) => updateSection(index, { body: splitLines(event.target.value) })} />
-                            </label>
-                            <label>
-                              <span className={themedLabelClassName()}>Image path or URL</span>
-                              <input
-                                className={themedInputClassName()}
-                                value={section.image?.src ?? ""}
-                                onChange={(event) => updateSection(index, {
-                                  image: event.target.value
-                                    ? {
-                                        src: event.target.value,
-                                        alt: section.image?.alt || section.heading,
-                                        caption: section.image?.caption ?? "",
-                                      }
-                                    : undefined,
-                                })}
-                              />
-                            </label>
-                            <label>
-                              <span className={themedLabelClassName()}>Image alt text</span>
-                              <input className={themedInputClassName()} value={section.image?.alt ?? ""} onChange={(event) => updateSection(index, { image: { src: section.image?.src ?? "", alt: event.target.value, caption: section.image?.caption ?? "" } })} />
-                            </label>
-                            <label className="md:col-span-2">
-                              <span className={themedLabelClassName()}>Image caption</span>
-                              <input className={themedInputClassName()} value={section.image?.caption ?? ""} onChange={(event) => updateSection(index, { image: { src: section.image?.src ?? "", alt: section.image?.alt || section.heading, caption: event.target.value } })} />
-                            </label>
-                            <div className="md:col-span-2">
-                              <p className={themedLabelClassName()}>Resource image picker</p>
-                              <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-5">
-                                {resourceImages.map((image) => (
-                                  <button
-                                    key={image.src}
-                                    type="button"
-                                    onClick={() => updateSection(index, { image: { src: image.src, alt: section.image?.alt || image.label, caption: section.image?.caption ?? "" } })}
-                                    className="overflow-hidden rounded-lg border border-[var(--cms-border)] bg-[var(--cms-field)] text-left transition-colors hover:border-[var(--cms-accent)]"
-                                  >
-                                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                                    <img src={assetPath(image.src)} alt="" className="h-16 w-full object-cover" />
-                                    <span className="block truncate px-2 py-1.5 text-xs font-medium text-[var(--cms-muted)]">{image.label}</span>
-                                  </button>
-                                ))}
-                              </div>
-                            </div>
-                            <label>
-                              <span className={themedLabelClassName()}>Bullets, one per line</span>
-                              <textarea className={`${themedInputClassName()} min-h-28`} value={(section.bullets ?? []).join("\n")} onChange={(event) => updateSection(index, { bullets: splitLines(event.target.value) })} />
-                            </label>
-                            <label>
-                              <span className={themedLabelClassName()}>Pull quote</span>
-                              <textarea className={`${themedInputClassName()} min-h-28`} value={section.quote ?? ""} onChange={(event) => updateSection(index, { quote: event.target.value })} />
-                            </label>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+                    <CmsRichArticleEditor
+                      sections={editor.sections}
+                      onChange={(sections) => setEditor((current) => ({ ...current, sections }))}
+                    />
                   </div>
                   <label className="md:col-span-2">
                     <span className={themedLabelClassName()}>FAQs, one question/answer pair per block</span>
@@ -999,7 +753,7 @@ export default function CmsAdminApp() {
                           ) : null}
                           <div className="mt-3 space-y-3">
                             {section.body.map((paragraph) => (
-                              <p key={paragraph} className="text-sm leading-7 text-slate-700">{paragraph}</p>
+                              <p key={paragraph} className="text-sm leading-7 text-slate-700" dangerouslySetInnerHTML={{ __html: paragraph }} />
                             ))}
                           </div>
                           {section.bullets?.length ? (
@@ -1007,12 +761,12 @@ export default function CmsAdminApp() {
                               {section.bullets.map((bullet) => (
                                 <li key={bullet} className="flex gap-2 text-sm leading-relaxed text-slate-700">
                                   <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-500" />
-                                  <span>{bullet}</span>
+                                  <span dangerouslySetInnerHTML={{ __html: bullet }} />
                                 </li>
                               ))}
                             </ul>
                           ) : null}
-                          {section.quote ? <blockquote className="mt-5 border-l-4 border-orange-500 pl-4 text-lg font-bold leading-snug text-slate-950">{section.quote}</blockquote> : null}
+                          {section.quote ? <blockquote className="mt-5 border-l-4 border-orange-500 pl-4 text-lg font-bold leading-snug text-slate-950" dangerouslySetInnerHTML={{ __html: section.quote }} /> : null}
                         </section>
                       ))}
                     </div>
@@ -1060,13 +814,11 @@ export default function CmsAdminApp() {
                 </div>
               </div>
               <div className={panelClassName("p-5")}>
-                <h2 className="text-lg font-bold text-[var(--cms-text)]">Formatting shortcuts</h2>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {sectionFormatOptions.map((option) => (
-                    <button key={option.label} type="button" onClick={() => { option.action(); setActiveView("articles"); }} className={formatButtonClassName()}>
-                      {option.label}
-                    </button>
-                  ))}
+                <h2 className="text-lg font-bold text-[var(--cms-text)]">Builder guide</h2>
+                <div className="mt-4 space-y-2 text-sm text-[var(--cms-muted)]">
+                  <p>Use H2 or H3 for major article breaks. Each heading becomes part of the public article navigation.</p>
+                  <p>Use the editor toolbar for links, lists, images, and quotes. The live preview beside the editor shows the final structure.</p>
+                  <p>Keep the answer-first summary direct, then use the body builder for the full SEO article.</p>
                 </div>
               </div>
               <div className={panelClassName("p-5")}>
