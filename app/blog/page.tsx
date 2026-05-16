@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SupabaseBlogFeed from "@/components/SupabaseBlogFeed";
 import { assetPath } from "@/lib/assetPath";
 import { getAllBlogPosts } from "@/lib/blogPosts";
 
@@ -62,6 +63,8 @@ export default function BlogPage() {
       </section>
 
       <section className="wrap py-14">
+        <SupabaseBlogFeed staticSlugs={posts.map((post) => post.slug)} />
+
         <div className="grid gap-5 lg:grid-cols-2">
           {posts.map((post, index) => (
             <Link

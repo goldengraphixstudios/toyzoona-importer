@@ -6,10 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "cms:new-post": "node scripts/new-blog-post.mjs"
+    "lint": "next lint"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.105.4",
     "next": "^14.2.35",
     "react": "^18",
     "react-dom": "^18"
