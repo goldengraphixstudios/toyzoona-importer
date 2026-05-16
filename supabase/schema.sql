@@ -38,6 +38,18 @@ create index if not exists cms_posts_author_id_idx on public.cms_posts(author_id
 alter table public.cms_profiles enable row level security;
 alter table public.cms_posts enable row level security;
 
+create or replace function public.current_cms_role()
+returns text
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select role from public.cms_profiles where id = auth.uid() limit 1
+$$;
+
+grant execute on function public.current_cms_role() to authenticated;
+
 drop policy if exists "cms profiles readable by self" on public.cms_profiles;
 create policy "cms profiles readable by self"
   on public.cms_profiles
@@ -50,18 +62,8 @@ create policy "cms admins manage profiles"
   on public.cms_profiles
   for all
   to authenticated
-  using (
-    exists (
-      select 1 from public.cms_profiles profile
-      where profile.id = auth.uid() and profile.role = 'admin'
-    )
-  )
-  with check (
-    exists (
-      select 1 from public.cms_profiles profile
-      where profile.id = auth.uid() and profile.role = 'admin'
-    )
-  );
+  using (public.current_cms_role() = 'admin')
+  with check (public.current_cms_role() = 'admin');
 
 drop policy if exists "first cms user can bootstrap admin" on public.cms_profiles;
 create policy "first cms user can bootstrap admin"
@@ -86,56 +88,28 @@ create policy "cms editors read all posts"
   on public.cms_posts
   for select
   to authenticated
-  using (
-    exists (
-      select 1 from public.cms_profiles profile
-      where profile.id = auth.uid() and profile.role in ('admin', 'editor')
-    )
-  );
+  using (public.current_cms_role() in ('admin', 'editor'));
 
 drop policy if exists "cms editors insert posts" on public.cms_posts;
 create policy "cms editors insert posts"
   on public.cms_posts
   for insert
   to authenticated
-  with check (
-    exists (
-      select 1 from public.cms_profiles profile
-      where profile.id = auth.uid() and profile.role in ('admin', 'editor')
-    )
-  );
+  with check (public.current_cms_role() in ('admin', 'editor'));
 
 drop policy if exists "cms editors update posts" on public.cms_posts;
 create policy "cms editors update posts"
   on public.cms_posts
   for update
   to authenticated
-  using (
-    exists (
-      select 1 from public.cms_profiles profile
-      where profile.id = auth.uid() and profile.role in ('admin', 'editor')
-    )
-  )
-  with check (
-    exists (
-      select 1 from public.cms_profiles profile
-      where profile.id = auth.uid() and profile.role in ('admin', 'editor')
-    )
-  );
+  using (public.current_cms_role() in ('admin', 'editor'))
+  with check (public.current_cms_role() in ('admin', 'editor'));
 
 drop policy if exists "cms admins delete posts" on public.cms_posts;
 create policy "cms admins delete posts"
   on public.cms_posts
   for delete
   to authenticated
-  using (
-    exists (
-      select 1 from public.cms_profiles profile
-      where profile.id = auth.uid() and profile.role = 'admin'
-    )
-  );
+  using (public.current_cms_role() = 'admin');
 
--- First admin setup:
--- After the schema is installed, the first logged-in CMS user can click
--- "Create first admin profile" inside /cms. That insert is allowed only
--- while cms_profiles is empty. After that, only admins can manage profiles.
+-- Add approved CMS users to public.cms_profiles with role 'admin' or 'editor'.

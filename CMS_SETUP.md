@@ -23,9 +23,17 @@ For GitHub Pages deployment, add the same variables as repository secrets or wor
 
 ## 3. Create the first CMS user
 
-Go to `/cms`, create an account, then click **Create first admin profile**.
-That button works only while `cms_profiles` is empty. After the first admin exists,
-new CMS users must be added by an admin in Supabase or through a future user-management screen.
+User creation is disabled in the public CMS screen. Create users from Supabase Auth,
+then add approved users to `cms_profiles` as `admin` or `editor`.
+
+The production admin account is:
+
+```text
+admin@toyzoona-importer.com
+```
+
+If the CMS shows `infinite recursion detected in policy for relation "cms_profiles"`,
+run `supabase/fix-rls-recursion.sql` once in Supabase SQL Editor.
 
 ## 4. Publishing behavior
 
