@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import type { Session, User } from "@supabase/supabase-js";
 import publishedPosts from "@/content/blog-posts.json";
 import type { BlogPost } from "@/lib/blogPosts";
@@ -23,6 +23,18 @@ type CmsView = "home" | "articles" | "settings" | "tools";
 type CmsTheme = "dark" | "light";
 
 const staticPosts = publishedPosts as BlogPost[];
+const resourceImages = [
+  { label: "Auction wide", src: "/auction-gallery-wide.webp" },
+  { label: "Auction stock", src: "/auction-gallery-stock.webp" },
+  { label: "Auction kids", src: "/auction-gallery-kids.webp" },
+  { label: "Toy category 1", src: "/toy-categories/stock-01.webp" },
+  { label: "Toy category 2", src: "/toy-categories/stock-02.webp" },
+  { label: "Toy category 3", src: "/toy-categories/stock-03.webp" },
+  { label: "Toy category 4", src: "/toy-categories/stock-04.webp" },
+  { label: "Toy fair 1", src: "/toyfair-1.jpg" },
+  { label: "Toy fair 2", src: "/toyfair-2.jpg" },
+  { label: "TV feature", src: "/tv-1.jpg" },
+];
 
 const today = () => new Date().toISOString().slice(0, 10);
 
@@ -267,23 +279,18 @@ function getThemeStyle(theme: CmsTheme): CSSProperties {
 
 export default function CmsAdminApp() {
   const supabase = useMemo(() => getSupabaseBrowserClient(), []);
-  const sectionsTextareaRef = useRef<HTMLTextAreaElement>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [posts, setPosts] = useState<CmsPostRow[]>([]);
   const [editor, setEditor] = useState<EditorState>(() => emptyEditor());
-  const [sectionsText, setSectionsText] = useState(serializeSections(emptyEditor().sections));
   const [status, setStatus] = useState("Preparing content manager...");
   const [busy, setBusy] = useState(false);
   const [activeView, setActiveView] = useState<CmsView>("home");
   const [theme, setTheme] = useState<CmsTheme>("dark");
 
-  const previewPost = useMemo<EditorState>(
-    () => ({ ...editor, sections: parseSections(sectionsText) }),
-    [editor, sectionsText],
-  );
+  const previewPost = editor;
   const publishedCount = posts.filter((post) => post.status === "published").length;
   const draftCount = posts.filter((post) => post.status === "draft").length;
   const latestPost = posts[0];
@@ -392,7 +399,7 @@ export default function CmsAdminApp() {
       return;
     }
 
-    const payload = editorToInput({ ...editor, status: nextStatus ?? editor.status, sections: parseSections(sectionsText) }, session.user);
+    const payload = editorToInput({ ...editor, status: nextStatus ?? editor.status }, session.user);
     if (!payload.title || !payload.slug || !payload.description || !payload.summary) {
       setStatus("Title, slug, description, and answer-first summary are required.");
       return;
@@ -413,7 +420,6 @@ export default function CmsAdminApp() {
 
     const saved = data as CmsPostRow;
     setEditor(rowToEditor(saved));
-    setSectionsText(serializeSections(saved.sections));
     setStatus(saved.status === "published" ? "Post published." : "Draft saved.");
     await fetchPosts();
   }
@@ -433,7 +439,6 @@ export default function CmsAdminApp() {
     }
 
     setEditor(emptyEditor(session?.user.id ?? null));
-    setSectionsText(serializeSections(emptyEditor().sections));
     setStatus("Post deleted.");
     await fetchPosts();
   }
@@ -469,75 +474,113 @@ export default function CmsAdminApp() {
 
   function loadStaticPost(post: BlogPost) {
     setEditor({ ...post, status: "draft" });
-    setSectionsText(serializeSections(post.sections));
     setActiveView("articles");
     setStatus("Loaded existing article as a new draft.");
   }
 
   function loadCmsPost(post: CmsPostRow) {
     setEditor(rowToEditor(post));
-    setSectionsText(serializeSections(post.sections));
     setActiveView("articles");
   }
 
   function startNewPost() {
     const blank = emptyEditor(session?.user.id ?? null);
     setEditor(blank);
-    setSectionsText(serializeSections(blank.sections));
     setActiveView("articles");
     setStatus("New draft started.");
   }
 
-  function insertSectionsFormat(snippet: string) {
-    const textarea = sectionsTextareaRef.current;
-    if (!textarea) {
-      setSectionsText((current) => `${current.trim()}\n\n${snippet}`.trim());
+  function updateSection(index: number, nextSection: Partial<BlogPost["sections"][number]>) {
+    setEditor((current) => ({
+      ...current,
+      sections: current.sections.map((section, sectionIndex) =>
+        sectionIndex === index ? { ...section, ...nextSection } : section,
+      ),
+    }));
+  }
+
+  function addSection(template?: Partial<BlogPost["sections"][number]>) {
+    setEditor((current) => ({
+      ...current,
+      sections: [
+        ...current.sections,
+        {
+          heading: template?.heading ?? "New section heading",
+          body: template?.body ?? ["Write the main paragraph here."],
+          image: template?.image,
+          bullets: template?.bullets ?? [],
+          quote: template?.quote ?? "",
+        },
+      ],
+    }));
+  }
+
+  function removeSection(index: number) {
+    setEditor((current) => ({
+      ...current,
+      sections: current.sections.filter((_section, sectionIndex) => sectionIndex !== index),
+    }));
+  }
+
+  function moveSection(index: number, direction: -1 | 1) {
+    setEditor((current) => {
+      const nextIndex = index + direction;
+      if (nextIndex < 0 || nextIndex >= current.sections.length) {
+        return current;
+      }
+
+      const sections = [...current.sections];
+      const [section] = sections.splice(index, 1);
+      sections.splice(nextIndex, 0, section);
+      return { ...current, sections };
+    });
+  }
+
+  function applySectionTemplate(type: "quick-answer" | "checklist" | "image-proof" | "quote") {
+    if (type === "quick-answer") {
+      addSection({
+        heading: "Quick answer",
+        body: ["Start with a direct answer in 2 to 3 sentences so search engines and AI answer engines can understand the page immediately."],
+        bullets: ["Who this is for", "What to check first", "What action to take next"],
+      });
       return;
     }
 
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-    const before = sectionsText.slice(0, start);
-    const after = sectionsText.slice(end);
-    const needsLeadingBreak = before.trim().length > 0 && !before.endsWith("\n\n");
-    const needsTrailingBreak = after.trim().length > 0 && !snippet.endsWith("\n\n");
-    const insertion = `${needsLeadingBreak ? "\n\n" : ""}${snippet}${needsTrailingBreak ? "\n\n" : ""}`;
-    const nextValue = `${before}${insertion}${after}`;
+    if (type === "checklist") {
+      addSection({
+        heading: "Buying checklist",
+        body: ["Use this section to give buyers practical steps they can follow before messaging Toyzoona."],
+        bullets: ["Confirm current stock", "Prepare budget and quantity", "Message the official Facebook page"],
+      });
+      return;
+    }
 
-    setSectionsText(nextValue);
-    window.requestAnimationFrame(() => {
-      textarea.focus();
-      const cursor = before.length + insertion.length;
-      textarea.setSelectionRange(cursor, cursor);
+    if (type === "image-proof") {
+      addSection({
+        heading: "Stock proof",
+        body: ["Use this section to explain what the customer is seeing in the photo and why it matters."],
+        image: {
+          src: "/toy-categories/stock-01.webp",
+          alt: "Toyzoona toy stock arranged for buyers",
+          caption: "Use captions to explain product context, not just decorate the page.",
+        },
+      });
+      return;
+    }
+
+    addSection({
+      heading: "Buyer reminder",
+      body: ["Use this section to support the quote with one clear explanation."],
+      quote: "Clear answers convert better than vague descriptions.",
     });
   }
 
   const sectionFormatOptions = [
-    {
-      label: "Section",
-      snippet: "## New section heading\nWrite the main paragraph here. Keep one idea per paragraph for easier reading.",
-    },
-    {
-      label: "Paragraph",
-      snippet: "Add a clear paragraph that answers one buyer question or explains one buying step.",
-    },
-    {
-      label: "Bullet",
-      snippet: "- Add one scannable point for buyers",
-    },
-    {
-      label: "Quote",
-      snippet: "QUOTE: Add a strong pull quote or key buying reminder.",
-    },
-    {
-      label: "Image",
-      snippet: "IMAGE: /toy-categories/stock-01.webp\nALT: Toyzoona toy stock arranged for buyers\nCAPTION: Use captions to explain what buyers are seeing.",
-    },
-    {
-      label: "SEO Template",
-      snippet:
-        "## Quick answer\nStart with a direct answer in 2 to 3 sentences so search engines and AI answer engines can understand the page immediately.\n\n- Who this is for\n- What to check first\n- What action to take next\n\n## Buying checklist\nWrite practical steps the customer can follow before messaging Toyzoona.\n\nQUOTE: Clear answers convert better than vague descriptions.",
-    },
+    { label: "Section", action: () => addSection() },
+    { label: "Quick answer", action: () => applySectionTemplate("quick-answer") },
+    { label: "Checklist", action: () => applySectionTemplate("checklist") },
+    { label: "Image proof", action: () => applySectionTemplate("image-proof") },
+    { label: "Quote", action: () => applySectionTemplate("quote") },
   ];
 
   if (!isSupabaseConfigured() || !supabase) {
@@ -839,23 +882,96 @@ export default function CmsAdminApp() {
                     <span className={themedLabelClassName()}>Takeaways, one per line</span>
                     <textarea className={`${themedInputClassName()} min-h-24`} value={editor.takeaways.join("\n")} onChange={(event) => setEditor((current) => ({ ...current, takeaways: splitLines(event.target.value) }))} />
                   </label>
-                  <label className="md:col-span-2">
-                    <span className={themedLabelClassName()}>Article sections</span>
-                    <div className="mb-3 rounded-xl border border-[var(--cms-border)] bg-[var(--cms-panel-strong)] p-3">
-                      <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-                        <p className="text-xs font-semibold text-[var(--cms-muted)]">Insert structured formatting:</p>
-                        <p className="text-xs font-medium text-[var(--cms-soft)]">Preview updates instantly</p>
+                  <div className="md:col-span-2">
+                    <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+                      <div>
+                        <span className={themedLabelClassName()}>Article sections</span>
+                        <p className="text-xs text-[var(--cms-soft)]">Edit the exact structured fields used by the website article renderer.</p>
                       </div>
                       <div className="flex flex-wrap gap-2">
                         {sectionFormatOptions.map((option) => (
-                          <button key={option.label} type="button" onClick={() => insertSectionsFormat(option.snippet)} className={formatButtonClassName()}>
+                          <button key={option.label} type="button" onClick={option.action} className={formatButtonClassName()}>
                             {option.label}
                           </button>
                         ))}
                       </div>
                     </div>
-                    <textarea ref={sectionsTextareaRef} className={`${themedInputClassName()} min-h-[360px] font-mono text-xs leading-relaxed`} value={sectionsText} onChange={(event) => setSectionsText(event.target.value)} />
-                  </label>
+
+                    <div className="space-y-4">
+                      {editor.sections.map((section, index) => (
+                        <div key={`${section.heading}-${index}`} className="rounded-xl border border-[var(--cms-border)] bg-[var(--cms-panel-strong)] p-4">
+                          <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+                            <p className="text-sm font-bold text-[var(--cms-text)]">Section {index + 1}</p>
+                            <div className="flex flex-wrap gap-2">
+                              <button type="button" onClick={() => moveSection(index, -1)} className={secondaryButtonClassName("px-3 py-1.5")}>Up</button>
+                              <button type="button" onClick={() => moveSection(index, 1)} className={secondaryButtonClassName("px-3 py-1.5")}>Down</button>
+                              <button type="button" onClick={() => removeSection(index)} className="rounded-lg border border-red-400/40 px-3 py-1.5 text-xs font-semibold text-[var(--cms-danger)]">Remove</button>
+                            </div>
+                          </div>
+
+                          <div className="grid gap-3 md:grid-cols-2">
+                            <label className="md:col-span-2">
+                              <span className={themedLabelClassName()}>Heading</span>
+                              <input className={themedInputClassName()} value={section.heading} onChange={(event) => updateSection(index, { heading: event.target.value })} />
+                            </label>
+                            <label className="md:col-span-2">
+                              <span className={themedLabelClassName()}>Body paragraphs, one per line</span>
+                              <textarea className={`${themedInputClassName()} min-h-32`} value={section.body.join("\n")} onChange={(event) => updateSection(index, { body: splitLines(event.target.value) })} />
+                            </label>
+                            <label>
+                              <span className={themedLabelClassName()}>Image path or URL</span>
+                              <input
+                                className={themedInputClassName()}
+                                value={section.image?.src ?? ""}
+                                onChange={(event) => updateSection(index, {
+                                  image: event.target.value
+                                    ? {
+                                        src: event.target.value,
+                                        alt: section.image?.alt || section.heading,
+                                        caption: section.image?.caption ?? "",
+                                      }
+                                    : undefined,
+                                })}
+                              />
+                            </label>
+                            <label>
+                              <span className={themedLabelClassName()}>Image alt text</span>
+                              <input className={themedInputClassName()} value={section.image?.alt ?? ""} onChange={(event) => updateSection(index, { image: { src: section.image?.src ?? "", alt: event.target.value, caption: section.image?.caption ?? "" } })} />
+                            </label>
+                            <label className="md:col-span-2">
+                              <span className={themedLabelClassName()}>Image caption</span>
+                              <input className={themedInputClassName()} value={section.image?.caption ?? ""} onChange={(event) => updateSection(index, { image: { src: section.image?.src ?? "", alt: section.image?.alt || section.heading, caption: event.target.value } })} />
+                            </label>
+                            <div className="md:col-span-2">
+                              <p className={themedLabelClassName()}>Resource image picker</p>
+                              <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-5">
+                                {resourceImages.map((image) => (
+                                  <button
+                                    key={image.src}
+                                    type="button"
+                                    onClick={() => updateSection(index, { image: { src: image.src, alt: section.image?.alt || image.label, caption: section.image?.caption ?? "" } })}
+                                    className="overflow-hidden rounded-lg border border-[var(--cms-border)] bg-[var(--cms-field)] text-left transition-colors hover:border-[var(--cms-accent)]"
+                                  >
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img src={assetPath(image.src)} alt="" className="h-16 w-full object-cover" />
+                                    <span className="block truncate px-2 py-1.5 text-xs font-medium text-[var(--cms-muted)]">{image.label}</span>
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+                            <label>
+                              <span className={themedLabelClassName()}>Bullets, one per line</span>
+                              <textarea className={`${themedInputClassName()} min-h-28`} value={(section.bullets ?? []).join("\n")} onChange={(event) => updateSection(index, { bullets: splitLines(event.target.value) })} />
+                            </label>
+                            <label>
+                              <span className={themedLabelClassName()}>Pull quote</span>
+                              <textarea className={`${themedInputClassName()} min-h-28`} value={section.quote ?? ""} onChange={(event) => updateSection(index, { quote: event.target.value })} />
+                            </label>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                   <label className="md:col-span-2">
                     <span className={themedLabelClassName()}>FAQs, one question/answer pair per block</span>
                     <textarea
@@ -1004,7 +1120,7 @@ export default function CmsAdminApp() {
                 <h2 className="text-lg font-bold text-[var(--cms-text)]">Formatting shortcuts</h2>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {sectionFormatOptions.map((option) => (
-                    <button key={option.label} type="button" onClick={() => { insertSectionsFormat(option.snippet); setActiveView("articles"); }} className={formatButtonClassName()}>
+                    <button key={option.label} type="button" onClick={() => { option.action(); setActiveView("articles"); }} className={formatButtonClassName()}>
                       {option.label}
                     </button>
                   ))}
