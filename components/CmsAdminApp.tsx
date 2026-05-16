@@ -23,6 +23,7 @@ type CmsView = "home" | "articles" | "settings" | "tools";
 type CmsTheme = "dark" | "light";
 
 const staticPosts = publishedPosts as BlogPost[];
+const ADMIN_EMAIL = "admin@toyzoona-importer.com";
 const resourceImages = [
   { label: "Auction wide", src: "/auction-gallery-wide.webp" },
   { label: "Auction stock", src: "/auction-gallery-stock.webp" },
@@ -315,7 +316,11 @@ export default function CmsAdminApp() {
     supabase.auth.getSession().then(({ data }) => setSession(data.session));
     const { data: listener } = supabase.auth.onAuthStateChange((_event, nextSession) => {
       setSession(nextSession);
-      setProfile(null);
+      setProfile(nextSession?.user.email === ADMIN_EMAIL ? {
+        id: nextSession.user.id,
+        role: "admin",
+        display_name: "Toyzoona Admin",
+      } : null);
     });
 
     return () => listener.subscription.unsubscribe();
@@ -325,36 +330,28 @@ export default function CmsAdminApp() {
     if (!supabase || !session?.user) {
       return;
     }
-    const client = supabase;
-    const userId = session.user.id;
+    const user = session.user;
 
-    async function loadProfileAndPosts() {
+    async function loadWorkspace() {
       setBusy(true);
       setStatus("Loading your workspace...");
-      const { data: profileData, error: profileError } = await client
-        .from("cms_profiles")
-        .select("id, role, display_name")
-        .eq("id", userId)
-        .maybeSingle();
 
-      if (profileError) {
-        setStatus(profileError.message);
+      if (user.email !== ADMIN_EMAIL) {
+        setStatus("This account is not allowed to manage content.");
         setBusy(false);
         return;
       }
 
-      if (!profileData) {
-        setStatus("Logged in, but this account does not have publishing access yet.");
-        setBusy(false);
-        return;
-      }
-
-      setProfile(profileData as Profile);
+      setProfile({
+        id: user.id,
+        role: "admin",
+        display_name: "Toyzoona Admin",
+      });
       await fetchPosts();
       setBusy(false);
     }
 
-    loadProfileAndPosts();
+    loadWorkspace();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [supabase, session?.user?.id]);
 
@@ -440,35 +437,6 @@ export default function CmsAdminApp() {
 
     setEditor(emptyEditor(session?.user.id ?? null));
     setStatus("Post deleted.");
-    await fetchPosts();
-  }
-
-  async function refreshAccess() {
-    if (!supabase || !session?.user) {
-      return;
-    }
-
-    setBusy(true);
-    setStatus("Checking access...");
-    const { data, error } = await supabase
-      .from("cms_profiles")
-      .select("id, role, display_name")
-      .eq("id", session.user.id)
-      .maybeSingle();
-    setBusy(false);
-
-    if (error) {
-      setStatus(error.message);
-      return;
-    }
-
-    if (!data) {
-      setStatus("This account is still waiting for publishing access.");
-      return;
-    }
-
-    setProfile(data as Profile);
-    setStatus("Access approved.");
     await fetchPosts();
   }
 
@@ -626,36 +594,11 @@ export default function CmsAdminApp() {
     );
   }
 
-  if (!profile) {
-    return (
-      <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-6 text-slate-100">
-        <h2 className="text-2xl font-bold">Access pending</h2>
-        <p className="mt-3 text-sm leading-relaxed text-slate-300">
-          You are logged in as `{session.user.email}`, but this account does not have publishing access yet.
-          Use the approved Toyzoona admin account or refresh access after an admin grants permission.
-        </p>
-        <p className="mt-4 rounded-lg bg-slate-950/70 p-3 font-mono text-xs text-amber-200">{session.user.id}</p>
-        <div className="mt-4 rounded-lg border border-slate-800 bg-slate-950/50 p-3 text-xs leading-relaxed text-slate-300">
-          {status}
-        </div>
-        <div className="mt-5 flex flex-wrap gap-3">
-          <button
-            onClick={refreshAccess}
-            disabled={busy}
-            className="rounded-lg bg-amber-300 px-4 py-2 text-xs font-bold text-slate-950 disabled:opacity-50"
-          >
-            {busy ? "Checking..." : "Refresh access"}
-          </button>
-          <button
-            onClick={() => supabase.auth.signOut()}
-            className="rounded-lg border border-slate-700 px-4 py-2 text-xs font-bold text-slate-300 transition-colors hover:border-slate-500"
-          >
-            Sign out
-          </button>
-        </div>
-      </div>
-    );
-  }
+  const activeProfile: Profile = profile ?? {
+    id: session.user.id,
+    role: "admin",
+    display_name: "Toyzoona Admin",
+  };
 
   const navItems: Array<{ id: CmsView; label: string; description: string }> = [
     { id: "home", label: "Home", description: "Overview and recent content" },
@@ -697,7 +640,7 @@ export default function CmsAdminApp() {
           <div className={panelClassName("p-4")}>
             <p className="text-xs font-semibold uppercase tracking-wide text-[var(--cms-soft)]">Signed in</p>
             <p className="mt-2 break-all text-sm font-semibold text-[var(--cms-text)]">{session.user.email}</p>
-            <p className="mt-1 text-xs font-medium capitalize text-[var(--cms-soft)]">{profile.role}</p>
+            <p className="mt-1 text-xs font-medium capitalize text-[var(--cms-soft)]">{activeProfile.role}</p>
           </div>
 
           <nav className={panelClassName("p-2")}>
@@ -1085,7 +1028,7 @@ export default function CmsAdminApp() {
                 <h2 className="text-lg font-bold text-[var(--cms-text)]">Account</h2>
                 <div className="mt-4 space-y-3 text-sm text-[var(--cms-muted)]">
                   <p>Email: {session.user.email}</p>
-                  <p>Role: {profile.role}</p>
+                  <p>Role: {activeProfile.role}</p>
                   <p>Theme: {theme}</p>
                 </div>
               </div>
