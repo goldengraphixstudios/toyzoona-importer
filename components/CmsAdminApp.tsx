@@ -211,7 +211,6 @@ export default function CmsAdminApp() {
   const sectionsTextareaRef = useRef<HTMLTextAreaElement>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
-  const [authMode, setAuthMode] = useState<"login" | "signup">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [posts, setPosts] = useState<CmsPostRow[]>([]);
@@ -297,10 +296,7 @@ export default function CmsAdminApp() {
     }
 
     setBusy(true);
-    const result =
-      authMode === "login"
-        ? await supabase.auth.signInWithPassword({ email, password })
-        : await supabase.auth.signUp({ email, password });
+    const result = await supabase.auth.signInWithPassword({ email, password });
 
     setBusy(false);
     if (result.error) {
@@ -308,7 +304,7 @@ export default function CmsAdminApp() {
       return;
     }
 
-    setStatus(authMode === "login" ? "Logged in." : "Account created. Ask an admin to approve publishing access.");
+    setStatus("Logged in.");
   }
 
   async function savePost(nextStatus?: CmsPostStatus) {
@@ -494,7 +490,7 @@ export default function CmsAdminApp() {
         <p className="mb-3 inline-flex rounded-full bg-[#ff4200] px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white">
           Toyzoona Admin
         </p>
-        <h2 className="font-display text-4xl font-black leading-none text-white">{authMode === "login" ? "Login to manage content." : "Create an admin account."}</h2>
+        <h2 className="font-display text-4xl font-black leading-none text-white">Login to manage content.</h2>
         <div className="mt-6 grid gap-4">
           <label>
             <span className={labelClassName()}>Email</span>
@@ -509,13 +505,7 @@ export default function CmsAdminApp() {
             disabled={busy}
             className="rounded-2xl border-2 border-white bg-[#ff4200] px-5 py-3 text-sm font-black uppercase tracking-[0.12em] text-white shadow-[0_8px_0_#9b2200] disabled:opacity-50"
           >
-            {busy ? "Please wait..." : authMode === "login" ? "Login" : "Create account"}
-          </button>
-          <button
-            onClick={() => setAuthMode(authMode === "login" ? "signup" : "login")}
-            className="text-sm font-bold text-[#ffef3f] hover:underline"
-          >
-            {authMode === "login" ? "Need an account? Sign up" : "Already have access? Login"}
+            {busy ? "Please wait..." : "Login"}
           </button>
           <p className="text-xs font-semibold leading-relaxed text-white/52">{status}</p>
         </div>
