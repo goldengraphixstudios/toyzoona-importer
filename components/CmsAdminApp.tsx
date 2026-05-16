@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { Session, User } from "@supabase/supabase-js";
 import publishedPosts from "@/content/blog-posts.json";
 import type { BlogPost } from "@/lib/blogPosts";
@@ -202,8 +202,13 @@ function labelClassName() {
   return "mb-2 block text-[11px] font-black uppercase tracking-[0.16em] text-white/54";
 }
 
+function formatButtonClassName() {
+  return "rounded-xl border border-white/12 bg-white/[0.055] px-3 py-2 text-[10px] font-black uppercase tracking-[0.12em] text-white/70 transition-colors hover:border-[#ffef3f]/50 hover:text-[#ffef3f]";
+}
+
 export default function CmsAdminApp() {
   const supabase = useMemo(() => getSupabaseBrowserClient(), []);
+  const sectionsTextareaRef = useRef<HTMLTextAreaElement>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [authMode, setAuthMode] = useState<"login" | "signup">("login");
@@ -389,6 +394,58 @@ export default function CmsAdminApp() {
     setSectionsText(serializeSections(post.sections));
     setStatus("Loaded static article as a new Supabase draft.");
   }
+
+  function insertSectionsFormat(snippet: string) {
+    const textarea = sectionsTextareaRef.current;
+    if (!textarea) {
+      setSectionsText((current) => `${current.trim()}\n\n${snippet}`.trim());
+      return;
+    }
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const before = sectionsText.slice(0, start);
+    const after = sectionsText.slice(end);
+    const needsLeadingBreak = before.trim().length > 0 && !before.endsWith("\n\n");
+    const needsTrailingBreak = after.trim().length > 0 && !snippet.endsWith("\n\n");
+    const insertion = `${needsLeadingBreak ? "\n\n" : ""}${snippet}${needsTrailingBreak ? "\n\n" : ""}`;
+    const nextValue = `${before}${insertion}${after}`;
+
+    setSectionsText(nextValue);
+    window.requestAnimationFrame(() => {
+      textarea.focus();
+      const cursor = before.length + insertion.length;
+      textarea.setSelectionRange(cursor, cursor);
+    });
+  }
+
+  const sectionFormatOptions = [
+    {
+      label: "Section",
+      snippet: "## New section heading\nWrite the main paragraph here. Keep one idea per paragraph for easier reading.",
+    },
+    {
+      label: "Paragraph",
+      snippet: "Add a clear paragraph that answers one buyer question or explains one buying step.",
+    },
+    {
+      label: "Bullet",
+      snippet: "- Add one scannable point for buyers",
+    },
+    {
+      label: "Quote",
+      snippet: "QUOTE: Add a strong pull quote or key buying reminder.",
+    },
+    {
+      label: "Image",
+      snippet: "IMAGE: /toy-categories/stock-01.webp\nALT: Toyzoona toy stock arranged for buyers\nCAPTION: Use captions to explain what buyers are seeing.",
+    },
+    {
+      label: "SEO Template",
+      snippet:
+        "## Quick answer\nStart with a direct answer in 2 to 3 sentences so search engines and AI answer engines can understand the page immediately.\n\n- Who this is for\n- What to check first\n- What action to take next\n\n## Buying checklist\nWrite practical steps the customer can follow before messaging Toyzoona.\n\nQUOTE: Clear answers convert better than vague descriptions.",
+    },
+  ];
 
   if (!isSupabaseConfigured() || !supabase) {
     return (
@@ -608,7 +665,36 @@ export default function CmsAdminApp() {
           </label>
           <label className="md:col-span-2">
             <span className={labelClassName()}>Article sections</span>
-            <textarea className={`${inputClassName()} min-h-[420px] font-mono text-xs leading-relaxed`} value={sectionsText} onChange={(event) => setSectionsText(event.target.value)} />
+            <div className="mb-3 rounded-2xl border border-white/10 bg-black/20 p-3">
+              <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+                <p className="text-xs font-bold text-white/58">Insert structured article formatting:</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-white/34">Heading, image, bullets, quote, SEO template</p>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {sectionFormatOptions.map((option) => (
+                  <button
+                    key={option.label}
+                    type="button"
+                    onClick={() => insertSectionsFormat(option.snippet)}
+                    className={formatButtonClassName()}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+              <div className="mt-3 grid gap-2 rounded-xl bg-white/[0.035] p-3 text-xs font-semibold leading-relaxed text-white/48 sm:grid-cols-2">
+                <span><strong className="text-[#ffef3f]">## Heading</strong> starts a new article section.</span>
+                <span><strong className="text-[#ffef3f]">IMAGE / ALT / CAPTION</strong> attaches a section image.</span>
+                <span><strong className="text-[#ffef3f]">- Bullet</strong> creates scannable buyer points.</span>
+                <span><strong className="text-[#ffef3f]">QUOTE:</strong> creates a highlighted pull quote.</span>
+              </div>
+            </div>
+            <textarea
+              ref={sectionsTextareaRef}
+              className={`${inputClassName()} min-h-[420px] font-mono text-xs leading-relaxed`}
+              value={sectionsText}
+              onChange={(event) => setSectionsText(event.target.value)}
+            />
           </label>
           <label className="md:col-span-2">
             <span className={labelClassName()}>FAQs, one question/answer pair per block</span>

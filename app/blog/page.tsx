@@ -30,7 +30,7 @@ export default function BlogPage() {
       "@type": "Article",
       headline: post.title,
       description: post.description,
-      url: `${siteUrl}/blog/${post.slug}/`,
+      url: `${siteUrl}/blog/post/?slug=${post.slug}`,
       datePublished: post.publishedAt,
       dateModified: post.updatedAt,
     })),
@@ -69,7 +69,7 @@ export default function BlogPage() {
           {posts.map((post, index) => (
             <Link
               key={post.slug}
-              href={`/blog/${post.slug}`}
+              href={`/blog/post?slug=${post.slug}`}
               className={`group overflow-hidden rounded-[1.6rem] border-2 border-white/10 bg-white/[0.045] p-5 shadow-[0_20px_50px_rgba(0,0,0,0.22)] transition-all duration-300 hover:-translate-y-1 hover:border-[#ffef3f]/70 hover:bg-white/[0.07] ${
                 index === 0 ? "lg:col-span-2 lg:p-7" : ""
               }`}
