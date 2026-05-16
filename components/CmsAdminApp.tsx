@@ -195,15 +195,15 @@ function editorToInput(editor: EditorState, user: User): CmsPostInput {
 }
 
 function inputClassName() {
-  return "w-full rounded-2xl border border-white/10 bg-white/[0.055] px-4 py-3 text-sm font-semibold text-white outline-none transition-colors placeholder:text-white/28 focus:border-[#ffef3f]/70";
+  return "w-full rounded-lg border border-slate-700 bg-slate-950/50 px-3 py-2.5 text-sm font-medium text-slate-100 outline-none transition-colors placeholder:text-slate-500 focus:border-amber-300 focus:ring-2 focus:ring-amber-300/10";
 }
 
 function labelClassName() {
-  return "mb-2 block text-[11px] font-black uppercase tracking-[0.16em] text-white/54";
+  return "mb-1.5 block text-xs font-semibold text-slate-300";
 }
 
 function formatButtonClassName() {
-  return "rounded-xl border border-white/12 bg-white/[0.055] px-3 py-2 text-[10px] font-black uppercase tracking-[0.12em] text-white/70 transition-colors hover:border-[#ffef3f]/50 hover:text-[#ffef3f]";
+  return "rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-xs font-semibold text-slate-200 transition-colors hover:border-amber-300/60 hover:text-amber-200";
 }
 
 export default function CmsAdminApp() {
@@ -447,9 +447,9 @@ export default function CmsAdminApp() {
 
   if (!isSupabaseConfigured() || !supabase) {
     return (
-      <div className="rounded-[1.6rem] border border-[#ffef3f]/30 bg-[#ffef3f]/10 p-6 text-white">
-        <h2 className="font-display text-3xl font-black">Content manager is not ready yet.</h2>
-        <p className="mt-3 text-sm font-semibold leading-relaxed text-white/72">
+      <div className="rounded-xl border border-amber-300/30 bg-amber-300/10 p-6 text-slate-100">
+        <h2 className="text-2xl font-bold">Content manager is not ready yet.</h2>
+        <p className="mt-3 text-sm leading-relaxed text-slate-300">
           The publishing dashboard needs to be configured before articles can be managed.
         </p>
       </div>
@@ -458,11 +458,14 @@ export default function CmsAdminApp() {
 
   if (!session) {
     return (
-      <div className="mx-auto max-w-xl rounded-[1.6rem] border border-white/10 bg-white/[0.055] p-6 shadow-[0_24px_70px_rgba(0,0,0,0.26)]">
-        <p className="mb-3 inline-flex rounded-full bg-[#ff4200] px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white">
+      <div className="mx-auto mt-10 max-w-md rounded-2xl border border-slate-800 bg-slate-900/70 p-6 shadow-2xl shadow-black/30">
+        <p className="mb-3 inline-flex rounded-full border border-slate-700 bg-slate-950 px-3 py-1 text-xs font-semibold text-slate-300">
           Toyzoona Admin
         </p>
-        <h2 className="font-display text-4xl font-black leading-none text-white">Login to manage content.</h2>
+        <h2 className="text-2xl font-bold tracking-tight text-white">Login to manage content</h2>
+        <p className="mt-2 text-sm leading-relaxed text-slate-400">
+          Use the approved Toyzoona admin account to edit and publish articles.
+        </p>
         <div className="mt-6 grid gap-4">
           <label>
             <span className={labelClassName()}>Email</span>
@@ -475,11 +478,11 @@ export default function CmsAdminApp() {
           <button
             onClick={handleAuth}
             disabled={busy}
-            className="rounded-2xl border-2 border-white bg-[#ff4200] px-5 py-3 text-sm font-black uppercase tracking-[0.12em] text-white shadow-[0_8px_0_#9b2200] disabled:opacity-50"
+            className="rounded-lg bg-amber-300 px-5 py-3 text-sm font-bold text-slate-950 transition-colors hover:bg-amber-200 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {busy ? "Please wait..." : "Login"}
           </button>
-          <p className="text-xs font-semibold leading-relaxed text-white/52">{status}</p>
+          <p className="text-xs leading-relaxed text-slate-400">{status}</p>
         </div>
       </div>
     );
@@ -487,27 +490,27 @@ export default function CmsAdminApp() {
 
   if (!profile) {
     return (
-      <div className="rounded-[1.6rem] border border-white/10 bg-white/[0.055] p-6 text-white">
-        <h2 className="font-display text-3xl font-black">Access pending.</h2>
-        <p className="mt-3 text-sm font-semibold leading-relaxed text-white/68">
+      <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-6 text-slate-100">
+        <h2 className="text-2xl font-bold">Access pending</h2>
+        <p className="mt-3 text-sm leading-relaxed text-slate-300">
           You are logged in as `{session.user.email}`, but this account does not have publishing access yet.
           Use the approved Toyzoona admin account or refresh access after an admin grants permission.
         </p>
-        <p className="mt-4 rounded-2xl bg-black/30 p-3 font-mono text-xs text-[#ffef3f]">{session.user.id}</p>
-        <div className="mt-4 rounded-2xl border border-white/10 bg-black/20 p-3 text-xs font-semibold leading-relaxed text-white/62">
+        <p className="mt-4 rounded-lg bg-slate-950/70 p-3 font-mono text-xs text-amber-200">{session.user.id}</p>
+        <div className="mt-4 rounded-lg border border-slate-800 bg-slate-950/50 p-3 text-xs leading-relaxed text-slate-300">
           {status}
         </div>
         <div className="mt-5 flex flex-wrap gap-3">
           <button
             onClick={refreshAccess}
             disabled={busy}
-            className="rounded-xl bg-[#ffef3f] px-4 py-2 text-xs font-black uppercase tracking-[0.14em] text-[#4b1b00] disabled:opacity-50"
+            className="rounded-lg bg-amber-300 px-4 py-2 text-xs font-bold text-slate-950 disabled:opacity-50"
           >
             {busy ? "Checking..." : "Refresh access"}
           </button>
           <button
             onClick={() => supabase.auth.signOut()}
-            className="rounded-xl border border-white/15 px-4 py-2 text-xs font-black uppercase tracking-[0.14em] text-white/70"
+            className="rounded-lg border border-slate-700 px-4 py-2 text-xs font-bold text-slate-300 transition-colors hover:border-slate-500"
           >
             Sign out
           </button>
@@ -519,13 +522,13 @@ export default function CmsAdminApp() {
   return (
     <div className="grid gap-6 lg:grid-cols-[320px_minmax(0,1fr)]">
       <aside className="space-y-4">
-        <div className="rounded-[1.4rem] border border-white/10 bg-white/[0.055] p-5">
-          <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#ffef3f]">Logged in</p>
-          <p className="mt-2 break-all text-sm font-bold text-white">{session.user.email}</p>
-          <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-white/42">{profile.role}</p>
+        <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-5">
+          <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">Logged in</p>
+          <p className="mt-2 break-all text-sm font-semibold text-white">{session.user.email}</p>
+          <p className="mt-1 text-xs font-medium uppercase tracking-wide text-slate-500">{profile.role}</p>
           <button
             onClick={() => supabase.auth.signOut()}
-            className="mt-4 rounded-xl border border-white/15 px-4 py-2 text-xs font-black uppercase tracking-[0.14em] text-white/70"
+            className="mt-4 rounded-lg border border-slate-700 px-4 py-2 text-xs font-semibold text-slate-300 transition-colors hover:border-slate-500"
           >
             Sign out
           </button>
@@ -538,13 +541,13 @@ export default function CmsAdminApp() {
             setSectionsText(serializeSections(blank.sections));
             setStatus("New draft started.");
           }}
-          className="w-full rounded-2xl border-2 border-white bg-[#ff4200] px-4 py-3 text-sm font-black uppercase tracking-[0.12em] text-white shadow-[0_8px_0_#9b2200]"
+          className="w-full rounded-lg bg-amber-300 px-4 py-3 text-sm font-bold text-slate-950 transition-colors hover:bg-amber-200"
         >
           New post
         </button>
 
-        <div className="rounded-[1.4rem] border border-white/10 bg-white/[0.045] p-4">
-          <p className="mb-3 text-[10px] font-black uppercase tracking-[0.16em] text-white/46">Articles</p>
+        <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-400">Articles</p>
           <div className="space-y-2">
             {posts.map((post) => (
               <button
@@ -553,23 +556,23 @@ export default function CmsAdminApp() {
                   setEditor(rowToEditor(post));
                   setSectionsText(serializeSections(post.sections));
                 }}
-                className="w-full rounded-xl border border-white/10 bg-white/[0.04] px-3 py-3 text-left transition-colors hover:border-[#ffef3f]/40"
+                className="w-full rounded-lg border border-slate-800 bg-slate-950/45 px-3 py-3 text-left transition-colors hover:border-amber-300/50"
               >
-                <span className="block text-sm font-black leading-tight text-white">{post.title}</span>
-                <span className="mt-1 block text-[10px] font-black uppercase tracking-wider text-white/42">{post.status}</span>
+                <span className="block text-sm font-semibold leading-snug text-slate-100">{post.title}</span>
+                <span className="mt-1 block text-xs font-medium capitalize text-slate-500">{post.status}</span>
               </button>
             ))}
           </div>
         </div>
 
-        <div className="rounded-[1.4rem] border border-white/10 bg-white/[0.045] p-4">
-          <p className="mb-3 text-[10px] font-black uppercase tracking-[0.16em] text-white/46">Starter articles</p>
+        <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-400">Starter articles</p>
           <div className="space-y-2">
             {staticPosts.map((post) => (
               <button
                 key={post.slug}
                 onClick={() => loadStaticPost(post)}
-                className="w-full rounded-xl border border-white/10 px-3 py-2 text-left text-xs font-bold text-white/68 hover:border-[#ffef3f]/40"
+                className="w-full rounded-lg border border-slate-800 px-3 py-2 text-left text-xs font-medium text-slate-300 transition-colors hover:border-amber-300/50"
               >
                 {post.title}
               </button>
@@ -578,28 +581,28 @@ export default function CmsAdminApp() {
         </div>
       </aside>
 
-      <section className="rounded-[1.6rem] border border-white/10 bg-white/[0.045] p-5 shadow-[0_24px_70px_rgba(0,0,0,0.24)] sm:p-7">
+      <section className="rounded-2xl border border-slate-800 bg-slate-900/70 p-5 shadow-2xl shadow-black/20 sm:p-7">
         <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#ffef3f]">Editor</p>
-            <h2 className="mt-2 font-display text-3xl font-black leading-none text-white">Article Editor</h2>
+            <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">Editor</p>
+            <h2 className="mt-1 text-2xl font-bold tracking-tight text-white">Article Editor</h2>
           </div>
           <div className="flex flex-wrap gap-2">
-            <button onClick={() => savePost("draft")} disabled={busy} className="rounded-xl border border-white/15 px-4 py-2 text-xs font-black uppercase tracking-[0.12em] text-white/74 disabled:opacity-50">
+            <button onClick={() => savePost("draft")} disabled={busy} className="rounded-lg border border-slate-700 px-4 py-2 text-xs font-semibold text-slate-300 disabled:opacity-50">
               Save draft
             </button>
-            <button onClick={() => savePost("published")} disabled={busy} className="rounded-xl bg-[#ffef3f] px-4 py-2 text-xs font-black uppercase tracking-[0.12em] text-[#4b1b00] disabled:opacity-50">
+            <button onClick={() => savePost("published")} disabled={busy} className="rounded-lg bg-amber-300 px-4 py-2 text-xs font-bold text-slate-950 disabled:opacity-50">
               Publish
             </button>
             {editor.id ? (
-              <button onClick={() => deletePost(editor.id)} disabled={busy} className="rounded-xl border border-red-400/40 px-4 py-2 text-xs font-black uppercase tracking-[0.12em] text-red-200 disabled:opacity-50">
+              <button onClick={() => deletePost(editor.id)} disabled={busy} className="rounded-lg border border-red-400/40 px-4 py-2 text-xs font-semibold text-red-200 disabled:opacity-50">
                 Delete
               </button>
             ) : null}
           </div>
         </div>
 
-        <div className="mb-5 rounded-2xl border border-white/10 bg-black/20 p-3 text-xs font-semibold text-white/62">{status}</div>
+        <div className="mb-5 rounded-lg border border-slate-800 bg-slate-950/50 p-3 text-xs text-slate-300">{status}</div>
 
         <div className="grid gap-4 md:grid-cols-2">
           <label>
@@ -659,10 +662,10 @@ export default function CmsAdminApp() {
           </label>
           <label className="md:col-span-2">
             <span className={labelClassName()}>Article sections</span>
-            <div className="mb-3 rounded-2xl border border-white/10 bg-black/20 p-3">
+            <div className="mb-3 rounded-xl border border-slate-800 bg-slate-950/45 p-3">
               <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-                <p className="text-xs font-bold text-white/58">Insert structured article formatting:</p>
-                <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-white/34">Heading, image, bullets, quote, SEO template</p>
+                <p className="text-xs font-semibold text-slate-300">Insert structured article formatting:</p>
+                <p className="text-xs font-medium text-slate-500">Heading, image, bullets, quote, SEO template</p>
               </div>
               <div className="flex flex-wrap gap-2">
                 {sectionFormatOptions.map((option) => (
@@ -676,11 +679,11 @@ export default function CmsAdminApp() {
                   </button>
                 ))}
               </div>
-              <div className="mt-3 grid gap-2 rounded-xl bg-white/[0.035] p-3 text-xs font-semibold leading-relaxed text-white/48 sm:grid-cols-2">
-                <span><strong className="text-[#ffef3f]">## Heading</strong> starts a new article section.</span>
-                <span><strong className="text-[#ffef3f]">IMAGE / ALT / CAPTION</strong> attaches a section image.</span>
-                <span><strong className="text-[#ffef3f]">- Bullet</strong> creates scannable buyer points.</span>
-                <span><strong className="text-[#ffef3f]">QUOTE:</strong> creates a highlighted pull quote.</span>
+              <div className="mt-3 grid gap-2 rounded-lg bg-slate-900 p-3 text-xs leading-relaxed text-slate-400 sm:grid-cols-2">
+                <span><strong className="text-amber-200">## Heading</strong> starts a new article section.</span>
+                <span><strong className="text-amber-200">IMAGE / ALT / CAPTION</strong> attaches a section image.</span>
+                <span><strong className="text-amber-200">- Bullet</strong> creates scannable buyer points.</span>
+                <span><strong className="text-amber-200">QUOTE:</strong> creates a highlighted pull quote.</span>
               </div>
             </div>
             <textarea

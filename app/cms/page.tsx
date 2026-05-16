@@ -12,8 +12,8 @@ export const metadata: Metadata = {
 
 export default function CmsPage() {
   return (
-    <main className="min-h-screen overflow-x-hidden bg-[#07111f] text-white">
-      <section className="mx-auto max-w-[1500px] px-5 py-8 sm:px-8">
+    <main className="min-h-screen overflow-x-hidden bg-[#0b1120] font-sans text-slate-100">
+      <section className="mx-auto max-w-[1500px] px-4 py-6 sm:px-6 lg:px-8">
         <CmsAdminApp />
       </section>
     </main>
