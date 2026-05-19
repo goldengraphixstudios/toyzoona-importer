@@ -60,6 +60,48 @@ const eventCards = [
     tag: "Floor Proof",
     accent: "#00CFFF",
   },
+  {
+    src: "/toyfair-arena/filinvest-2602.jpg",
+    venue: "Filinvest Tent",
+    location: "Alabang, Muntinlupa",
+    tag: "Event Scale",
+    accent: "#FF4200",
+  },
+  {
+    src: "/toyfair-arena/filinvest-3034.jpg",
+    venue: "Filinvest Tent",
+    location: "Alabang, Muntinlupa",
+    tag: "Shelf Proof",
+    accent: "#FFC000",
+  },
+  {
+    src: "/toyfair-arena/filinvest-3035.jpg",
+    venue: "Filinvest Tent",
+    location: "Alabang, Muntinlupa",
+    tag: "Toy Tables",
+    accent: "#9D4EDD",
+  },
+  {
+    src: "/toyfair-arena/filinvest-3036.jpg",
+    venue: "Filinvest Tent",
+    location: "Alabang, Muntinlupa",
+    tag: "Buyer Floor",
+    accent: "#00CFFF",
+  },
+  {
+    src: "/toyfair-arena/filinvest-3037.jpg",
+    venue: "Filinvest Tent",
+    location: "Alabang, Muntinlupa",
+    tag: "Crowd Proof",
+    accent: "#FF4200",
+  },
+  {
+    src: "/toyfair-arena/filinvest-557.jpg",
+    venue: "Filinvest Tent",
+    location: "Alabang, Muntinlupa",
+    tag: "Family Visit",
+    accent: "#FFC000",
+  },
 ];
 
 const venueStats = [
