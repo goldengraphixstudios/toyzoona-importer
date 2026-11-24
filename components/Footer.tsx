@@ -199,7 +199,7 @@ export default function Footer() {
           <div className="flex items-center gap-2.5">
             <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
             <span className="text-[11px] text-tz-dim">
-              Open Mon–Sat &nbsp;·&nbsp; Cabuyao, Laguna, Philippines
+              Open Mon to Sat &nbsp;·&nbsp; Cabuyao, Laguna, Philippines
             </span>
           </div>
         </div>

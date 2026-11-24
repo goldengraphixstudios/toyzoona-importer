@@ -23,7 +23,7 @@ const steps = [
     num: "02",
     Icon: LiveIcon,
     title: "Live Selling",
-    body: "Mon–Sat, 9 AM – 6:30 PM. Watch on Facebook or TikTok, pick your toys, and order in real time from anywhere in the Philippines. Live demos, real stock.",
+    body: "Mon to Sat, 9 AM to 6:30 PM. Watch on Facebook or TikTok, pick your toys, and order in real time from anywhere in the Philippines. Live demos, real stock.",
     cta: "Watch Live on Facebook",
     href: FACEBOOK_PAGE_URL,
     accent: "#FFC000",
@@ -171,7 +171,7 @@ export default function HowToBuy() {
           </div>
           <div className="text-sm text-tz-muted leading-relaxed">
             <strong className="text-tz-text font-semibold">Operating Hours:</strong>{" "}
-            Monday – Saturday &nbsp;·&nbsp; 9:00 AM – 6:30 PM &nbsp;·&nbsp;
+            Monday to Saturday &nbsp;·&nbsp; 9:00 AM to 6:30 PM &nbsp;·&nbsp;
             <strong className="text-tz-orange font-semibold">Saturday Auction</strong>{" "}
             starts ~11:00 AM &nbsp;·&nbsp; Closed Sundays
           </div>

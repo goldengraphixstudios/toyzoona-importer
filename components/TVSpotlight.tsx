@@ -45,7 +45,7 @@ export default function TVSpotlight() {
         {/* Main grid */}
         <div className="grid lg:grid-cols-[0.88fr_1.12fr] gap-10 items-center">
 
-          {/* LEFT — Headline + copy + CTA */}
+          {/* LEFT, Headline + copy + CTA */}
           <div>
             <h2 className="display-xl text-tz-text mb-6">
               We Made It to<br />
@@ -54,7 +54,7 @@ export default function TVSpotlight() {
 
             <p className="body-md mb-6 max-w-xl">
               Toyzoona Importer was featured on{" "}
-              <strong className="text-tz-text font-semibold">Gud Morning Kapatid</strong> —
+              <strong className="text-tz-text font-semibold">Gud Morning Kapatid</strong>,
               one of the Philippines&apos; most-watched morning programs. That broadcast exposure
               gives buyers a public place to verify the brand before messaging the official
               Facebook page.
@@ -96,7 +96,7 @@ export default function TVSpotlight() {
             </a>
           </div>
 
-          {/* RIGHT — TV photo grid */}
+          {/* RIGHT, TV photo grid */}
           <div className="grid grid-cols-2 gap-3 sm:gap-4">
             {tvImages.map((img, index) => (
               <div

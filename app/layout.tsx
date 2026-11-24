@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Baloo_2, Fredoka } from "next/font/google";
+import { Baloo_2, Fredoka, Nunito } from "next/font/google";
 import BuyToysPopup from "@/components/BuyToysPopup";
 import "./globals.css";
 
@@ -13,14 +13,21 @@ const baloo = Baloo_2({
   subsets: ["latin"],
   variable: "--font-baloo",
   display: "swap",
-  weight: ["700", "800"],
+  weight: ["600", "700", "800"],
+});
+
+const nunito = Nunito({
+  subsets: ["latin"],
+  variable: "--font-nunito",
+  display: "swap",
+  weight: ["600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://goldengraphixstudios.github.io/toyzoona-importer/"),
   title: "Toyzoona Importer | The South's First Toys-Per-Kilo Importer",
   description:
-    "Toyzoona Importer — toys-per-kilo supplier with UK preloved toys and China brand-new stock. As seen on national TV. Saturday auctions, live selling, warehouse visits. Cabuyao, Laguna.",
+    "Toyzoona Importer is a toys-per-kilo supplier with UK preloved toys and China brand-new stock. As seen on national TV. Saturday auctions, live selling, warehouse visits. Cabuyao, Laguna.",
   keywords:
     "toys per kilo, toy importer Philippines, toyzoona, Cabuyao toys, reseller toys, bulk toys, Saturday auction, live selling toys, UK toys, China toys, Laguna toy importer",
   openGraph: {
@@ -38,7 +45,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${fredoka.variable} ${baloo.variable} antialiased`}>
+      <body className={`${fredoka.variable} ${baloo.variable} ${nunito.variable} antialiased`}>
         {children}
         <BuyToysPopup />
       </body>

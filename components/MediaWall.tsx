@@ -107,7 +107,7 @@ export default function MediaWall() {
               </h3>
               <p className="mb-4 text-sm leading-relaxed text-tz-muted">
                 The press pickup adds a second trust anchor beside the national TV clip
-                and Facebook reel — multiple public references for buyers to check.
+                and Facebook reel, multiple public references for buyers to check.
               </p>
               <div className="flex min-h-[260px] flex-1 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-white shadow-lg xl:min-h-0">
                 <div className="h-full max-h-[430px] w-full overflow-hidden bg-white">

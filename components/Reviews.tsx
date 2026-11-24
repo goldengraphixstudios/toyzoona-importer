@@ -16,7 +16,7 @@ const reviews = [
     initial: "J",
     color: "#FFC000",
     quote:
-      "Nung nakita ko yung TV feature nila, saka ko naalala kung saan ko sila narinig dati. Legit ang Toyzoona — fresh arrivals, great prices, mabilis mag-reply.",
+      "Nung nakita ko yung TV feature nila, saka ko naalala kung saan ko sila narinig dati. Legit ang Toyzoona, fresh arrivals, great prices, mabilis mag-reply.",
     stars: 5,
   },
   {
@@ -72,7 +72,7 @@ export default function Reviews() {
             What Real Buyers Say
           </h2>
           <p className="body-md max-w-lg mx-auto">
-            From Saturday regulars to nationwide resellers — this is who trusts Toyzoona.
+            From Saturday regulars to nationwide resellers, this is who trusts Toyzoona.
           </p>
 
           {/* Overall rating */}

@@ -1,9 +1,11 @@
 "use client";
 
+/* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { FACEBOOK_PAGE_URL } from "@/lib/socialLinks";
+import { assetPath } from "@/lib/assetPath";
 const STORAGE_KEY = "toyzoona-buy-popup-dismissed";
+const MESSENGER_URL = "https://m.me/ToyzoonaLaguna";
 
 export default function BuyToysPopup() {
   const pathname = usePathname();
@@ -11,65 +13,69 @@ export default function BuyToysPopup() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    if (isCmsRoute) {
-      return;
+    if (isCmsRoute) return;
+    try {
+      if (window.sessionStorage.getItem(STORAGE_KEY) === "true") return;
+    } catch {
+      /* storage blocked: still show once */
     }
-
-    if (window.sessionStorage.getItem(STORAGE_KEY) === "true") {
-      return;
-    }
-
-    const timeout = window.setTimeout(() => setVisible(true), 1800);
+    const timeout = window.setTimeout(() => setVisible(true), 6000);
     return () => window.clearTimeout(timeout);
   }, [isCmsRoute]);
 
   const dismiss = () => {
-    window.sessionStorage.setItem(STORAGE_KEY, "true");
+    try {
+      window.sessionStorage.setItem(STORAGE_KEY, "true");
+    } catch {
+      /* ignore */
+    }
     setVisible(false);
   };
 
-  if (!visible || isCmsRoute) {
-    return null;
-  }
+  if (!visible || isCmsRoute) return null;
 
   return (
-    <div className="fixed inset-0 z-[80] flex items-end justify-center bg-black/42 p-4 backdrop-blur-sm sm:items-center">
-      <div className="relative w-full max-w-md overflow-hidden rounded-[1.8rem] border-2 border-white bg-[#ffef3f] p-5 text-[#4b1b00] shadow-[0_26px_80px_rgba(0,0,0,0.45)]">
+    <div
+      className="fixed inset-0 z-[80] flex items-end justify-center bg-[#12215F]/40 p-4 backdrop-blur-[3px] sm:items-center"
+      onClick={dismiss}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="buy-popup-title"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="relative w-full max-w-[420px] overflow-hidden rounded-[30px] border-[3px] border-white bg-gradient-to-b from-[#FFF6D8] to-[#FFEBB5] px-6 pb-6 pt-5 text-center text-[#1E2B5E] shadow-[0_30px_70px_rgba(18,33,95,0.35)]"
+        style={{ fontFamily: "var(--font-nunito), system-ui, sans-serif" }}
+      >
         <button
           type="button"
           onClick={dismiss}
-          className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#4b1b00] bg-white text-lg font-black"
-          aria-label="Close popup"
+          className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full bg-white text-xl font-black leading-none text-[#12215F] shadow-[0_3px_8px_rgba(18,33,95,0.15)]"
+          aria-label="Close"
         >
-          x
+          ×
         </button>
-
-        <div className="mb-4 inline-flex rounded-full bg-[#ff4200] px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-white">
-          Toyzoona Importer
-        </div>
-        <h2 className="font-display text-4xl font-black leading-[0.9] tracking-tight">
-          Buy Toys Per Kilo
+        <img src={assetPath("/v5/media/logo-hd.png")} alt="Toyzoona Importer" width={1479} height={801} className="mx-auto w-44 drop-shadow-[0_6px_10px_rgba(10,40,120,0.25)]" />
+        <img src={assetPath("/v5/art/restock-box.webp")} alt="" className="mx-auto -mt-1 w-24" />
+        <h2 id="buy-popup-title" className="mt-1 text-[34px] font-extrabold leading-none text-[#12215F]" style={{ fontFamily: "var(--font-baloo), system-ui, sans-serif" }}>
+          Want today’s stock?
         </h2>
-        <p className="mt-3 text-sm font-semibold leading-relaxed text-[#4b1b00]/75">
-          Message the official Facebook page for current stock, warehouse visit details,
-          live selling links, and per-kilo toy availability.
+        <p className="mx-auto mt-2 max-w-[30ch] text-[16px] font-bold leading-snug text-[#4A5880]">
+          Message us for photos of what just arrived, today’s per-kilo rate, and warehouse visit details.
         </p>
-
-        <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+        <div className="mt-5 flex flex-col gap-3">
           <a
-            href={FACEBOOK_PAGE_URL}
+            href={MESSENGER_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex flex-1 items-center justify-center rounded-2xl border-2 border-white bg-[#ff4200] px-5 py-3 text-sm font-black uppercase tracking-[0.12em] text-white shadow-[0_9px_0_#9b2200] transition-transform duration-300 hover:-translate-y-1"
-          >
-            Go to Facebook Page
-          </a>
-          <button
-            type="button"
             onClick={dismiss}
-            className="inline-flex items-center justify-center rounded-2xl border-2 border-[#4b1b00] bg-white px-5 py-3 text-sm font-black uppercase tracking-[0.12em]"
+            className="inline-flex items-center justify-center rounded-full bg-gradient-to-b from-[#FFE869] via-[#FFD02A] to-[#F7BB0B] px-6 pb-3.5 pt-4 text-[19px] font-extrabold leading-none text-[#12215F] shadow-[inset_0_2px_0_rgba(255,255,255,.65),0_5px_0_#D99A00,0_12px_22px_rgba(217,154,0,.3)] transition-[translate] hover:-translate-y-0.5"
+            style={{ fontFamily: "var(--font-baloo), system-ui, sans-serif" }}
           >
-            Later
+            Message Toyzoona
+          </a>
+          <button type="button" onClick={dismiss} className="text-[15px] font-extrabold text-[#1F6FE5] underline-offset-4 hover:underline">
+            Maybe later
           </button>
         </div>
       </div>

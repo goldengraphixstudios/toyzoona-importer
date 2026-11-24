@@ -17,7 +17,7 @@ const contactCards = [
   {
     Icon: ClockIcon,
     title: "Hours",
-    info: "Monday – Saturday\n9:00 AM – 6:30 PM · Closed Sundays",
+    info: "Monday to Saturday\n9:00 AM to 6:30 PM · Closed Sundays",
     link: null,
     linkLabel: null,
   },
@@ -111,7 +111,7 @@ export default function FinalCTA() {
           </h2>
 
           <p className="text-white/70 text-xl mb-4 max-w-2xl mx-auto leading-relaxed">
-            Whether you&apos;re a first-time buyer, an active reseller, or a bulk event sourcer —
+            Whether you&apos;re a first-time buyer, an active reseller, or a bulk event sourcer,
             Toyzoona has a buying path built exactly for you.
           </p>
           <p className="text-white/50 text-sm mb-12 font-medium tracking-wide">

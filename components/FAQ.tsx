@@ -4,7 +4,7 @@ import { useState } from "react";
 const faqs = [
   {
     q: "What is the toys-per-kilo model?",
-    a: "Instead of buying individual toys at retail price, you purchase toys by weight (kilogram). You choose a mix of toys from our available stock, they get weighed, and you pay based on the per-kilo rate. This means more toys for less money — perfect for resellers, bulk buyers, event organizers, and parents shopping for variety.",
+    a: "Instead of buying individual toys at retail price, you purchase toys by weight (kilogram). You choose a mix of toys from our available stock, they get weighed, and you pay based on the per-kilo rate. This means more toys for less money, perfect for resellers, bulk buyers, event organizers, and parents shopping for variety.",
   },
   {
     q: "Where are the toys imported from?",
@@ -16,7 +16,7 @@ const faqs = [
   },
   {
     q: "Can I buy without attending in person?",
-    a: "Yes! We offer live selling via Facebook and TikTok Monday through Saturday, 9:00 AM – 6:30 PM. Watch the live stream, request your toy picks, and we'll pack and ship them to you nationwide. For live buying and direct orders, message the official Toyzoona Laguna Facebook page.",
+    a: "Yes! We offer live selling via Facebook and TikTok Monday through Saturday, 9:00 AM to 6:30 PM. Watch the live stream, request your toy picks, and we'll pack and ship them to you nationwide. For live buying and direct orders, message the official Toyzoona Laguna Facebook page.",
   },
   {
     q: "Do you ship nationwide across the Philippines?",
@@ -28,15 +28,15 @@ const faqs = [
   },
   {
     q: "Is Toyzoona Importer a legitimate business?",
-    a: "Yes — we have been featured on Gud Morning Kapatid (national TV), covered by the Philippine STAR, and have participated in major toy fairs including Dasma Arena, Filinvest Tent, and Metrotent Pasig. We have thousands of verified buyers in our Facebook community. All media coverage is publicly accessible for you to verify.",
+    a: "Yes, we have been featured on Gud Morning Kapatid (national TV), covered by the Philippine STAR, and have participated in major toy fairs including Dasma Arena, Filinvest Tent, and Metrotent Pasig. We have thousands of verified buyers in our Facebook community. All media coverage is publicly accessible for you to verify.",
   },
   {
     q: "Can I visit the warehouse?",
-    a: "Yes! Our warehouse is located at Gatcahalian Subdivision, Brgy. Banay 2, Cabuyao, Laguna. Walk-ins are welcome Monday through Saturday, 9:00 AM – 6:30 PM. Browse the full inventory in person, choose your toys, and pay after weighing.",
+    a: "Yes! Our warehouse is located at Gatcahalian Subdivision, Brgy. Banay 2, Cabuyao, Laguna. Walk-ins are welcome Monday through Saturday, 9:00 AM to 6:30 PM. Browse the full inventory in person, choose your toys, and pay after weighing.",
   },
   {
     q: "Who is Toyzoona best suited for?",
-    a: "Toyzoona is built for resellers who need volume at great margins, live sellers who want fresh and varied stock, parents looking for affordable gifts, event organizers sourcing giveaways, and anyone who wants variety and value in one place. If you buy more than 5–10 toys at a time, the per-kilo model works in your favor.",
+    a: "Toyzoona is built for resellers who need volume at great margins, live sellers who want fresh and varied stock, parents looking for affordable gifts, event organizers sourcing giveaways, and anyone who wants variety and value in one place. If you buy more than 5 to 10 toys at a time, the per-kilo model works in your favor.",
   },
 ];
 
@@ -79,7 +79,7 @@ export default function FAQ() {
             </a>
         </div>
 
-          {/* Right — accordion */}
+          {/* Right, accordion */}
           <div className="grid gap-2.5 lg:grid-cols-2">
             {faqs.map((faq, i) => (
               <div
