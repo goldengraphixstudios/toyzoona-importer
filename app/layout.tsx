@@ -23,6 +23,16 @@ const nunito = Nunito({
   weight: ["600", "700", "800", "900"],
 });
 
+// The picture shown when a link is shared on Facebook, Messenger, Viber and so on.
+// Absolute URL because the site lives under /toyzoona-importer/ on GitHub Pages.
+const shareImage = {
+  url: "https://goldengraphixstudios.github.io/toyzoona-importer/og-cover.jpg",
+  width: 1200,
+  height: 630,
+  type: "image/jpeg",
+  alt: "Toyzoona Importer. Big toy hauls, by the kilo. A crate of toys on a scale outside the warehouse, with a waving teddy bear.",
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://goldengraphixstudios.github.io/toyzoona-importer/"),
   title: "Toyzoona Importer | The South's First Toys-Per-Kilo Importer",
@@ -35,6 +45,15 @@ export const metadata: Metadata = {
     description:
       "As seen on national TV. UK preloved toys, China brand-new stock, and Saturday auctions for resellers, families, and bulk buyers. Based in Cabuyao, Laguna.",
     type: "website",
+    siteName: "Toyzoona Importer",
+    images: [shareImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Toyzoona Importer | The South's First Toys-Per-Kilo Importer",
+    description:
+      "As seen on national TV. UK preloved toys, China brand-new stock, and Saturday auctions. Cabuyao, Laguna.",
+    images: [shareImage],
   },
 };
 

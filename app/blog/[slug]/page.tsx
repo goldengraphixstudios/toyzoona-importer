@@ -4,7 +4,6 @@ import "../../v5.css";
 import "../../blog-v5.css";
 import { ShellV5 } from "@/components/v5/ChromeV5";
 import { ArticleV5 } from "@/components/v5/BlogV5";
-import { assetPath } from "@/lib/assetPath";
 import { getAllBlogPosts, getBlogPost } from "@/lib/blogPosts";
 
 const siteUrl = "https://goldengraphixstudios.github.io/toyzoona-importer";
@@ -46,7 +45,7 @@ export function generateMetadata({ params }: PageProps): Metadata {
       url: `${siteUrl}/blog/${post.slug}/`,
       images: [
         {
-          url: assetPath(post.heroImage.src),
+          url: `${siteUrl}${post.heroImage.src}`,
           alt: post.heroImage.alt,
         },
       ],
@@ -78,7 +77,7 @@ export default function BlogPostPage({ params }: PageProps) {
     },
     mainEntityOfPage: `${siteUrl}/blog/${post.slug}/`,
     keywords: post.keywords.join(", "),
-    image: `${siteUrl}${assetPath(post.heroImage.src)}`,
+    image: `${siteUrl}${post.heroImage.src}`,
   };
 
   const faqJsonLd = {
