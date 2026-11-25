@@ -21,6 +21,7 @@ const MAPS = "https://www.google.com/maps/dir/?api=1&destination=Toyzoona+Import
 const WA = "https://wa.me/639293781462";
 const YT_FEATURE = "https://www.youtube.com/watch?v=eAGbGMUIzhY";
 const YT_GMA = "https://www.youtube.com/watch?v=xCed6-vE4Ko";
+const YT_OPENING = "https://www.youtube.com/watch?v=AMQq10BFM_U"; // warehouse grand opening
 const FB_REEL = "https://www.facebook.com/reel/2064629281014506/";
 const FB_VIDEO = "https://www.facebook.com/ToyzoonaLaguna/videos/7153440271404393/";
 const fbEmbed = (href: string, w: number) => `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(href)}&show_text=0&width=${w}&autoplay=1`;
@@ -123,13 +124,14 @@ const FAQS = [
   ["Is Toyzoona a legitimate business?", "Yes. We’ve been featured on Gud Morning Kapatid, covered by the Philippine STAR, and joined major toy fairs at Dasma Arena, Filinvest Tent and Metrotent Pasig. Thousands of verified buyers are in our Facebook community, and all media coverage is public for you to check."],
 ];
 
-type Thumb = { img: string; t: string; clip?: string; href?: string };
+type Thumb = { img: string; t: string; href: string };
+// Every thumb opens the full video on YouTube/Facebook (the clips were cut from these).
 const THUMBS: Thumb[] = [
-  { img: "/v5/media/shelves.jpg", t: "Fresh shelves tour", clip: "/v5/media/shelves.mp4" },
-  { img: "/v5/media/rush.jpg", t: "Saturday rush", clip: "/v5/media/rush.mp4" },
+  { img: "/v5/media/shelves.jpg", t: "Fresh shelves tour", href: `${YT_OPENING}&t=2s` },
+  { img: "/v5/media/rush.jpg", t: "Saturday rush", href: `${YT_FEATURE}&t=15s` },
   { img: "/v5/ph/tv-3.webp", t: "Marc Logan feature on TV5", href: YT_FEATURE },
   { img: "/v5/ph/arena-9300.webp", t: "Featured Facebook reel", href: FB_REEL },
-  { img: "/v5/media/warehouse-wide.jpg", t: "Warehouse walkthrough", clip: "/v5/media/warehouse-wide.mp4" },
+  { img: "/v5/media/warehouse-wide.jpg", t: "Warehouse walkthrough", href: YT_OPENING },
 ];
 
 const RIBBON: { t: string; ic?: string }[] = [
@@ -574,16 +576,8 @@ export default function HomeV5() {
             </div>
           </div>
           <div className="thumbs" id="thumbs">
-            {THUMBS.map((t, i) => (
-              <a
-                key={t.t}
-                className={`thumb${i === 0 ? " on" : ""}`}
-                href={t.href ?? "#phone"}
-                {...(t.href ? ext : {})}
-                data-clip={t.clip ? a(t.clip) : undefined}
-                data-poster={t.clip ? picAt(t.img, 1200) : undefined}
-                data-name={t.clip ? t.t : undefined}
-              >
+            {THUMBS.map((t) => (
+              <a key={t.t} className="thumb" href={t.href} {...ext} aria-label={`Watch: ${t.t}`}>
                 <img {...pic(t.img, SZ_THUMB)} alt="" loading="lazy" decoding="async" />
                 <span className="pb"><svg><use href="#tri" /></svg></span>
                 <span className="tt">{t.t}</span>
