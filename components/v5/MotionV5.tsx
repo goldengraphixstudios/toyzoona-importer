@@ -12,6 +12,8 @@ export default function MotionV5() {
     const root = document.getElementById("tz5");
     if (!root) return;
     gsap.registerPlugin(ScrollTrigger);
+    // iOS shows and hides its address bar while you scroll; don't re-measure every trigger for that
+    ScrollTrigger.config({ ignoreMobileResize: true });
     if (process.env.NODE_ENV !== "production") Object.assign(window, { __gsap: gsap, __st: ScrollTrigger });
 
     const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -468,9 +470,13 @@ export default function MotionV5() {
     }, root);
 
     // images below the fold change layout height as they load; keep trigger positions honest
-    const refresh = () => ScrollTrigger.refresh();
+    // lazy images keep loading long after window "load", so also re-measure whenever the page height changes
+    let refreshT = 0, lastH = 0;
+    const refresh = () => { window.clearTimeout(refreshT); refreshT = window.setTimeout(() => ScrollTrigger.refresh(), 160); };
     window.addEventListener("load", refresh);
-    cleanups.push(() => window.removeEventListener("load", refresh));
+    const ro = new ResizeObserver(() => { const h = root.offsetHeight; if (Math.abs(h - lastH) > 4) { lastH = h; refresh(); } });
+    ro.observe(root);
+    cleanups.push(() => { window.removeEventListener("load", refresh); ro.disconnect(); window.clearTimeout(refreshT); });
 
     return () => {
       weighing?.kill();

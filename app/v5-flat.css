@@ -38,12 +38,12 @@
 
 /* ---------- how it works ---------- */
 .tz5 #stBox.mix { height: auto; width: min(330px, 100%); max-height: none; margin-bottom: 9% }
-.tz5 .combo { position: relative; z-index: 1; width: min(300px, 96%); aspect-ratio: 540 / 400 }
-.tz5 #stScale.combo { height: auto }
+.tz5 .combo { position: relative; z-index: 1; height: 100%; max-width: 100%; aspect-ratio: 540 / 520 }
+.tz5 #stScale.combo { height: 100% }
 .tz5 .combo img { position: absolute; max-height: none }
 .tz5 .combo .sc { left: 0; bottom: 0; width: 100% }
-.tz5 .combo .on { left: 16%; bottom: 57%; width: 36% }
-.tz5 .combo .on2 { left: 54%; bottom: 57%; width: 26% }
+.tz5 .combo .on { left: 15%; bottom: 45%; width: 34% }
+.tz5 .combo .on2 { left: 54%; bottom: 45%; width: 25% }
 
 /* ---------- auction bear with a gavel ---------- */
 .tz5 .gbear { position: relative; width: 100%; transform-origin: 50% 96% }
@@ -65,6 +65,23 @@
 .tz5 .fmail { display: inline-flex; gap: 10px; align-items: center; margin-top: 14px; font-weight: 800; font-size: clamp(15px, 1.05vw, 18px); color: #fff; text-decoration: underline; text-decoration-color: rgba(255, 255, 255, .45); text-underline-offset: 4px; overflow-wrap: anywhere }
 .tz5 .fmail:hover { text-decoration-color: #fff }
 .tz5 .fmail svg { width: 30px; height: 30px; flex: none }
+.tz5 .fbase .wr > span a { white-space: nowrap }
+@media (max-width: 900px) {
+  .tz5 .fbase .wr { justify-content: center; text-align: center }
+  .tz5 .fbase nav, .tz5 .soc { justify-content: center }
+}
+
+/* ---------- small laptops / tablets landscape: keep the nav and footer on one line each ---------- */
+.tz5 .links a { white-space: nowrap }
+@media (max-width: 1200px) {
+  .tz5 .nav { gap: 22px }
+  .tz5 .links { gap: 20px }
+  .tz5 .links a { font-size: 17px }
+  .tz5 .fgrid { gap: 26px }
+  .tz5 .finfo { gap: 18px }
+  .tz5 .finfo > div { font-size: 15.5px }
+  .tz5 .finfo svg { width: 30px; height: 30px }
+}
 
 /* =================================================================
    MOBILE: fewer layers, shorter sections, swipe rows instead of tall stacks
@@ -84,7 +101,9 @@
   .tz5 .how { padding: 26px 0 10px }
   .tz5 .steps { margin-top: 18px }
   .tz5 .step { background: rgba(255, 255, 255, .8); border-radius: 26px; padding: 16px 16px 20px; box-shadow: 0 6px 0 rgba(120, 160, 220, .25) }
-  .tz5 .vis { height: 170px }
+  .tz5 .vis { height: 180px }
+  .tz5 .num { left: 12px; top: 12px; margin-left: 0; width: 40px; height: 40px; font-size: 21px }
+  .tz5 .band-sky .cloud { display: none }
   .tz5 .step h3 { font-size: 26px; margin-top: 10px }
   .tz5 .step .sub { font-size: 15px }
   .tz5 .step .more { display: none }
@@ -114,7 +133,10 @@
 
   /* watch */
   .tz5 .watch { padding: 40px 0 36px }
-  .tz5 .phone { width: min(260px, 72%); margin-inline: auto }
+  .tz5 .phone { width: min(250px, 62%); margin: 6px auto 34px }
+  .tz5 .phone .spark { display: none }
+  .tz5 .wh h2 br { display: none }
+  .tz5 .wh h2 { font-size: clamp(32px, 8.4vw, 44px) }
   .tz5 .thumbs { margin-top: 20px; background: none; border: 0; box-shadow: none }
   .tz5 .thumbs .thumb { flex: 0 0 46%; scroll-snap-align: start; display: block }
   .tz5 .thumb:nth-child(n+4) { display: block }
@@ -143,7 +165,15 @@
   .tz5 .btrk { animation-duration: 46s }
 }
 
+@media (min-width: 601px) and (max-width: 900px) {
+  .tz5 .slides { aspect-ratio: 16 / 9 }
+  .tz5 .pics { grid-template-columns: 1fr 1fr; gap: 18px }
+  .tz5 .pic .ph { aspect-ratio: 1.4 }
+}
+
 @media (max-width: 600px) {
+  .tz5 .slides { aspect-ratio: 1.5 }
+  .tz5 .slides .tag { backdrop-filter: none; font-size: 13px; left: 10px; bottom: 10px; padding: 6px 10px }
   .tz5 .ways .grid { grid-template-columns: repeat(3, 1fr) }
   .tz5 .ways .grid > div:first-child { grid-column: 1 / -1 }
   .tz5 .wcards, .tz5 .rgrid { grid-template-columns: none }
