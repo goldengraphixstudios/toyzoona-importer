@@ -188,3 +188,18 @@
 @media (prefers-reduced-motion: reduce) {
   .tz5 .btrk, .tz5 .onair i { animation: none }
 }
+
+/* ---------- sister pages strip (both footers) ---------- */
+.tz5 .sisters { position: relative; z-index: 1; margin-top: 30px; display: flex; align-items: center; justify-content: center; gap: 14px 22px; flex-wrap: wrap }
+.tz5 .sis-l { font-family: var(--fb); font-weight: 800; font-size: 15px; letter-spacing: .14em; text-transform: uppercase; color: #D6E6FF }
+.tz5 .sis-row { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center }
+.tz5 .sis { display: flex; align-items: center; gap: 12px; padding: 8px 18px 8px 8px; border-radius: 20px; background: rgba(255, 255, 255, .14); border: 2px solid rgba(255, 255, 255, .28); color: #fff; transition: background .25s, translate .3s cubic-bezier(.3, 1.5, .5, 1) }
+.tz5 .sis:hover { background: rgba(255, 255, 255, .24); translate: 0 -3px }
+.tz5 .sis img { width: 56px; height: 56px; border-radius: 14px; background: #fff; object-fit: cover; flex: none }
+.tz5 .sis span { display: flex; flex-direction: column; line-height: 1.15 }
+.tz5 .sis b { font-family: var(--fb); font-weight: 800; font-size: 19px }
+.tz5 .sis small { font-weight: 700; font-size: 13px; color: #D6E6FF }
+@media (max-width: 600px) {
+  .tz5 .sisters { flex-direction: column; margin-top: 24px }
+  .tz5 .sis-row { width: 100%; flex-direction: column; align-items: stretch }
+}

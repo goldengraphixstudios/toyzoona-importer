@@ -3,6 +3,7 @@ import { assetPath as a } from "@/lib/assetPath";
 import { pic, picAt } from "@/lib/pic";
 import Fx from "./Fx";
 import MotionV5 from "./MotionV5";
+import { SisterPages } from "./ChromeV5";
 
 /* Rendered widths for responsive photos (phones get the 480/800 files). */
 const SZ_CARD = "(max-width: 900px) 82vw, 320px";
@@ -557,10 +558,10 @@ export default function HomeV5() {
               <Spark />
               <div className="device">
                 <div className="screen">
-                  <video id="pv" src={a("/v5/media/shelves.mp4")} poster={picAt("/v5/media/shelves.jpg", 1200)} muted loop playsInline preload="none" />
+                  <video id="pv" src={a("/v5/media/live-haul.mp4")} poster={picAt("/v5/media/live-haul.jpg", 800)} muted loop playsInline preload="none" data-auto="" />
                   <span className="live"><i />LIVE</span>
                   <button className="play" id="pplay" aria-label="Play"><svg viewBox="0 0 16 16"><path d="M3 1.5v13l11-6.5z" fill="#fff" /></svg></button>
-                  <span className="sname" id="sname">Fresh shelves tour</span>
+                  <span className="sname" id="sname">Live selling at Toyzoona</span>
                 </div>
               </div>
             </div>
@@ -772,6 +773,7 @@ export default function HomeV5() {
             <a className="btn btn-w" href={MSG} {...ext}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3C6.5 3 2.5 6.8 2.5 11.5c0 2.6 1.3 4.9 3.4 6.4V21l3.1-1.7c.9.3 1.9.4 3 .4 5.5 0 9.5-3.8 9.5-8.2S17.5 3 12 3z" fill="#fff" /><circle cx="8" cy="11.6" r="1.3" fill="#1F6BE0" /><circle cx="12" cy="11.6" r="1.3" fill="#1F6BE0" /><circle cx="16" cy="11.6" r="1.3" fill="#1F6BE0" /></svg>Message Us</a>
           </div>
         </div>
+        <SisterPages />
         <div className="fbase">
           <div className="wr">
             <span>Gatcahalian Subdivision, Brgy. Banay 2, Cabuyao, Laguna · WhatsApp / Viber <a href={WA} {...ext}>+63 929 378 1462</a> · <a href={`mailto:${EMAIL}`}>{EMAIL}</a></span>

@@ -66,6 +66,27 @@ export function HeaderV5() {
   );
 }
 
+/** Sister toy shops, featured on the old site's contact block. Shown in both footers. */
+const SISTERS = [
+  { name: "ToyLandia", href: "https://www.facebook.com/officialtoylandia", logo: "/v5/img/sister-toylandia.webp" },
+  { name: "Toys for Less", href: "https://www.facebook.com/ToyssforLess", logo: "/v5/img/sister-toys-for-less.webp" },
+];
+export function SisterPages() {
+  return (
+    <div className="wr sisters">
+      <span className="sis-l">Our sister pages</span>
+      <div className="sis-row">
+        {SISTERS.map((s) => (
+          <a key={s.name} className="sis" href={s.href} {...ext}>
+            <img src={a(s.logo)} alt={`${s.name} logo`} width={192} height={192} loading="lazy" decoding="async" />
+            <span><b>{s.name}</b><small>Visit on Facebook ›</small></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function FooterV5() {
   return (
     <footer className="foot">
@@ -90,6 +111,7 @@ export function FooterV5() {
           <a className="btn btn-w" href={MSG} {...ext}><MsgIcon c="#fff" dot="#1F6BE0" />Message Us</a>
         </div>
       </div>
+      <SisterPages />
       <div className="fbase">
         <div className="wr">
           <span>Gatcahalian Subdivision, Brgy. Banay 2, Cabuyao, Laguna · WhatsApp / Viber <a href={WA} {...ext}>+63 929 378 1462</a> · <a href={`mailto:${EMAIL}`}>{EMAIL}</a></span>

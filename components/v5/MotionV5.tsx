@@ -107,6 +107,8 @@ export default function MotionV5() {
     const phone = $("#phone"), pv = $<HTMLVideoElement>("#pv");
     const startPhone = () => { pv.dataset.started = "1"; pv.play().then(() => phone.classList.add("playing")).catch(() => {}); };
     on($("#pplay"), "click", startPhone);
+    // The live clip autoplays (muted) once the phone scrolls into view; hide the play button when it does.
+    on(pv, "playing", () => phone.classList.add("playing"));
     $$<HTMLAnchorElement>("#thumbs .thumb[data-clip]").forEach((t) =>
       on(t, "click", (e) => {
         e.preventDefault();
