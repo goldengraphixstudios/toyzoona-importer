@@ -6,7 +6,7 @@ import Fx from "./Fx";
 
 const MSG = "https://m.me/ToyzoonaLaguna";
 const FB_PAGE = "https://www.facebook.com/ToyzoonaLaguna";
-const MAPS = "https://maps.google.com/?q=Gatcahalian+Subdivision,+Brgy.+Banay+2,+Cabuyao,+Laguna";
+const MAPS = "https://www.google.com/maps/dir/?api=1&destination=Toyzoona+Importer,+Gatcahalian+Subdivision,+Brgy.+Banay+2,+Cabuyao,+Laguna";
 const EMAIL = "official.toyzoonaimporter@gmail.com";
 const WA = "https://wa.me/639293781462";
 const ext = { target: "_blank", rel: "noopener noreferrer" } as const;

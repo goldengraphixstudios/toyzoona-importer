@@ -198,10 +198,20 @@ export default function MotionV5() {
       f.allow = "autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share";
       f.allowFullscreen = true;
       f.referrerPolicy = "strict-origin-when-cross-origin";
-      box.classList.add("loaded");
-      box.replaceChildren(f);
+      // The facade is a link (so phones can open the app); the playing player must not sit inside an <a>.
+      const host = box.tagName === "A" ? document.createElement("div") : box;
+      if (host !== box) { host.className = box.className; box.replaceWith(host); }
+      host.classList.add("loaded");
+      host.replaceChildren(f);
     };
-    $$("[data-embed].vf").forEach((b) => on(b, "click", () => mountEmbed(b)));
+    // Phones and tablets: Facebook/YouTube embeds often will not play inline (login walls, blocked autoplay,
+    // fixed-width layouts), so the tap follows the link and opens the video in its app. Desktop plays inline.
+    const handheld = window.matchMedia("(hover: none), (pointer: coarse), (max-width: 900px)");
+    $$<HTMLElement>("[data-embed].vf").forEach((b) => on(b, "click", (e) => {
+      if (handheld.matches && b.tagName === "A") return;
+      e.preventDefault();
+      mountEmbed(b);
+    }));
     $$("[data-load]").forEach((b) => on(b, "click", () => mountEmbed($("#" + (b as HTMLElement).dataset.load))));
 
     /* ---------- the STAR post shows on load, at the box's real width (Facebook lays it out for that width) ---------- */

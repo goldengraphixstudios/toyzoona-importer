@@ -15,8 +15,9 @@ const SZ_VCARD = "(max-width: 900px) 82vw, 400px";
 const MSG = "https://m.me/ToyzoonaLaguna";
 const FB_PAGE = "https://www.facebook.com/ToyzoonaLaguna";
 const FB_GROUP = "https://www.facebook.com/groups/642834551000763";
-const WAZE = "https://waze.com/ul/hwdw1h6ezp";
-const MAPS = "https://maps.google.com/?q=Gatcahalian+Subdivision,+Brgy.+Banay+2,+Cabuyao,+Laguna";
+// Both open turn-by-turn directions from the visitor's current location (the app on phones), not just the pin.
+const WAZE = "https://www.waze.com/ul?place=ChIJ0Q6so0xjvTMRpNhw8A4Mxeo&ll=14.25324%2C121.12974&navigate=yes";
+const MAPS = "https://www.google.com/maps/dir/?api=1&destination=Toyzoona+Importer,+Gatcahalian+Subdivision,+Brgy.+Banay+2,+Cabuyao,+Laguna";
 const WA = "https://wa.me/639293781462";
 const YT_FEATURE = "https://www.youtube.com/watch?v=eAGbGMUIzhY";
 const YT_GMA = "https://www.youtube.com/watch?v=xCed6-vE4Ko";
@@ -525,7 +526,7 @@ export default function HomeV5() {
             <div className="circ"><div className="vid"><video src={a("/v5/media/warehouse-wide.mp4")} poster={picAt("/v5/media/warehouse-wide.jpg", 480)} muted loop playsInline preload="none" data-auto="" /></div></div>
             <h3>Warehouse Walk-In</h3><p className="sub">Browse and weigh your picks in person.</p>
             <p className="more">See the full inventory first-hand, choose exactly what you want, and pay after weighing.</p>
-            <a className="tlink" href={WAZE} {...ext}>Open in Waze ›</a>
+            <a className="tlink" href={WAZE} {...ext}>Get directions in Waze ›</a>
           </div>
           <div className="way">
             <a className="circ toy wide" id="cFb" href={FB_GROUP} {...ext} aria-label="Join the Toyzoona Facebook group">
@@ -654,11 +655,11 @@ export default function HomeV5() {
           <div className="mgrid">
             <article className="vcard big">
               <div className="vsrc"><FbIcon />Facebook Reel · Featured clip</div>
-              <button type="button" className="vf" data-embed={fbEmbed(FB_REEL, 900)} aria-label="Play the featured Facebook reel">
+              <a className="vf" href={FB_REEL} {...ext} data-embed={fbEmbed(FB_REEL, 900)} aria-label="Play the featured Facebook reel">
                 <img {...pic("/v5/ph/auction-1.webp", SZ_BIG)} alt="" loading="lazy" decoding="async" />
                 <span className="pbig"><svg viewBox="0 0 16 16"><path d="M3 1.5v13l11-6.5z" /></svg></span>
                 <span className="cap2">The reel buyers keep sharing</span>
-              </button>
+              </a>
               <div className="vb">
                 <h3>Featured Facebook Reel</h3>
                 <p>Real stock and real buyers, straight from our page. This is the clip that brings new resellers to the warehouse.</p>
@@ -690,10 +691,10 @@ export default function HomeV5() {
             {VIDEOS.map((v) => (
               <article className="vcard" key={v.t}>
                 <div className="vsrc">{v.yt ? <YtIcon /> : <FbIcon />}{v.src}</div>
-                <button type="button" className="vf" data-embed={v.embed} aria-label={`Play: ${v.t}`}>
+                <a className="vf" href={v.href} {...ext} data-embed={v.embed} aria-label={`Play: ${v.t}`}>
                   <img {...pic(v.img, SZ_VCARD)} alt="" loading="lazy" decoding="async" />
                   <span className="pbig"><svg viewBox="0 0 16 16"><path d="M3 1.5v13l11-6.5z" /></svg></span>
-                </button>
+                </a>
                 <div className="vb">
                   <h3>{v.t}</h3>
                   <p>{v.p}</p>
