@@ -7,6 +7,8 @@ const fredoka = Fredoka({
   subsets: ["latin"],
   variable: "--font-fredoka",
   display: "swap",
+  // Only the old CMS/blog chrome uses Fredoka; v5 pages use Baloo 2 + Nunito, so don't preload it.
+  preload: false,
 });
 
 const baloo = Baloo_2({

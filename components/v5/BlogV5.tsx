@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { BlogPost } from "@/lib/blogPosts";
 import { assetPath } from "@/lib/assetPath";
+import { pic } from "@/lib/pic";
 import Fx from "./Fx";
 import { MSG, Spark, ext } from "./ChromeV5";
 
@@ -8,6 +9,11 @@ import { MSG, Spark, ext } from "./ChromeV5";
 // Used by the built-in posts (app/blog) and the dashboard posts (SupabaseBlog*).
 
 export const blogImage = (src: string) => (src.startsWith("/") ? assetPath(src) : src);
+/** Local photos get responsive variants; CMS/remote URLs pass through. */
+const blogPic = (src: string, sizes: string) => (src.startsWith("/") ? pic(src, sizes) : { src });
+const SZ_CARD = "(max-width: 900px) 92vw, 400px";
+const SZ_FEAT = "(max-width: 900px) 92vw, 760px";
+const SZ_HERO = "(max-width: 900px) 100vw, 960px";
 export const postHref = (slug: string) => `/blog/post?slug=${slug}`;
 const isExt = (href: string) => href.startsWith("http");
 
@@ -38,7 +44,7 @@ export function PostCard({ post, featured }: { post: BlogPost; featured?: boolea
   return (
     <Link href={postHref(post.slug)} className={`bl-card${featured ? " big" : ""}`}>
       <span className="bl-img">
-        <img src={blogImage(post.heroImage.src)} alt={post.heroImage.alt} loading={featured ? "eager" : "lazy"} decoding="async" />
+        <img {...blogPic(post.heroImage.src, featured ? SZ_FEAT : SZ_CARD)} alt={post.heroImage.alt} loading={featured ? "eager" : "lazy"} decoding="async" />
       </span>
       <span className="bl-body">
         <span className="bl-meta">
@@ -74,7 +80,7 @@ export function ArticleV5({ post }: { post: BlogPost }) {
         </div>
         {post.heroImage?.src ? (
           <figure className="wr bl-hero">
-            <img src={blogImage(post.heroImage.src)} alt={post.heroImage.alt} decoding="async" />
+            <img {...blogPic(post.heroImage.src, SZ_HERO)} alt={post.heroImage.alt} decoding="async" fetchPriority="high" />
             {post.heroImage.caption ? <figcaption>{post.heroImage.caption}</figcaption> : null}
           </figure>
         ) : null}
@@ -94,7 +100,7 @@ export function ArticleV5({ post }: { post: BlogPost }) {
               <h2><span className="bl-n">{i + 1}</span>{section.heading}</h2>
               {section.image?.src ? (
                 <figure className="bl-fig">
-                  <img src={blogImage(section.image.src)} alt={section.image.alt} loading="lazy" decoding="async" />
+                  <img {...blogPic(section.image.src, SZ_HERO)} alt={section.image.alt} loading="lazy" decoding="async" />
                   {section.image.caption ? <figcaption>{section.image.caption}</figcaption> : null}
                 </figure>
               ) : null}

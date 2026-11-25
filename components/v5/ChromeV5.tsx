@@ -51,7 +51,7 @@ export function HeaderV5() {
       <Fx rays={[{ x: "62%", y: "-60%", size: "1600px", o: 0.12 }]} glints={[{ x: "47%", y: "30%", size: 12, o: 0.7 }, { x: "83%", y: "62%", size: 9, o: 0.6 }]} />
       <nav className="nav">
         <a className="logo" href={a("/")} aria-label="Toyzoona Importer home">
-          <img src={a("/v5/media/logo-hd.png")} alt="Toyzoona Importer" width={1479} height={801} />
+          <img src={a("/v5/img/logo-640.webp")} alt="Toyzoona Importer" width={640} height={347} />
         </a>
         <span className="vr" />
         <div className="links">
@@ -73,7 +73,7 @@ export function FooterV5() {
       <img className="ftruck" src={a("/v5/flat/truck.svg")} alt="" aria-hidden="true" loading="lazy" decoding="async" />
       <Fx rays={[{ x: "50%", y: "110%", size: "2000px", o: 0.08 }]} glints={[{ x: "30%", y: "18%", size: 12, c: "#FFE27A" }, { x: "72%", y: "12%", size: 10 }]} dots={{ x: "50%", y: "100%", o: 0.1 }} />
       <div className="wr fgrid">
-        <img className="flogo" src={a("/v5/media/logo-hd.png")} alt="Toyzoona Importer" loading="lazy" decoding="async" />
+        <img className="flogo" src={a("/v5/img/logo-640.webp")} alt="Toyzoona Importer" width={640} height={347} loading="lazy" decoding="async" />
         <span className="sep" />
         <div>
           <h3>Visit Toyzoona in Cabuyao</h3>

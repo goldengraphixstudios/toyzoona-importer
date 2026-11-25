@@ -1,7 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
 import { assetPath as a } from "@/lib/assetPath";
+import { pic, picAt } from "@/lib/pic";
 import Fx from "./Fx";
 import MotionV5 from "./MotionV5";
+
+/* Rendered widths for responsive photos (phones get the 480/800 files). */
+const SZ_CARD = "(max-width: 900px) 82vw, 320px";
+const SZ_AUC = "(max-width: 900px) 92vw, 560px";
+const SZ_THUMB = "(max-width: 900px) 45vw, 200px";
+const SZ_FRAME = "(max-width: 900px) 82vw, 440px";
+const SZ_BIG = "(max-width: 900px) 92vw, 720px";
+const SZ_VCARD = "(max-width: 900px) 82vw, 400px";
 
 const MSG = "https://m.me/ToyzoonaLaguna";
 const FB_PAGE = "https://www.facebook.com/ToyzoonaLaguna";
@@ -171,7 +180,7 @@ export default function HomeV5() {
       {/* ================= FLOATING BAR (appears once you scroll) ================= */}
       <div className="float" id="float">
         <a className="fl-logo" href="#top" aria-label="Back to top">
-          <img src={a("/v5/media/logo-hd.png")} alt="Toyzoona Importer" width={1479} height={801} />
+          <img src={a("/v5/img/logo-640.webp")} alt="Toyzoona Importer" width={640} height={347} />
         </a>
         <nav className="fl-links" aria-label="Sections">
           <a href="#shelves">Toy Shelves</a>
@@ -202,7 +211,7 @@ export default function HomeV5() {
         <Fx rays={[{ x: "62%", y: "-60%", size: "1600px", o: 0.12 }]} glints={[{ x: "47%", y: "30%", size: 12, o: 0.7 }, { x: "83%", y: "62%", size: 9, o: 0.6 }]} />
         <nav className="nav">
           <a className="logo" href="#top" aria-label="Toyzoona Importer home">
-            <img src={a("/v5/media/logo-hd.png")} alt="Toyzoona Importer" width={1479} height={801} />
+            <img src={a("/v5/img/logo-640.webp")} alt="Toyzoona Importer" width={640} height={347} />
           </a>
           <span className="vr" />
           <div className="links">
@@ -381,7 +390,7 @@ export default function HomeV5() {
           <div className="shelfs">
             {SHELVES.map((s) => (
               <article className={`shelf ${s.c}`} key={s.t}>
-                <div className="ph"><img src={a(s.img)} alt={s.alt} loading="lazy" decoding="async" /></div>
+                <div className="ph"><img {...pic(s.img, SZ_CARD)} alt={s.alt} loading="lazy" decoding="async" /></div>
                 <h3>{s.t}</h3>
                 <p>{s.p}</p>
               </article>
@@ -459,9 +468,9 @@ export default function HomeV5() {
           <div className="wr">
             <div className="acard">
               <div className="slides" id="slides">
-                <img src={a("/v5/ph/auction-2.webp")} alt="Buyers seated at the Saturday toy auction in the Toyzoona warehouse" />
-                <img src={a("/v5/ph/auction-1.webp")} alt="Saturday auction crowd at the warehouse" loading="lazy" decoding="async" />
-                <img src={a("/v5/ph/auction-4.webp")} alt="Toy lots stacked for the auction" loading="lazy" decoding="async" />
+                <img {...pic("/v5/ph/auction-2.webp", SZ_AUC)} alt="Buyers seated at the Saturday toy auction in the Toyzoona warehouse" />
+                <img {...pic("/v5/ph/auction-1.webp", SZ_AUC)} alt="Saturday auction crowd at the warehouse" loading="lazy" decoding="async" />
+                <img {...pic("/v5/ph/auction-4.webp", SZ_AUC)} alt="Toy lots stacked for the auction" loading="lazy" decoding="async" />
                 <span className="tag">Saturday auction · Cabuyao warehouse</span>
               </div>
               <div>
@@ -513,7 +522,7 @@ export default function HomeV5() {
             <a className="tlink" href={FB_PAGE} {...ext}>Watch us live ›</a>
           </div>
           <div className="way">
-            <div className="circ"><div className="vid"><video src={a("/v5/media/warehouse-wide.mp4")} poster={a("/v5/media/warehouse-wide.jpg")} muted loop playsInline preload="none" data-auto="" /></div></div>
+            <div className="circ"><div className="vid"><video src={a("/v5/media/warehouse-wide.mp4")} poster={picAt("/v5/media/warehouse-wide.jpg", 480)} muted loop playsInline preload="none" data-auto="" /></div></div>
             <h3>Warehouse Walk-In</h3><p className="sub">Browse and weigh your picks in person.</p>
             <p className="more">See the full inventory first-hand, choose exactly what you want, and pay after weighing.</p>
             <a className="tlink" href={WAZE} {...ext}>Open in Waze ›</a>
@@ -545,7 +554,7 @@ export default function HomeV5() {
               <Spark />
               <div className="device">
                 <div className="screen">
-                  <video id="pv" src={a("/v5/media/shelves.mp4")} poster={a("/v5/media/shelves.jpg")} muted loop playsInline preload="none" />
+                  <video id="pv" src={a("/v5/media/shelves.mp4")} poster={picAt("/v5/media/shelves.jpg", 1200)} muted loop playsInline preload="none" />
                   <span className="live"><i />LIVE</span>
                   <button className="play" id="pplay" aria-label="Play"><svg viewBox="0 0 16 16"><path d="M3 1.5v13l11-6.5z" fill="#fff" /></svg></button>
                   <span className="sname" id="sname">Fresh shelves tour</span>
@@ -571,10 +580,10 @@ export default function HomeV5() {
                 href={t.href ?? "#phone"}
                 {...(t.href ? ext : {})}
                 data-clip={t.clip ? a(t.clip) : undefined}
-                data-poster={t.clip ? a(t.img) : undefined}
+                data-poster={t.clip ? picAt(t.img, 1200) : undefined}
                 data-name={t.clip ? t.t : undefined}
               >
-                <img src={a(t.img)} alt="" loading="lazy" decoding="async" />
+                <img {...pic(t.img, SZ_THUMB)} alt="" loading="lazy" decoding="async" />
                 <span className="pb"><svg><use href="#tri" /></svg></span>
                 <span className="tt">{t.t}</span>
               </a>
@@ -596,7 +605,7 @@ export default function HomeV5() {
           <div className="wcards">
             {WHO.map((w) => (
               <article className="wcard" key={w.t} style={{ ["--b" as string]: w.b }}>
-                <div className="ph"><img src={a(w.img)} alt={w.alt} loading="lazy" decoding="async" /></div>
+                <div className="ph"><img {...pic(w.img, SZ_CARD)} alt={w.alt} loading="lazy" decoding="async" /></div>
                 <div className="tx"><h3>{w.t}</h3><p>{w.p}</p></div>
               </article>
             ))}
@@ -611,12 +620,12 @@ export default function HomeV5() {
           <Head title="See Toyzoona in Action" sub="From the warehouse floor to national TV and toy fairs." />
           <div className="pics">
             <a className="pic" href={YT_FEATURE} {...ext}>
-              <div className="frame"><div className="ph"><img src={a("/v5/ph/tv-2.webp")} alt="Toyzoona toys on the Gud Morning Kapatid set" loading="lazy" decoding="async" /></div><div className="cap y">Featured on<br />Gud Morning Kapatid</div></div>
+              <div className="frame"><div className="ph"><img {...pic("/v5/ph/tv-2.webp", SZ_FRAME)} alt="Toyzoona toys on the Gud Morning Kapatid set" loading="lazy" decoding="async" /></div><div className="cap y">Featured on<br />Gud Morning Kapatid</div></div>
               <p>Our toys-per-kilo story on one of the country’s biggest morning shows, and covered by the Philippine STAR. Watch the full segment.</p>
             </a>
             <span className="sep" />
             <a className="pic" href={FB_PAGE} {...ext}>
-              <div className="frame"><div className="ph"><img src={a("/v5/ph/metrotent.webp")} alt="Crowd at a Toyzoona toy fair" loading="lazy" decoding="async" /></div><div className="cap b">Toy Fair<br />Highlights</div></div>
+              <div className="frame"><div className="ph"><img {...pic("/v5/ph/metrotent.webp", SZ_FRAME)} alt="Crowd at a Toyzoona toy fair" loading="lazy" decoding="async" /></div><div className="cap b">Toy Fair<br />Highlights</div></div>
               <p>Real crowds, real tables, real hauls at some of the biggest toy fairs in the south.</p>
               <div className="venues"><span>Dasma Arena</span><span>Filinvest Tent</span><span>Metrotent Pasig</span></div>
             </a>
@@ -646,7 +655,7 @@ export default function HomeV5() {
             <article className="vcard big">
               <div className="vsrc"><FbIcon />Facebook Reel · Featured clip</div>
               <button type="button" className="vf" data-embed={fbEmbed(FB_REEL, 900)} aria-label="Play the featured Facebook reel">
-                <img src={a("/v5/ph/auction-1.webp")} alt="" loading="lazy" decoding="async" />
+                <img {...pic("/v5/ph/auction-1.webp", SZ_BIG)} alt="" loading="lazy" decoding="async" />
                 <span className="pbig"><svg viewBox="0 0 16 16"><path d="M3 1.5v13l11-6.5z" /></svg></span>
                 <span className="cap2">The reel buyers keep sharing</span>
               </button>
@@ -682,7 +691,7 @@ export default function HomeV5() {
               <article className="vcard" key={v.t}>
                 <div className="vsrc">{v.yt ? <YtIcon /> : <FbIcon />}{v.src}</div>
                 <button type="button" className="vf" data-embed={v.embed} aria-label={`Play: ${v.t}`}>
-                  <img src={a(v.img)} alt="" loading="lazy" decoding="async" />
+                  <img {...pic(v.img, SZ_VCARD)} alt="" loading="lazy" decoding="async" />
                   <span className="pbig"><svg viewBox="0 0 16 16"><path d="M3 1.5v13l11-6.5z" /></svg></span>
                 </button>
                 <div className="vb">
@@ -751,7 +760,7 @@ export default function HomeV5() {
         <img className="ftruck" id="ftruck" src={a("/v5/flat/truck.svg")} alt="" aria-hidden="true" loading="lazy" decoding="async" />
         <Fx rays={[{ x: "50%", y: "110%", size: "2000px", o: 0.08 }]} glints={[{ x: "30%", y: "18%", size: 12, c: "#FFE27A" }, { x: "72%", y: "12%", size: 10 }]} dots={{ x: "50%", y: "100%", o: 0.1 }} />
         <div className="wr fgrid">
-          <img className="flogo" src={a("/v5/media/logo-hd.png")} alt="Toyzoona Importer" loading="lazy" decoding="async" />
+          <img className="flogo" src={a("/v5/img/logo-640.webp")} alt="Toyzoona Importer" width={640} height={347} loading="lazy" decoding="async" />
           <span className="sep" />
           <div>
             <h3>Visit Toyzoona in Cabuyao</h3>
