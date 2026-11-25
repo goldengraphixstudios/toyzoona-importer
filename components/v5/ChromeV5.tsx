@@ -7,6 +7,7 @@ import Fx from "./Fx";
 const MSG = "https://m.me/ToyzoonaLaguna";
 const FB_PAGE = "https://www.facebook.com/ToyzoonaLaguna";
 const MAPS = "https://maps.google.com/?q=Gatcahalian+Subdivision,+Brgy.+Banay+2,+Cabuyao,+Laguna";
+const EMAIL = "official.toyzoonaimporter@gmail.com";
 const WA = "https://wa.me/639293781462";
 const ext = { target: "_blank", rel: "noopener noreferrer" } as const;
 const home = (hash: string) => `${a("/")}${hash}`;
@@ -69,7 +70,7 @@ export function FooterV5() {
   return (
     <footer className="foot">
       <div className="wave top" />
-      <img className="ftruck" src={a("/v5/art/how-truck.webp")} alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img className="ftruck" src={a("/v5/flat/truck.svg")} alt="" aria-hidden="true" loading="lazy" decoding="async" />
       <Fx rays={[{ x: "50%", y: "110%", size: "2000px", o: 0.08 }]} glints={[{ x: "30%", y: "18%", size: 12, c: "#FFE27A" }, { x: "72%", y: "12%", size: 10 }]} dots={{ x: "50%", y: "100%", o: 0.1 }} />
       <div className="wr fgrid">
         <img className="flogo" src={a("/v5/media/logo-hd.png")} alt="Toyzoona Importer" loading="lazy" decoding="async" />
@@ -81,6 +82,7 @@ export function FooterV5() {
             <span className="mid" />
             <div><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="#fff" strokeWidth="2.4" /><path d="M12 6.8V12l3.6 2.2" fill="none" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" /></svg>Mon to Sat ·<br />9 AM to 6:30 PM</div>
           </div>
+          <a className="fmail" href={`mailto:${EMAIL}`}><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="3" fill="#fff" /><path d="m4 7.5 8 5.5 8-5.5" fill="none" stroke="#1F6BE0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>{EMAIL}</a>
         </div>
         <span className="sep" />
         <div className="fbtns">
@@ -90,7 +92,7 @@ export function FooterV5() {
       </div>
       <div className="fbase">
         <div className="wr">
-          <span>Gatcahalian Subdivision, Brgy. Banay 2, Cabuyao, Laguna · WhatsApp / Viber <a href={WA} {...ext}>+63 929 378 1462</a></span>
+          <span>Gatcahalian Subdivision, Brgy. Banay 2, Cabuyao, Laguna · WhatsApp / Viber <a href={WA} {...ext}>+63 929 378 1462</a> · <a href={`mailto:${EMAIL}`}>{EMAIL}</a></span>
           <nav>{NAV.map((l) => <a key={l.label} href={l.href}>{l.label}</a>)}</nav>
           <div className="soc">
             <a href={FB_PAGE} {...ext} aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.07C24 5.44 18.63.07 12 .07S0 5.44 0 12.07c0 5.99 4.39 10.95 10.13 11.85v-8.38H7.08v-3.47h3.05V9.43c0-3.01 1.79-4.67 4.53-4.67 1.31 0 2.69.24 2.69.24v2.95h-1.52c-1.49 0-1.96.93-1.96 1.87v2.25h3.33l-.53 3.47h-2.8v8.38C19.61 23.03 24 18.06 24 12.07z" /></svg></a>

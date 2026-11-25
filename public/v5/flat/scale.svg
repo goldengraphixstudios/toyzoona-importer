@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 250">
+  <ellipse cx="270" cy="238" rx="250" ry="11" fill="#12215F" opacity=".12"/>
+  <rect x="80" y="212" width="54" height="26" rx="8" fill="#12215F"/>
+  <rect x="406" y="212" width="54" height="26" rx="8" fill="#12215F"/>
+  <rect x="50" y="66" width="440" height="160" rx="30" fill="#1758C2"/>
+  <rect x="50" y="54" width="440" height="150" rx="30" fill="#1F6FE5"/>
+  <rect x="72" y="64" width="396" height="8" rx="4" fill="#fff" opacity=".25"/>
+  <rect x="232" y="30" width="76" height="28" fill="#1758C2"/>
+  <rect x="2" y="22" width="536" height="26" rx="13" fill="#B5C4D8"/>
+  <rect x="2" y="14" width="536" height="22" rx="11" fill="#DCE6F2"/>
+  <rect x="128" y="88" width="285" height="85" rx="16" fill="#12215F"/>
+  <rect x="142" y="100" width="257" height="60" rx="9" fill="#1A2029"/>
+  <text x="378" y="148" text-anchor="end" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="44" fill="#FFE04A" letter-spacing="4">8.50</text>
+  <text x="386" y="148" font-family="Arial, sans-serif" font-weight="700" font-size="16" fill="#FFE04A">kg</text>
+  <circle cx="160" cy="114" r="4.5" fill="#62E36B"/>
+  <circle cx="444" cy="110" r="13" fill="#FFD02A"/>
+  <circle cx="444" cy="146" r="13" fill="#E8392F"/>
+  <circle cx="96" cy="130" r="8" fill="#62E36B"/>
+</svg>

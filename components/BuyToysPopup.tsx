@@ -56,7 +56,7 @@ export default function BuyToysPopup() {
           ×
         </button>
         <img src={assetPath("/v5/media/logo-hd.png")} alt="Toyzoona Importer" width={1479} height={801} className="mx-auto w-44 drop-shadow-[0_6px_10px_rgba(10,40,120,0.25)]" />
-        <img src={assetPath("/v5/art/restock-box.webp")} alt="" className="mx-auto -mt-1 w-24" />
+        <img src={assetPath("/v5/flat/crate.svg")} alt="" className="mx-auto -mt-1 w-24" />
         <h2 id="buy-popup-title" className="mt-1 text-[34px] font-extrabold leading-none text-[#12215F]" style={{ fontFamily: "var(--font-baloo), system-ui, sans-serif" }}>
           Want today’s stock?
         </h2>

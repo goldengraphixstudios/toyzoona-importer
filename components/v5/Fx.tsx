@@ -5,12 +5,13 @@ type Glow = { x: string; y: string; size?: string; c?: string };
 type Bokeh = { x: string; y: string; size: number; o?: number };
 type Glint = { x: string; y: string; size?: number; o?: number; c?: string };
 
-/** Ambient light layer: slow sun rays, soft glows, bokeh and glints. Purely decorative. */
+/**
+ * Flat ambient layer: a static sunburst and a dot pattern, nothing blurred.
+ * glows / bokeh / glints are still accepted so older call sites compile, but they are no longer drawn:
+ * soft lens effects read as AI art next to the client's flat 2D toys.
+ */
 export default function Fx({
   rays = [],
-  glows = [],
-  bokeh = [],
-  glints = [],
   dots,
 }: {
   rays?: Ray[];
@@ -20,11 +21,9 @@ export default function Fx({
   dots?: { x?: string; y?: string; o?: number };
 }) {
   const v = (o: Record<string, string | number | undefined>) => o as CSSProperties;
+  if (!rays.length && !dots) return null;
   return (
     <div className="fx" aria-hidden="true">
-      {glows.map((g, i) => (
-        <span key={`g${i}`} className="glow" style={v({ left: g.x, top: g.y, "--gs": g.size, "--gc": g.c })} />
-      ))}
       {rays.map((r, i) => (
         <span
           key={`r${i}`}
@@ -33,16 +32,6 @@ export default function Fx({
         />
       ))}
       {dots && <span className="dots" style={v({ "--dx": dots.x, "--dy": dots.y, "--do": dots.o })} />}
-      {bokeh.map((b, i) => (
-        <span key={`b${i}`} className="bok" data-par="" style={v({ left: b.x, top: b.y, "--bs": `${b.size}px`, "--bo": b.o })} />
-      ))}
-      {glints.map((g, i) => (
-        <span key={`l${i}`} className="gl" data-tw="" style={v({ left: g.x, top: g.y, "--s": `${g.size ?? 18}px`, "--o": g.o, "--gc": g.c })}>
-          <svg viewBox="0 0 40 40">
-            <path d="M20 0C21.5 13 27 18.5 40 20 27 21.5 21.5 27 20 40 18.5 27 13 21.5 0 20 13 18.5 18.5 13 20 0Z" />
-          </svg>
-        </span>
-      ))}
     </div>
   );
 }

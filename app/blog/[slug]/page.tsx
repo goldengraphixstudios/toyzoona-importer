@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import "../../v5.css";
+import "../../v5-flat.css";
 import "../../blog-v5.css";
 import { ShellV5 } from "@/components/v5/ChromeV5";
 import { ArticleV5 } from "@/components/v5/BlogV5";

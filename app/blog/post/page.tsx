@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import "../../v5.css";
+import "../../v5-flat.css";
 import "../../blog-v5.css";
 import SupabaseBlogArticle from "@/components/SupabaseBlogArticle";
 

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "../v5.css";
+import "../v5-flat.css";
 import "../blog-v5.css";
 import SupabaseBlogFeed from "@/components/SupabaseBlogFeed";
 import { ShellV5 } from "@/components/v5/ChromeV5";

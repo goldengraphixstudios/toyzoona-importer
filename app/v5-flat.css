@@ -1,0 +1,160 @@
+/*
+  Revision 2026-11-25 (client feedback): flat 2D graphics that match the logo, toy brands back, email, calmer mobile.
+  Loaded after v5.css. Every rule is scoped under .tz5 like v5.css.
+*/
+
+/* ---------- flat look: no soft drop shadows or glows on illustrations ---------- */
+.tz5 .icw img,
+.tz5 .vis img,
+.tz5 .abear img,
+.tz5 .circ > img,
+.tz5 .restock .hd img,
+.tz5 .cloud { filter: none }
+.tz5 .vis::before { background: rgba(255, 255, 255, .72); width: min(250px, 84%) }
+.tz5 .vis::after { background: rgba(18, 50, 120, .12); height: 16px; bottom: -2px; width: 58% }
+.tz5 .bar { background: #fff; box-shadow: 0 8px 0 #E3EAF4, 0 18px 40px rgba(18, 33, 95, .08) }
+
+/* ---------- hero: flat scene built from the client's toys ---------- */
+.tz5 img.lay { height: auto; user-select: none; -webkit-user-drag: none }
+.tz5 .drop { transform-origin: 50% 100%; pointer-events: none }
+.tz5 #hBear { left: 66%; top: 30%; width: 28%; height: 58% }
+.tz5 #hBear img { object-fit: contain; object-position: 50% 100% }
+.tz5 #hCloud img, .tz5 #hCloud2 img, .tz5 .star img { height: auto }
+.tz5 #hCloud2 { left: 57%; top: 5%; width: 12.5% }
+.tz5 #hTruck { pointer-events: none }
+
+/* ---------- toy brands ---------- */
+.tz5 .brands { position: relative; padding: clamp(40px, 3.6vw, 64px) 0 clamp(6px, 1vw, 16px) }
+.tz5 .bhead { text-align: center }
+.tz5 .bhead h2 { font-size: clamp(26px, 2.2vw, 40px) }
+.tz5 .bhead p { margin-top: 6px; font-weight: 700; font-size: clamp(15px, 1.05vw, 18px); color: var(--soft) }
+.tz5 .bmq { margin-top: 22px; overflow: hidden; -webkit-mask: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); mask: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent) }
+.tz5 .btrk { display: flex; width: max-content; animation: tick 70s linear infinite; padding: 6px 0 14px }
+.tz5 .bmq:hover .btrk { animation-play-state: paused }
+.tz5 .bset { display: flex; gap: clamp(14px, 1.6vw, 26px); padding-right: clamp(14px, 1.6vw, 26px) }
+.tz5 .bl { flex: none; display: flex; align-items: center; justify-content: center; width: clamp(150px, 10.5vw, 190px); height: clamp(84px, 5.8vw, 104px); padding: 14px 18px; background: #fff; border-radius: 22px; box-shadow: 0 6px 0 #E3EAF4; transition: translate .3s cubic-bezier(.3, 1.7, .5, 1), rotate .3s cubic-bezier(.3, 1.7, .5, 1) }
+.tz5 .bl:hover { translate: 0 -5px; rotate: -2deg }
+.tz5 .bl img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain }
+
+/* ---------- how it works ---------- */
+.tz5 #stBox.mix { height: auto; width: min(330px, 100%); max-height: none; margin-bottom: 9% }
+.tz5 .combo { position: relative; z-index: 1; width: min(300px, 96%); aspect-ratio: 540 / 400 }
+.tz5 #stScale.combo { height: auto }
+.tz5 .combo img { position: absolute; max-height: none }
+.tz5 .combo .sc { left: 0; bottom: 0; width: 100% }
+.tz5 .combo .on { left: 16%; bottom: 57%; width: 36% }
+.tz5 .combo .on2 { left: 54%; bottom: 57%; width: 26% }
+
+/* ---------- auction bear with a gavel ---------- */
+.tz5 .gbear { position: relative; width: 100%; transform-origin: 50% 96% }
+.tz5 .gbear > img:first-child { width: 100%; height: auto; display: block }
+.tz5 .abear .gavel { position: absolute; left: 66%; top: 24%; width: 50%; height: auto; transform-origin: 23% 90% }
+
+/* ---------- ways: flat colour circles with a toy ---------- */
+.tz5 .circ.toy { border-radius: 50%; background: #E8392F; border: 7px solid #fff; box-shadow: 0 10px 0 rgba(0, 30, 110, .28) }
+.tz5 .circ.toy.wide { background: #FFD02A }
+.tz5 .circ.toy::before { inset: -7%; background: none; border: 3px dashed rgba(255, 255, 255, .4) }
+.tz5 .circ.toy > img { position: absolute; left: 18%; top: 20%; width: 64%; height: 66%; object-fit: contain }
+.tz5 .circ.toy.wide > img { left: 7%; top: 31%; width: 86%; height: auto }
+.tz5 .onair { position: absolute; z-index: 2; left: 50%; top: 9%; translate: -50% 0; display: flex; align-items: center; gap: 6px; background: #fff; color: #E8392F; font-weight: 900; font-size: 14px; letter-spacing: .06em; padding: 4px 10px 3px; border-radius: 8px; box-shadow: 0 3px 0 rgba(0, 0, 0, .15) }
+.tz5 .onair i { width: 8px; height: 8px; border-radius: 50%; background: #E8392F; animation: tzBlink 1.2s steps(2, jump-none) infinite }
+@keyframes tzBlink { 50% { opacity: .2 } }
+.tz5 .thumbup { left: 78%; top: 74% }
+
+/* ---------- footer email ---------- */
+.tz5 .fmail { display: inline-flex; gap: 10px; align-items: center; margin-top: 14px; font-weight: 800; font-size: clamp(15px, 1.05vw, 18px); color: #fff; text-decoration: underline; text-decoration-color: rgba(255, 255, 255, .45); text-underline-offset: 4px; overflow-wrap: anywhere }
+.tz5 .fmail:hover { text-decoration-color: #fff }
+.tz5 .fmail svg { width: 30px; height: 30px; flex: none }
+
+/* =================================================================
+   MOBILE: fewer layers, shorter sections, swipe rows instead of tall stacks
+   ================================================================= */
+@media (max-width: 900px) {
+  .tz5 .fx { display: none }
+
+  /* swipe rows */
+  .tz5 .steps, .tz5 .wcards, .tz5 .rgrid, .tz5 .mgrid, .tz5 .mrow, .tz5 .thumbs {
+    display: flex; gap: 14px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory;
+    margin-inline: -24px; padding: 6px 24px 18px; scroll-padding-inline: 24px; scrollbar-width: none
+  }
+  .tz5 .steps::-webkit-scrollbar, .tz5 .wcards::-webkit-scrollbar, .tz5 .rgrid::-webkit-scrollbar, .tz5 .mgrid::-webkit-scrollbar, .tz5 .mrow::-webkit-scrollbar, .tz5 .thumbs::-webkit-scrollbar { display: none }
+  .tz5 .steps > *, .tz5 .wcards > *, .tz5 .rgrid > *, .tz5 .mgrid > *, .tz5 .mrow > * { flex: 0 0 min(82%, 340px); scroll-snap-align: start }
+
+  /* how it works: three cards side by side */
+  .tz5 .how { padding: 26px 0 10px }
+  .tz5 .steps { margin-top: 18px }
+  .tz5 .step { background: rgba(255, 255, 255, .8); border-radius: 26px; padding: 16px 16px 20px; box-shadow: 0 6px 0 rgba(120, 160, 220, .25) }
+  .tz5 .vis { height: 170px }
+  .tz5 .step h3 { font-size: 26px; margin-top: 10px }
+  .tz5 .step .sub { font-size: 15px }
+  .tz5 .step .more { display: none }
+  .tz5 .why { margin-top: 18px; padding: 20px 18px; gap: 10px }
+  .tz5 .why p { font-size: 14.5px }
+
+  /* auction: countdown on one row */
+  .tz5 .auc { padding: 26px 0 96px }
+  .tz5 .cd { gap: 6px }
+  .tz5 .cd .lbl { width: 100% }
+  .tz5 .cd .u { min-width: 0; flex: 1; font-size: 22px; padding: 6px 4px 4px }
+
+  /* ways: three compact circles in a row */
+  .tz5 .ways { padding: 34px 0 54px }
+  .tz5 .ways .grid { grid-template-columns: repeat(3, 1fr); column-gap: 10px }
+  .tz5 .way { padding: 0 2px }
+  .tz5 .way + .way::before { display: none }
+  .tz5 .circ, .tz5 .circ.toy { width: 100% }
+  .tz5 .circ.toy { border-width: 4px; box-shadow: 0 5px 0 rgba(0, 30, 110, .28) }
+  .tz5 .circ .vid { border-width: 4px }
+  .tz5 .onair { font-size: 10px; padding: 2px 6px 1px; gap: 4px; top: 7% }
+  .tz5 .onair i { width: 6px; height: 6px }
+  .tz5 .way h3 { font-size: 16px; margin-top: 10px }
+  .tz5 .way .sub { font-size: 12.5px; font-weight: 700; color: #DDEBFF }
+  .tz5 .way .more { display: none }
+  .tz5 .way .tlink { font-size: 13px; margin-top: 6px }
+
+  /* watch */
+  .tz5 .watch { padding: 40px 0 36px }
+  .tz5 .phone { width: min(260px, 72%); margin-inline: auto }
+  .tz5 .thumbs { margin-top: 20px; background: none; border: 0; box-shadow: none }
+  .tz5 .thumbs .thumb { flex: 0 0 46%; scroll-snap-align: start; display: block }
+  .tz5 .thumb:nth-child(n+4) { display: block }
+
+  /* buyers, action, media, reviews, faq: tighter */
+  .tz5 .who { padding: 52px 0 16px }
+  .tz5 .wcards { margin-top: 18px }
+  .tz5 .action { padding: 30px 0 14px }
+  .tz5 .pics { gap: 22px; margin-top: 18px }
+  .tz5 .media { padding: 36px 0 16px }
+  .tz5 .stats { gap: 10px; margin-top: 18px }
+  .tz5 .mgrid { margin-top: 14px; align-items: start }
+  .tz5 .mrow { margin-top: 0 }
+  .tz5 .reviews { padding: 40px 0 78px; margin-top: 28px }
+  .tz5 .rgrid { margin-top: 16px }
+  .tz5 .rcol:nth-child(even) { margin-top: 0 }
+  .tz5 .faq { padding: 36px 0 100px }
+  .tz5 .qbar { margin-top: 16px; padding: 18px 8px; row-gap: 14px }
+
+  .tz5 .shead h2 { font-size: clamp(27px, 7.2vw, 34px) }
+  .tz5 .shead p { font-size: 15px; margin-top: 6px }
+  .tz5 .shelfs { margin-top: 20px }
+  .tz5 .brands { padding: 30px 0 0 }
+  .tz5 .bmq { margin-top: 14px }
+  .tz5 .bl { width: 118px; height: 70px; padding: 10px 12px; border-radius: 16px; box-shadow: 0 4px 0 #E3EAF4 }
+  .tz5 .btrk { animation-duration: 46s }
+}
+
+@media (max-width: 600px) {
+  .tz5 .ways .grid { grid-template-columns: repeat(3, 1fr) }
+  .tz5 .ways .grid > div:first-child { grid-column: 1 / -1 }
+  .tz5 .wcards, .tz5 .rgrid { grid-template-columns: none }
+  .tz5 .shead .spark { display: none }
+  .tz5 .shelf p { display: none }
+  .tz5 .feat small { display: none }
+  .tz5 .bar { padding: 14px 8px }
+  .tz5 .acard .btn { font-size: 18px; padding: 15px 26px 13px }
+  .tz5 .thumb .tt { display: block; left: 52px; font-size: 12px }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tz5 .btrk, .tz5 .onair i { animation: none }
+}

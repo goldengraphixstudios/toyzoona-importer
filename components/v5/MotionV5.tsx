@@ -249,7 +249,7 @@ export default function MotionV5() {
       glints.forEach((g) => { g.dataset.o = getComputedStyle(g).opacity; });
       gsap.set(glints, { scale: 0.85 });
       const tw = () => { twinkleOne(); twinkleOne(); gsap.delayedCall(gsap.utils.random(0.5, 1.2), tw); };
-      gsap.delayedCall(1.5, tw);
+      if (glints.length) gsap.delayedCall(1.5, tw);
       $$("[data-par]").forEach((b) => {
         const size = b.offsetWidth || 30;
         gsap.to(b, { y: -size * 3.2, ease: "none", scrollTrigger: { trigger: b.closest("section, .band-sky, footer") ?? b, start: "top bottom", end: "bottom top", scrub: true } });
@@ -270,11 +270,18 @@ export default function MotionV5() {
         .from(".ctas .btn", { y: 30, scale: 0.8, opacity: 0, stagger: 0.1, duration: 0.7, ease: "back.out(2.2)" }, "-=.45")
         .from("#hCloud", { xPercent: -70, opacity: 0, duration: 1.6, ease: "power2.out" }, 0.3)
         .from(".star", { scale: 0, rotate: -160, opacity: 0, stagger: 0.14, duration: 0.9, ease: "back.out(2.6)" }, 0.7)
+        .from("#hTruck", { xPercent: -110, duration: 1.3, ease: "power3.out" }, 0.15)
+        .from(".drop", { y: () => -art.offsetHeight * 0.75, rotate: () => gsap.utils.random(-40, 40), duration: 0.8, ease: "bounce.out", stagger: 0.13 }, 0.5)
         .from("#hBear", { yPercent: 14, scaleY: 0.82, scaleX: 1.1, opacity: 0, duration: 0.9, ease: "elastic.out(1,.45)" }, 0.9)
-        .add(weigh, 1.2)
+        .add(weigh, 1.55)
         .from(".feat", { y: 40, opacity: 0, stagger: 0.08, duration: 0.6, ease: "back.out(1.8)" }, 0.8)
         .from(".icw", { scale: 0.3, rotate: -20, stagger: 0.08, duration: 0.8, ease: "elastic.out(1,.5)" }, "<.1");
-      on($("#hot"), "click", weigh);
+      on($("#hot"), "click", () => {
+        gsap.timeline()
+          .to(".drop.in", { y: () => -art.offsetHeight * 0.06, duration: 0.18, ease: "power2.out", stagger: 0.05 })
+          .to(".drop.in", { y: 0, duration: 0.55, ease: "bounce.out", stagger: 0.05 });
+        weigh();
+      });
       ScrollTrigger.create({ trigger: "#hero", start: "top top", end: "bottom top", onEnterBack: weigh });
 
       const bear = $("#hBear");
@@ -303,6 +310,7 @@ export default function MotionV5() {
       gsap.delayedCall(2.8, loop);
 
       gsap.to("#hCloud", { x: "14vw", duration: 38, ease: "sine.inOut", yoyo: true, repeat: -1, delay: 1.8 });
+      gsap.to("#hCloud2", { x: "-8vw", duration: 30, ease: "sine.inOut", yoyo: true, repeat: -1, delay: 1.8 });
       if (fine) {
         const qc = gsap.quickTo("#hCloud", "y", { duration: 1.2, ease: "power3" });
         const qs = $$(".star").map((s) => [gsap.quickTo(s, "x", { duration: 1, ease: "power3" }), gsap.quickTo(s, "y", { duration: 1, ease: "power3" })]);
@@ -359,9 +367,12 @@ export default function MotionV5() {
       const rings = $$("#bang i");
       const bang = () => gsap.timeline()
         .to("#aBear", { rotate: -5, duration: 0.18, ease: "power2.out" })
+        .to("#aBear .gavel", { rotate: -28, duration: 0.18, ease: "power2.out" }, "<")
         .to("#aBear", { rotate: 2, scaleY: 0.97, duration: 0.08, ease: "power4.in" })
+        .to("#aBear .gavel", { rotate: 14, duration: 0.08, ease: "power4.in" }, "<")
         .fromTo(rings, { scale: 0.2, opacity: 1 }, { scale: 1.4, opacity: 0, stagger: 0.08, duration: 0.6, ease: "power2.out" })
-        .to("#aBear", { rotate: 0, scaleY: 1, duration: 0.5, ease: "elastic.out(1,.4)" }, "<");
+        .to("#aBear", { rotate: 0, scaleY: 1, duration: 0.5, ease: "elastic.out(1,.4)" }, "<")
+        .to("#aBear .gavel", { rotate: 0, duration: 0.5, ease: "elastic.out(1,.4)" }, "<");
       ScrollTrigger.create({ trigger: ".acard", start: "top 70%", once: true, onEnter() {
         gsap.from("#aBear", { y: 120, opacity: 0, duration: 0.8, ease: "back.out(1.6)", onComplete() {
           gsap.timeline({ repeat: -1, repeatDelay: 2.6 }).add(bang()).add(bang(), "+=.15").add(bang(), "+=.05");

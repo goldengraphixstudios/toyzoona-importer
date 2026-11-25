@@ -20,6 +20,36 @@ const STAR_POST = "https://www.facebook.com/PhilippineSTAR/posts/pfbid0vDA7WywnM
 const STAR_EMBED = `https://www.facebook.com/plugins/post.php?href=${encodeURIComponent(STAR_POST)}&show_text=false&width=500`;
 const ext = { target: "_blank", rel: "noopener noreferrer" } as const;
 
+const EMAIL = "official.toyzoonaimporter@gmail.com";
+
+/* flat sunburst behind the hero crate, same idea as the burst behind the logo */
+const RAYS = (() => {
+  const cx = 690, cy = 560, R = 1900, n = 32;
+  let d = "";
+  for (let i = 0; i < n; i += 2) {
+    const a1 = (i / n) * Math.PI * 2, a2 = ((i + 1) / n) * Math.PI * 2;
+    d += `M${cx} ${cy}L${(cx + R * Math.cos(a1)).toFixed(1)} ${(cy + R * Math.sin(a1)).toFixed(1)}L${(cx + R * Math.cos(a2)).toFixed(1)} ${(cy + R * Math.sin(a2)).toFixed(1)}Z`;
+  }
+  return d;
+})();
+
+/* toys from the client's own flat illustrations, placed in the 1536 x 1024 hero scene (percent of the scene) */
+const HERO_TOYS: { id: string; src: string; l: number; t: number; w: number; r?: number; inCrate?: boolean }[] = [
+  { id: "tRocket", src: "rocket", l: 34.51, t: 37.5, w: 9.38, r: -14, inCrate: true },
+  { id: "tRobot", src: "robot", l: 39.84, t: 36.52, w: 13.15, inCrate: true },
+  { id: "tDrum", src: "drum", l: 46.55, t: 45.12, w: 10.94, r: 8, inCrate: true },
+];
+const GROUND_TOYS: typeof HERO_TOYS = [
+  { id: "tTrain", src: "train", l: 19.53, t: 82.8, w: 9.77 },
+  { id: "tBall", src: "ball", l: 58.92, t: 80.08, w: 7.68 },
+];
+
+const BRANDS = [
+  ["barbie", "Barbie"], ["lego", "LEGO"], ["bluey", "Bluey"], ["disney", "Disney"], ["hot-wheels", "Hot Wheels"], ["marvel", "Marvel"],
+  ["fisher-price", "Fisher-Price"], ["paw-patrol", "Paw Patrol"], ["vtech", "VTech"], ["nerf", "Nerf"], ["cocomelon", "Cocomelon"],
+  ["little-tikes", "Little Tikes"], ["peppa-pig", "Peppa Pig"], ["blippi", "Blippi"], ["chicco", "Chicco"], ["lamaze", "Lamaze"],
+] as const;
+
 const Spark = ({ r, y, style }: { r?: boolean; y?: boolean; style?: React.CSSProperties }) => (
   <svg className={`spark${r ? " r" : ""}${y ? " y" : ""}`} style={style} aria-hidden="true">
     <use href="#spk" />
@@ -78,7 +108,7 @@ const REVIEWS = [
 const FAQS = [
   ["What is the toys-per-kilo model?", "Instead of buying individual toys at retail price, you buy toys by weight. You choose a mix from our available stock, it gets weighed, and you pay the per-kilo rate. More toys for less money, perfect for resellers, bulk buyers, event organizers and parents shopping for variety."],
   ["How does the Saturday auction work?", "Every Saturday at around 11:00 AM at our Cabuyao, Laguna warehouse. Buyers can view, sort and bid on toy lots, and the per-kilo rate is usually most competitive during auctions. Check the Toyzoona Laguna Facebook page for schedules and previews."],
-  ["Can I buy without coming in person?", "Yes. We sell live on Facebook and TikTok Monday through Saturday, 9:00 AM to 6:30 PM. Watch the stream, request your picks, and we pack and ship them anywhere in the Philippines. For direct orders, message the Toyzoona Laguna Facebook page."],
+  ["Can I buy without coming in person?", "Yes. We sell live on Facebook and TikTok Monday through Saturday, 9:00 AM to 6:30 PM. Watch the stream, request your picks, and we pack and ship them anywhere in the Philippines. For direct orders, message the Toyzoona Laguna Facebook page or email official.toyzoonaimporter@gmail.com."],
   ["How much is shipping?", "We ship to all provinces. Shipping is paid by the buyer and calculated from the weight of your haul and your destination. We work with trusted couriers so your order arrives safely."],
   ["Is Toyzoona a legitimate business?", "Yes. We’ve been featured on Gud Morning Kapatid, covered by the Philippine STAR, and joined major toy fairs at Dasma Arena, Filinvest Tent and Metrotent Pasig. Thousands of verified buyers are in our Facebook community, and all media coverage is public for you to check."],
 ];
@@ -192,7 +222,64 @@ export default function HomeV5() {
       <section className="hero" id="hero">
         <div className="art" id="art">
           <div className="scene" id="scene">
-            <img className="bg" src={a("/v5/art/hero-bg.jpg")} alt="A wooden crate full of toys sits on a blue platform scale outside the Toyzoona warehouse, a yellow delivery truck behind it" width={1536} height={1024} fetchPriority="high" />
+            {/* back: sky, sunburst, hills, warehouse, ground */}
+            <svg className="bg" viewBox="0 0 1536 1024" preserveAspectRatio="none" role="img" aria-label="A wooden crate of toys on a blue platform scale outside the Toyzoona warehouse, with a teddy bear and the yellow delivery truck">
+              <rect width="1536" height="1024" fill="#A6DBFF" />
+              <path d={RAYS} fill="#B9E4FF" />
+              <path d="M0 772Q190 702 400 744T820 730T1240 710T1536 728V1024H0Z" fill="#C3EAAE" />
+              <rect x="930" y="372" width="640" height="440" fill="#1758C2" />
+              <rect x="930" y="372" width="640" height="426" fill="#3D8BF2" />
+              <path d="M896 394L1240 234L1584 394Z" fill="#C42A22" />
+              <path d="M896 382L1240 222L1584 382Z" fill="#E8392F" />
+              <rect x="958" y="428" width="84" height="64" rx="10" fill="#BFE6FF" />
+              <rect x="958" y="456" width="84" height="6" fill="#3D8BF2" />
+              <rect x="1086" y="512" width="340" height="300" fill="#C7D6EA" />
+              <rect x="1096" y="520" width="320" height="292" fill="#DCE6F2" />
+              {Array.from({ length: 10 }, (_, i) => <rect key={i} x="1096" y={540 + i * 27} width="320" height="5" fill="#B5C4D8" />)}
+              <rect y="806" width="1536" height="218" fill="#F4E2BF" />
+              <rect y="806" width="1536" height="12" fill="#E8CF9F" />
+              <ellipse cx="1229" cy="898" rx="190" ry="17" fill="#12215F" opacity=".1" />
+            </svg>
+            <img className="lay" id="hTruck" src={a("/v5/flat/truck.svg")} alt="" style={{ left: "0.65%", top: "58.2%", width: "30.6%" }} />
+            {/* the platform scale and the back of the crate */}
+            <svg className="bg" viewBox="0 0 1536 1024" preserveAspectRatio="none" aria-hidden="true">
+              <ellipse cx="688" cy="986" rx="290" ry="20" fill="#12215F" opacity=".12" />
+              <rect x="498" y="952" width="54" height="30" rx="8" fill="#12215F" />
+              <rect x="824" y="952" width="54" height="30" rx="8" fill="#12215F" />
+              <rect x="468" y="820" width="440" height="148" rx="30" fill="#1758C2" />
+              <rect x="468" y="806" width="440" height="140" rx="30" fill="#1F6FE5" />
+              <rect x="490" y="816" width="396" height="8" rx="4" fill="#fff" opacity=".25" />
+              <rect x="650" y="786" width="76" height="26" fill="#1758C2" />
+              <rect x="420" y="776" width="536" height="22" rx="11" fill="#B5C4D8" />
+              <rect x="420" y="766" width="536" height="22" rx="11" fill="#DCE6F2" />
+              <rect x="546" y="829" width="285" height="85" rx="16" fill="#12215F" />
+              <path d="M573 841H805Q814 841 815 850L817 892Q817 901 808 901H569Q560 901 560 892L563 850Q564 841 573 841Z" fill="#1A2029" />
+              <circle cx="864" cy="852" r="13" fill="#FFD02A" />
+              <circle cx="864" cy="888" r="13" fill="#E8392F" />
+              <circle cx="512" cy="870" r="8" fill="#62E36B" />
+              <rect x="515" y="556" width="346" height="44" rx="6" fill="#A9652A" />
+              <rect x="505" y="550" width="366" height="14" rx="6" fill="#CC8338" />
+            </svg>
+            {HERO_TOYS.map((t) => (
+              <img key={t.id} className="lay drop in" id={t.id} src={a(`/v5/toys/t-${t.src}.webp`)} alt="" style={{ left: `${t.l}%`, top: `${t.t}%`, width: `${t.w}%`, rotate: t.r ? `${t.r}deg` : undefined }} />
+            ))}
+            {/* crate front, in front of the toys */}
+            <svg className="bg" viewBox="0 0 1536 1024" preserveAspectRatio="none" aria-hidden="true">
+              <rect x="505" y="594" width="366" height="180" rx="10" fill="#CC8338" />
+              <rect x="505" y="590" width="366" height="178" rx="10" fill="#E9A253" />
+              <rect x="505" y="648" width="366" height="7" fill="#CC8338" />
+              <rect x="505" y="708" width="366" height="7" fill="#CC8338" />
+              <rect x="505" y="590" width="36" height="178" rx="9" fill="#D98F42" />
+              <rect x="835" y="590" width="36" height="178" rx="9" fill="#D98F42" />
+              <rect x="497" y="580" width="382" height="24" rx="9" fill="#F3B567" />
+              <g fill="#A9652A"><circle cx="523" cy="626" r="4.5" /><circle cx="853" cy="626" r="4.5" /><circle cx="523" cy="742" r="4.5" /><circle cx="853" cy="742" r="4.5" /></g>
+              <path d="M700 676h92l18 22-18 22h-92z" fill="#E8392F" />
+              <circle cx="714" cy="698" r="6" fill="#fff" />
+              <text x="732" y="707" fontFamily="Nunito,sans-serif" fontWeight="900" fontSize="25" fill="#fff">1 KG</text>
+            </svg>
+            {GROUND_TOYS.map((t) => (
+              <img key={t.id} className="lay drop" id={t.id} src={a(`/v5/toys/t-${t.src}.webp`)} alt="" style={{ left: `${t.l}%`, top: `${t.t}%`, width: `${t.w}%` }} />
+            ))}
             <svg className="lcdsvg" viewBox="0 0 1536 1024" preserveAspectRatio="none" aria-hidden="true">
               <defs>
                 <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#1F262F" /><stop offset=".55" stopColor="#151A21" /><stop offset="1" stopColor="#0F1318" /></linearGradient>
@@ -211,12 +298,13 @@ export default function HomeV5() {
               </g>
             </svg>
             <a className="lay" id="hot" role="button" aria-label="Weigh the crate again" />
-            <a className="lay" id="hBear" role="button" aria-label="Wave back at the bear"><img src={a("/v5/art/h-bear.webp")} alt="" /></a>
+            <a className="lay" id="hBear" role="button" aria-label="Wave back at the bear"><img src={a("/v5/toys/t-bear.webp")} alt="" /></a>
           </div>
-          <div className="lay" id="hCloud"><img src={a("/v5/art/h-cloud.png")} alt="" /></div>
-          <div className="lay star" id="hS1"><img src={a("/v5/art/h-star1.png")} alt="" /></div>
-          <div className="lay star" id="hS2"><img src={a("/v5/art/h-star2.png")} alt="" /></div>
-          <div className="lay star" id="hS3"><img src={a("/v5/art/h-star3.png")} alt="" /></div>
+          <div className="lay" id="hCloud"><img src={a("/v5/flat/cloud.svg")} alt="" /></div>
+          <div className="lay" id="hCloud2"><img src={a("/v5/flat/cloud.svg")} alt="" /></div>
+          <div className="lay star" id="hS1"><img src={a("/v5/flat/star.svg")} alt="" /></div>
+          <div className="lay star" id="hS2"><img src={a("/v5/flat/star.svg")} alt="" /></div>
+          <div className="lay star" id="hS3"><img src={a("/v5/flat/star.svg")} alt="" /></div>
           <div className="glint" id="glint"><svg><use href="#glint" /></svg></div>
         </div>
 
@@ -248,11 +336,32 @@ export default function HomeV5() {
           <div className="bar">
             {FEATS.map((f) => (
               <div className="feat" key={f.ic}>
-                <span className="icw"><img className="ic" src={a(`/v5/art/${f.ic}.webp`)} alt="" /></span>
+                <span className="icw"><img className="ic" src={a(`/v5/flat/${f.ic}.svg`)} alt="" /></span>
                 <div>
                   <b>{f.t[0]}<br />{f.t[1]}</b>
                   <small>{f.s}</small>
                 </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ================= BRANDS ================= */}
+      <section className="brands" aria-labelledby="brandsT">
+        <div className="wr bhead">
+          <h2 id="brandsT">Brands you’ll find in our hauls</h2>
+          <p>Brands change with every container. Message us to ask what’s in today.</p>
+        </div>
+        <div className="bmq">
+          <div className="btrk">
+            {[0, 1].map((copy) => (
+              <div className="bset" key={copy} aria-hidden={copy === 1 ? true : undefined}>
+                {BRANDS.map(([f, n]) => (
+                  <span className="bl" key={f}>
+                    <img src={a(`/v5/brands/${f}.webp`)} alt={copy === 0 ? n : ""} loading="lazy" decoding="async" />
+                  </span>
+                ))}
               </div>
             ))}
           </div>
@@ -290,7 +399,7 @@ export default function HomeV5() {
               <div key={copy} style={{ display: "flex" }} aria-hidden={copy === 1 ? true : undefined}>
                 {RIBBON.map((r) => (
                   <span className="it" key={r.t}>
-                    {r.ic ? <img src={a(`/v5/art/${r.ic}.webp`)} alt="" /> : null}
+                    {r.ic ? <img src={a(`/v5/flat/${r.ic}.svg`)} alt="" /> : null}
                     {r.t}
                     <svg aria-hidden="true"><use href="#star" /></svg>
                   </span>
@@ -311,26 +420,26 @@ export default function HomeV5() {
           bokeh={[{ x: "4%", y: "8%", size: 30 }, { x: "95%", y: "12%", size: 44 }, { x: "91%", y: "48%", size: 24 }, { x: "2%", y: "66%", size: 36 }, { x: "60%", y: "52%", size: 18 }]}
           glints={[{ x: "13%", y: "5%", size: 18 }, { x: "86%", y: "4%", size: 14 }, { x: "97%", y: "33%", size: 16 }, { x: "4%", y: "40%", size: 12 }, { x: "48%", y: "57%", size: 14 }, { x: "7%", y: "92%", size: 16 }]}
         />
-        <div className="cloud" data-cloud="1" style={{ left: "-2%", top: "3%", ["--w" as string]: "240px" }} aria-hidden="true"><img src={a("/v5/art/h-cloud.png")} alt="" /></div>
-        <div className="cloud" data-cloud="2" style={{ right: "-1%", top: "30%", ["--w" as string]: "200px" }} aria-hidden="true"><img src={a("/v5/art/h-cloud.png")} alt="" /></div>
-        <div className="cloud" data-cloud="3" style={{ left: "3%", top: "60%", ["--w" as string]: "170px", opacity: 0.75 }} aria-hidden="true"><img src={a("/v5/art/h-cloud.png")} alt="" /></div>
+        <div className="cloud" data-cloud="1" style={{ left: "-2%", top: "3%", ["--w" as string]: "240px" }} aria-hidden="true"><img src={a("/v5/flat/cloud.svg")} alt="" /></div>
+        <div className="cloud" data-cloud="2" style={{ right: "-1%", top: "30%", ["--w" as string]: "200px" }} aria-hidden="true"><img src={a("/v5/flat/cloud.svg")} alt="" /></div>
+        <div className="cloud" data-cloud="3" style={{ left: "3%", top: "60%", ["--w" as string]: "170px", opacity: 0.75 }} aria-hidden="true"><img src={a("/v5/flat/cloud.svg")} alt="" /></div>
 
         <section className="how" id="how">
           <div className="wr">
             <Head title="How Buying by the Kilo Works" />
             <div className="steps">
               <div className="step">
-                <div className="vis"><span className="num">1</span><Spark style={{ left: "8%", top: "12%" }} /><img id="stBox" src={a("/v5/art/how-box.webp")} alt="Open box with a teddy bear, ball and ring stacker" /></div>
+                <div className="vis"><span className="num">1</span><Spark style={{ left: "8%", top: "12%" }} /><img id="stBox" className="mix" src={a("/v5/toys/t-line-a.webp")} alt="A mix of toys: teddy bear, ball, rocket, robot, train and drum" /></div>
                 <h3>Pick Your Mix</h3><p className="sub">Browse the available toys.</p>
                 <p className="more">Fill your basket with any mix you like: plush, cars, dolls, blocks and playsets, preloved or brand-new.</p>
               </div>
               <div className="step">
-                <div className="vis"><span className="num">2</span><Spark style={{ left: "10%", top: "26%" }} /><img id="stScale" src={a("/v5/art/how-scale.webp")} alt="Box on a blue weighing scale" /></div>
+                <div className="vis"><span className="num">2</span><Spark style={{ left: "10%", top: "26%" }} /><div id="stScale" className="combo"><img className="sc" src={a("/v5/flat/scale.svg")} alt="Blue platform scale reading 8.50 kg" /><img className="on" src={a("/v5/toys/t-bear.webp")} alt="" /><img className="on2" src={a("/v5/toys/t-ball.webp")} alt="" /></div></div>
                 <h3>Weigh Your Haul</h3><p className="sub">Your total is based on the weight.</p>
                 <p className="more">We weigh your picks right in front of you. One per-kilo rate, no pricing toy by toy.</p>
               </div>
               <div className="step">
-                <div className="vis"><span className="num">3</span><Spark r style={{ right: "4%", top: "8%" }} /><img id="stTruck" src={a("/v5/art/how-truck.webp")} alt="Delivery truck" /></div>
+                <div className="vis"><span className="num">3</span><Spark r style={{ right: "4%", top: "8%" }} /><img id="stTruck" src={a("/v5/flat/truck.svg")} alt="Toyzoona delivery truck" /></div>
                 <h3>Take It Home</h3><p className="sub">Pick up in Cabuyao or ask about shipping.</p>
                 <p className="more">Carry it out the same day, or we pack it and ship it to any province in the Philippines.</p>
               </div>
@@ -375,7 +484,7 @@ export default function HomeV5() {
               </div>
               <div className="abear">
                 <div className="bang" id="bang"><i /><i /></div>
-                <img id="aBear" src={a("/v5/art/auction-bear.webp")} alt="Teddy bear holding an auction gavel" loading="lazy" decoding="async" />
+                <div id="aBear" className="gbear" role="img" aria-label="Teddy bear with an auction gavel"><img src={a("/v5/toys/t-bear.webp")} alt="" loading="lazy" decoding="async" /><img className="gavel" src={a("/v5/flat/gavel.svg")} alt="" loading="lazy" decoding="async" /></div>
               </div>
             </div>
           </div>
@@ -398,7 +507,7 @@ export default function HomeV5() {
             <p className="intro">Shop from home, walk the warehouse floor, or get first look at every delivery. Same stock, same per-kilo deal.</p>
           </div>
           <div className="way">
-            <div className="circ" id="cLive"><img src={a("/v5/art/way-live.webp")} alt="Phone showing a live selling stream" loading="lazy" decoding="async" /></div>
+            <div className="circ toy" id="cLive"><img src={a("/v5/toys/t-robot.webp")} alt="Toy robot on a live selling stream" loading="lazy" decoding="async" /><span className="onair"><i />LIVE</span></div>
             <h3>Live Selling</h3><p className="sub">Shop on Facebook or TikTok.</p>
             <p className="more">Mon to Sat, 9 AM to 6:30 PM. Watch, call your picks in the comments, and we ship nationwide.</p>
             <a className="tlink" href={FB_PAGE} {...ext}>Watch us live ›</a>
@@ -410,8 +519,8 @@ export default function HomeV5() {
             <a className="tlink" href={WAZE} {...ext}>Open in Waze ›</a>
           </div>
           <div className="way">
-            <a className="circ" id="cFb" href={FB_GROUP} {...ext} aria-label="Join the Toyzoona Facebook group">
-              <img src={a("/v5/art/way-fb.webp")} alt="" loading="lazy" decoding="async" />
+            <a className="circ toy wide" id="cFb" href={FB_GROUP} {...ext} aria-label="Join the Toyzoona Facebook group">
+              <img src={a("/v5/toys/t-line-d.webp")} alt="" loading="lazy" decoding="async" />
               <svg className="thumbup" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 10.5h3.6v10H2.5zM8 20.5V10.4l4.6-7.1c.4-.6 1.2-.8 1.8-.4.9.5 1.3 1.6 1 2.6L14.6 9h5.1c1.2 0 2.1 1.1 1.9 2.3l-1.3 7.4c-.2 1-1 1.8-2 1.8z" fill="#fff" /></svg>
             </a>
             <h3>Facebook Group</h3><p className="sub">Get stock previews and auction updates.</p>
@@ -449,7 +558,7 @@ export default function HomeV5() {
               <p>New stock lands every week. See it on the floor before you message us.</p>
             </div>
             <div className="restock">
-              <div className="hd"><img id="rBox" src={a("/v5/art/restock-box.webp")} alt="" loading="lazy" decoding="async" /><h3>Restocking<br />Your Shop?</h3></div>
+              <div className="hd"><img id="rBox" src={a("/v5/flat/crate.svg")} alt="" loading="lazy" decoding="async" /><h3>Restocking<br />Your Shop?</h3></div>
               <p>Ask about mixed stock for your<br />store, live sale, or event giveaways.</p>
               <a className="btn btn-b" href={MSG} {...ext}>Message Toyzoona <span className="chev">›</span></a>
             </div>
@@ -639,7 +748,7 @@ export default function HomeV5() {
       {/* ================= FOOTER ================= */}
       <footer className="foot" id="visit">
         <div className="wave top" />
-        <img className="ftruck" id="ftruck" src={a("/v5/art/how-truck.webp")} alt="" aria-hidden="true" loading="lazy" decoding="async" />
+        <img className="ftruck" id="ftruck" src={a("/v5/flat/truck.svg")} alt="" aria-hidden="true" loading="lazy" decoding="async" />
         <Fx rays={[{ x: "50%", y: "110%", size: "2000px", o: 0.08 }]} glints={[{ x: "30%", y: "18%", size: 12, c: "#FFE27A" }, { x: "72%", y: "12%", size: 10 }]} dots={{ x: "50%", y: "100%", o: 0.1 }} />
         <div className="wr fgrid">
           <img className="flogo" src={a("/v5/media/logo-hd.png")} alt="Toyzoona Importer" loading="lazy" decoding="async" />
@@ -651,6 +760,7 @@ export default function HomeV5() {
               <span className="mid" />
               <div><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="#fff" strokeWidth="2.4" /><path d="M12 6.8V12l3.6 2.2" fill="none" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" /></svg>Mon to Sat ·<br />9 AM to 6:30 PM</div>
             </div>
+            <a className="fmail" href={`mailto:${EMAIL}`}><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="3" fill="#fff" /><path d="m4 7.5 8 5.5 8-5.5" fill="none" stroke="#1F6BE0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>{EMAIL}</a>
           </div>
           <span className="sep" />
           <div className="fbtns">
@@ -660,7 +770,7 @@ export default function HomeV5() {
         </div>
         <div className="fbase">
           <div className="wr">
-            <span>Gatcahalian Subdivision, Brgy. Banay 2, Cabuyao, Laguna · WhatsApp / Viber <a href={WA} {...ext}>+63 929 378 1462</a></span>
+            <span>Gatcahalian Subdivision, Brgy. Banay 2, Cabuyao, Laguna · WhatsApp / Viber <a href={WA} {...ext}>+63 929 378 1462</a> · <a href={`mailto:${EMAIL}`}>{EMAIL}</a></span>
             <nav><a href="#shelves">Toy Shelves</a><a href="#how">How to Buy</a><a href="#auction">Auction</a><a href="#videos">Videos</a><a href={a("/blog/")}>Blog</a><a href="#visit">Visit Us</a></nav>
             <div className="soc">
               <a href={FB_PAGE} {...ext} aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.07C24 5.44 18.63.07 12 .07S0 5.44 0 12.07c0 5.99 4.39 10.95 10.13 11.85v-8.38H7.08v-3.47h3.05V9.43c0-3.01 1.79-4.67 4.53-4.67 1.31 0 2.69.24 2.69.24v2.95h-1.52c-1.49 0-1.96.93-1.96 1.87v2.25h3.33l-.53 3.47h-2.8v8.38C19.61 23.03 24 18.06 24 12.07z" /></svg></a>
